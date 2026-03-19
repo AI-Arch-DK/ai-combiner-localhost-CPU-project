@@ -1,0 +1,31 @@
+# environment.example — шаблон переменных окружения
+# Копируйте в config.env и заполните реальными значениями
+# NEVER commit config.env — он в .gitignore
+
+# === OLLAMA ===
+OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=qwen2.5:7b-instruct-q4_K_M
+
+# === TAVILY ===
+TAVILY_API_KEY=YOUR_TAVILY_API_KEY
+
+# === HUGGINGFACE ===
+HUGGINGFACE_TOKEN=YOUR_HF_TOKEN
+
+# === GITHUB ===
+GITHUB_PAT_PUBLIC=YOUR_GITHUB_PAT_PUBLIC
+GITHUB_PAT_PRIVATE=YOUR_GITHUB_PAT_PRIVATE
+
+# === PATHS ===
+AI_DIR=/ai
+DB_DIR=/ai/db
+SCRIPTS_DIR=/ai/scripts
+LOGS_DIR=/ai/logs
+BACKUP_DIR=/ai/backup
+
+# === SQLITE ===
+KOMBAIN_LOCAL_DB=/ai/kombain/kombain_local.db
+KOMBAIN_SHARED_DB=/ai/external/kali/kombain_shared.db
+
+# === CLAUDE DESKTOP ===
+CLAUDE_CONFIG=~/.config/Claude/claude_desktop_config.json
