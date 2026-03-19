@@ -1,0 +1,26 @@
+{
+  "version": "0.3.0",
+  "date": "2026-03-19",
+  "checks": [
+    {"id":"c001","category":"secrets","check":"API ключи не в репо","status":true},
+    {"id":"c002","category":"secrets","check":"claude_desktop_config.json в .gitignore","status":true},
+    {"id":"c003","category":"secrets","check":"*.db в .gitignore","status":true},
+    {"id":"c004","category":"secrets","check":"config.env в .gitignore","status":true},
+    {"id":"c005","category":"access","check":"Ollama только localhost","status":true},
+    {"id":"c006","category":"access","check":"БД недоступны извне","status":true},
+    {"id":"c007","category":"backup","check":"Ежедневный бэкап БД","status":false,"note":"включить cron"},
+    {"id":"c008","category":"backup","check":"Тест восстановления из бэкапа","status":false,"note":"выполнить вручную"},
+    {"id":"c009","category":"monitoring","check":"health_check.sh запущен","status":true},
+    {"id":"c010","category":"monitoring","check":"GitHub Actions security workflow","status":true},
+    {"id":"c011","category":"routing","check":"cancel_on_hallucination=1 для всех тасков","status":true},
+    {"id":"c012","category":"routing","check":"CLAUDE_DIRECT маркеры проставлены","status":true},
+    {"id":"c013","category":"skills","check":"cleanup_sessions.sh автозапуск","status":true},
+    {"id":"c014","category":"skills","check":"Устаревшие сессии удалены","status":true}
+  ],
+  "summary": {
+    "total": 14,
+    "passed": 12,
+    "failed": 2,
+    "note": "c007/c008: настройте cron для автобэкапа"
+  }
+}
