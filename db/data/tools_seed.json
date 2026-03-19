@@ -1,0 +1,10 @@
+[
+  {"tool_id":"t001","name":"filesystem","category":"mcp","description":"Доступ к файловой системе","mcp_server":"@modelcontextprotocol/server-filesystem","priority":10},
+  {"tool_id":"t002","name":"shell","category":"mcp","description":"Выполнение bash команд","mcp_server":"mcp-shell","priority":10},
+  {"tool_id":"t003","name":"ollama_qwen","category":"local_model","description":"Локальная LLM qwen2.5:7b","mcp_server":"ollama-local","command":"qwen2.5:7b-instruct-q4_K_M","priority":8},
+  {"tool_id":"t004","name":"claude_desktop","category":"cloud_model","description":"Claude Desktop (дирижёр/оркестратор)","mcp_server":"claude-desktop","priority":10},
+  {"tool_id":"t005","name":"browser","category":"external","description":"Headless Chromium — навигация, поиск, парсинг","mcp_server":"browser-mcp","priority":7},
+  {"tool_id":"t006","name":"tavily","category":"external","description":"Tavily AI веб-поиск","mcp_server":"tavily-mcp","priority":7},
+  {"tool_id":"t007","name":"huggingface_cerebras","category":"cloud_model","description":"HF Cerebras — llama3.1-8b, быстрый serverless","mcp_server":"huggingface-mcp","command":"cerebras/llama3.1-8b","priority":6},
+  {"tool_id":"t008","name":"qwen_dispatch","category":"local_router","description":"qwen_dispatch — диспетчер задач через qwen_tasks БД","mcp_server":"ollama-local","priority":10}
+]
