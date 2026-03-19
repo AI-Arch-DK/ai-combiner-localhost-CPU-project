@@ -1,0 +1,44 @@
+{
+  "accounts": [
+    {
+      "account_id": "ta001",
+      "service": "anthropic",
+      "model": "claude-sonnet-4-6",
+      "monthly_limit": null,
+      "priority": 10,
+      "notes": "Claude Desktop — основной дирижёр"
+    },
+    {
+      "account_id": "ta002",
+      "service": "ollama",
+      "model": "qwen2.5:7b-instruct-q4_K_M",
+      "monthly_limit": null,
+      "cost_per_1k": 0.0,
+      "priority": 8,
+      "notes": "Локальная модель — бесплатно, нет лимита"
+    },
+    {
+      "account_id": "ta003",
+      "service": "cerebras/huggingface",
+      "model": "llama3.1-8b",
+      "monthly_limit": null,
+      "cost_per_1k": 0.0,
+      "priority": 7,
+      "notes": "HF Cerebras — бесплатно (серверлесс), параллельно с Qwen"
+    },
+    {
+      "account_id": "ta004",
+      "service": "tavily",
+      "model": "search",
+      "monthly_limit": 1000,
+      "cost_per_1k": 0.0,
+      "priority": 7,
+      "notes": "Tavily — бесплатный план, лимит запросов/месяц"
+    }
+  ],
+  "budget": {
+    "strategy": "local_first",
+    "description": "Сначала Qwen (local/free), затем Cerebras (free), Claude — только для сложных задач",
+    "routing_priority": ["ollama", "cerebras", "anthropic"]
+  }
+}

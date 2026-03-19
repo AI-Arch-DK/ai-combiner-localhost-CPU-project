@@ -1,0 +1,38 @@
+name: Security Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for secrets in files
+        run: |
+          echo "🔍 Checking for secrets..."
+          if grep -rE "tvly-[a-zA-Z0-9]{20,}|github_pat_[a-zA-Z0-9]+|hf_[a-zA-Z]{20,}|password\s*=\s*['\"][^'\"]{4,}" \
+            --include="*.sh" --include="*.json" --include="*.md" \
+            --include="*.sql" --include="*.yml" --include="*.yaml" \
+            --exclude-dir=.git . 2>/dev/null; then
+            echo ""
+            echo "❌ SECRETS FOUND! Push blocked."
+            exit 1
+          else
+            echo "✅ No secrets found."
+          fi
+
+      - name: Check .gitignore covers sensitive files
+        run: |
+          echo "📄 Checking .gitignore..."
+          for pattern in "*.db" "*.env" "claude_desktop_config.json" "config.env"; do
+            if grep -q "$pattern" .gitignore; then
+              echo "  ✅ $pattern"
+            else
+              echo "  ⚠️  $pattern не в .gitignore"
+            fi
+          done
