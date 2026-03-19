@@ -4,73 +4,61 @@
 
 Пока пользователь спит — Qwen обрабатывает накопленные за день данные, обогащает `qwen_knowledge`, обновляет FAQ.
 
-## Цикл (запуск cron 02:00)
+## Pipeline ночного обучения
 
 ```
-1. Считать network.db/templates — все FAQ за сегодня
-2. Новые записи → Qwen (summarize + fact_check)
-3. Результат → qwen_knowledge (topic/subtopic/content/verified=0)
-4. Раз в неделю: tavily проверяет самые старые FAQ → verified=1
-5. Запись в routing_log: сколько обновлено
+[02:00 cron]
+      |
+      ▼
+[1] network.db/templates → фильтр: protocol='faq', created_at > -1day
+      |
+      ▼
+[2] Ollama API → qwen2.5:7b
+    промпт: "Summarize 3 sentences in Russian"
+    max_tokens: 150
+      |
+      ▼
+[3] Запись в kombain_local.db/qwen_knowledge
+    (topic, subtopic, title, content, source, tags='auto,night', verified=0)
+      |
+      ▼
+[4] Еженедельно (cron воскресенье 03:00):
+    tavily проверяет старые записи (verified=0, old >7d)
+    Совпадает → verified=1 | Не совпадает → помечается на перепроверку
+      |
+      ▼
+[5] routing_log: запись результата (tokens_saved, model_used='night_qwen')
+```
+
+## Обработка ошибок
+
+```bash
+# В night_learning.sh:
+OLLAMA_STATUS=$(curl -s http://localhost:11434/api/tags 2>/dev/null | python3 -c \
+  "import json,sys; print('OK' if json.load(sys.stdin).get('models') else 'DOWN')" 2>/dev/null)
+
+if [ "$OLLAMA_STATUS" != "OK" ]; then
+  echo "[night_learning] ERROR: Ollama недоступен, пропускаю"
+  exit 1
+fi
+
+# Таймаут для каждого запроса Qwen:
+# curl ... --max-time 120
+
+# Если response пустой — пропускаем запись
+[ -z "$response" ] && echo "  SKIP $name (empty response)" && continue
 ```
 
 ## Cron
 
 ```cron
-# Ночное самообучение каждую ночь в 2:00
 0 2 * * * /ai/scripts/night_learning.sh >> /ai/logs/learning.log 2>&1
-```
-
-## Скрипт night_learning.sh
-
-```bash
-#!/bin/bash
-# night_learning.sh — ночное обновление qwen_knowledge
-
-LOCAL="/ai/kombain/kombain_local.db"
-NETWORK="/ai/db/network.db"
-OLLAMA="http://localhost:11434/api/generate"
-MODEL="qwen2.5:7b-instruct-q4_K_M"
-COUNT=0
-
-echo "[night_learning] $(date '+%Y-%m-%d %H:%M')"
-
-# Считать темы FAQ не обработанные за час
-sqlite3 "$NETWORK" "
-  SELECT template_id, name, content FROM templates
-  WHERE created_at > datetime('now', '-1 day')
-  AND protocol = 'faq'
-  LIMIT 5;
-" 2>/dev/null | while IFS='|' read -r tid name content; do
-  [ -z "$tid" ] && continue
-
-  # Посылаем Qwen
-  response=$(curl -s "$OLLAMA" -d "{
-    \"model\": \"$MODEL\",
-    \"prompt\": \"Summarize in 3 sentences in Russian. Be concise. Text: $content\",
-    \"stream\": false,
-    \"options\": {\"num_predict\": 150}
-  }" 2>/dev/null | python3 -c "import json,sys; print(json.load(sys.stdin).get('response','').strip())")
-
-  [ -z "$response" ] && continue
-
-  # Запись в qwen_knowledge
-  sqlite3 "$LOCAL" "
-    INSERT OR IGNORE INTO qwen_knowledge
-    (topic, subtopic, title, content, source, tags, verified)
-    VALUES ('network', 'faq', '$name', '$response', '$tid', 'auto,night', 0);
-  " 2>/dev/null
-
-  COUNT=$((COUNT+1))
-  echo "  ✓ $name"
-done
-
-echo "[night_learning] Добавлено: $COUNT записей"
+0 3 * * 0 /ai/scripts/night_verify.sh  >> /ai/logs/verify.log 2>&1
 ```
 
 ## Проверка результата
 
 ```bash
 sqlite3 /ai/kombain/kombain_local.db \
-  "SELECT COUNT(*), MAX(created_at) FROM qwen_knowledge WHERE source LIKE '%night%';"
+  "SELECT COUNT(*), MAX(created_at), SUM(verified) FROM qwen_knowledge WHERE tags LIKE '%night%';"
 ```

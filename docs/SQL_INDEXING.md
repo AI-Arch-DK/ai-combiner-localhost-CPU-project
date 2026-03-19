@@ -5,7 +5,6 @@
 ### routing.db
 ```sql
 CREATE INDEX idx_qt_category ON qwen_tasks(category);
--- FTS5 для trigger/description
 CREATE VIRTUAL TABLE qwen_tasks_fts USING fts5(
   trigger, description, content='qwen_tasks', content_rowid='rowid'
 );
@@ -16,8 +15,6 @@ CREATE VIRTUAL TABLE qwen_tasks_fts USING fts5(
 CREATE INDEX idx_roadmap_phase   ON roadmap(phase);
 CREATE INDEX idx_roadmap_status  ON roadmap(status);
 CREATE INDEX idx_actions_category ON actions_log(category);
-CREATE INDEX idx_actions_flags   ON actions_log(flags);
--- FTS5 для поиска по title/description/tags
 CREATE VIRTUAL TABLE project_fts USING fts5(
   title, description, tags, flags,
   content='actions_log', content_rowid='rowid'
@@ -31,21 +28,18 @@ CREATE INDEX idx_tpl_protocol ON templates(protocol);
 CREATE VIRTUAL TABLE templates_fts USING fts5(name, description, content);
 ```
 
-## Оптимизация routing_log
+## routing_log (v0.4.0)
 
 ```sql
--- Добавить индексы после накопления данных (v0.4.0)
 CREATE INDEX idx_rlog_task    ON routing_log(task_type);
 CREATE INDEX idx_rlog_model   ON routing_log(selected_model);
 CREATE INDEX idx_rlog_date    ON routing_log(created_at);
--- Покрывающий индекс для дашборда
-CREATE INDEX idx_rlog_tokens ON routing_log(tokens_saved);
+CREATE INDEX idx_rlog_tokens  ON routing_log(tokens_saved);
 ```
 
-## Функция FTS5
+## FTS5 поиск
 
 ```sql
--- Поиск по триггерам максимально быстро
 SELECT t.task_id, t.category, t.prompt_template
 FROM qwen_tasks_fts f
 JOIN qwen_tasks t ON f.rowid = t.rowid
@@ -53,20 +47,41 @@ WHERE qwen_tasks_fts MATCH 'mikrotik OR ospf'
 ORDER BY rank;
 ```
 
-## Правила
+## Монитоႈинг производительности
 
-| Правило | Обоснование |
-|---|---|
-| FTS5 для trigger | Быстрый матчинг запросов |
-| Индекс на category | Срез по qwen_only/parallel |
-| Индекс на created_at | Фильтрация за период |
-| PRAGMA не злоупотреблять | Индекс на каждое поле = оверхед |
+```sql
+-- Анализ плана запроса
+EXPLAIN QUERY PLAN
+SELECT * FROM qwen_tasks WHERE category = 'system_check';
+-- Должно вывести: SEARCH qwen_tasks USING INDEX idx_qt_category
 
-## ANALYZE и VACUUM
+-- Статистика по стратегиям (v0.4.0 routing_log)
+SELECT selected_model, COUNT(*), AVG(tokens_saved), MAX(tokens_saved)
+FROM routing_log
+GROUP BY selected_model
+ORDER BY COUNT(*) DESC;
+
+-- Топ-5 самых дорогих тасков
+SELECT task_type, COUNT(*), SUM(tokens_saved)
+FROM routing_log
+GROUP BY task_type
+ORDER BY SUM(tokens_saved) DESC
+LIMIT 5;
+```
+
+## ANALYZE + VACUUM по расписанию
 
 ```bash
-# Выполнять после крупных изменений:
 for db in /ai/db/*.db; do
   sqlite3 "$db" "ANALYZE; PRAGMA optimize;"
 done
 ```
+
+## Правила
+
+| Правило | Обоснование |
+|---|---|
+| FTS5 для trigger | Быстрый матчинг |
+| EXPLAIN QUERY PLAN | Проверка использования индекса |
+| Индекс только на колонки в WHERE/JOIN | Индекс на каждое поле = оверхед |
+| routing_log после 1000+ записей | ANALYZE пересчитывает статистику |
