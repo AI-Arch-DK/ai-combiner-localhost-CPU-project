@@ -1,0 +1,67 @@
+[
+  {
+    "model_id": "m001",
+    "name": "qwen2.5:7b-instruct-q4_K_M",
+    "provider": "ollama",
+    "type": "local",
+    "context_len": 32768,
+    "cost_per_1k": 0.0,
+    "speed_tps": 15.0,
+    "quality_score": 7,
+    "is_local": 1,
+    "is_active": 1,
+    "notes": "Основная локальная модель. Бесплатно, CPU-only, 4.4GB RAM"
+  },
+  {
+    "model_id": "m002",
+    "name": "claude-sonnet-4-6",
+    "provider": "anthropic",
+    "type": "cloud",
+    "context_len": 200000,
+    "cost_per_1k": 3.0,
+    "speed_tps": null,
+    "quality_score": 10,
+    "is_local": 0,
+    "is_active": 1,
+    "notes": "Claude Desktop — дирижёр/оркестратор"
+  },
+  {
+    "model_id": "m003",
+    "name": "claude-opus-4-6",
+    "provider": "anthropic",
+    "type": "cloud",
+    "context_len": 200000,
+    "cost_per_1k": 15.0,
+    "speed_tps": null,
+    "quality_score": 10,
+    "is_local": 0,
+    "is_active": 1,
+    "notes": "Claude Desktop — сложные задачи"
+  },
+  {
+    "model_id": "m004",
+    "name": "llama3.1-8b",
+    "provider": "cerebras/huggingface",
+    "type": "cloud",
+    "context_len": 128000,
+    "cost_per_1k": 0.0,
+    "speed_tps": 500.0,
+    "quality_score": 8,
+    "is_local": 0,
+    "is_active": 1,
+    "notes": "HuggingFace Cerebras — быстрый, бесплатный, для network/IT задач"
+  },
+  {
+    "model_id": "m005",
+    "name": "browser+tavily",
+    "provider": "external",
+    "type": "tool",
+    "context_len": 0,
+    "cost_per_1k": 0.0,
+    "speed_tps": 0.0,
+    "quality_score": 9,
+    "is_local": 0,
+    "is_active": 1,
+    "notes": "Browser+Tavily — актуальная документация, форумы, вендоры"
+  }
+]
