@@ -1,0 +1,12 @@
+[
+  {"perf_id":"mp001","model_id":"m001","task_type":"classification","avg_tokens":10,"avg_duration":2.1,"success_rate":0.97},
+  {"perf_id":"mp002","model_id":"m001","task_type":"extract_ip","avg_tokens":45,"avg_duration":3.8,"success_rate":0.99},
+  {"perf_id":"mp003","model_id":"m001","task_type":"extract_ports","avg_tokens":60,"avg_duration":5.1,"success_rate":0.98},
+  {"perf_id":"mp004","model_id":"m001","task_type":"explain_short","avg_tokens":95,"avg_duration":7.9,"success_rate":0.94},
+  {"perf_id":"mp005","model_id":"m001","task_type":"summarize","avg_tokens":140,"avg_duration":11.5,"success_rate":0.93},
+  {"perf_id":"mp006","model_id":"m001","task_type":"network_mikrotik","avg_tokens":185,"avg_duration":15.2,"success_rate":0.91},
+  {"perf_id":"mp007","model_id":"m001","task_type":"translate","avg_tokens":120,"avg_duration":9.8,"success_rate":0.96},
+  {"perf_id":"mp008","model_id":"m001","task_type":"validate_config","avg_tokens":190,"avg_duration":15.8,"success_rate":0.89},
+  {"perf_id":"mp009","model_id":"m004","task_type":"network_mikrotik","avg_tokens":200,"avg_duration":0.4,"success_rate":0.92},
+  {"perf_id":"mp010","model_id":"m004","task_type":"summarize","avg_tokens":150,"avg_duration":0.3,"success_rate":0.90}
+]
