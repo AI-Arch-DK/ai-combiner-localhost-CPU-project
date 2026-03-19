@@ -1,0 +1,228 @@
+# ============================================
+# AI COMBINER PROJECT - SECURITY .gitignore
+# ============================================
+# КРИТИЧНО: Этот файл защищает от утечки секретов
+# Всегда проверяйте перед коммитом: git status
+
+# ============================================
+# 1. СЕКРЕТЫ И КЛЮЧИ API
+# ============================================
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+config/secrets/
+*.secret
+
+# API Keys для AI сервисов
+*api_key*
+*apikey*
+*API_KEY*
+anthropic_key*
+openai_key*
+huggingface_token*
+openrouter_key*
+
+# ============================================
+# 2. ПЕРСОНАЛЬНЫЕ ДАННЫЕ И ПУТИ
+# ============================================
+# Базы данных с реальными путями
+*.db
+*.sqlite
+*.sqlite3
+local_db/
+database/
+db_backups/
+
+# Логи с потенциально sensitive info
+*.log
+logs/
+*.log.*
+combined.log
+error.log
+
+# История команд и конфигов
+.bash_history
+.zsh_history
+*.history
+.claude_history
+
+# ============================================
+# 3. AI/ML СПЕЦИФИЧНЫЕ ФАЙЛЫ
+# ============================================
+# Модели (большие и могут содержать watermarks)
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.pb
+models/
+checkpoints/
+model_cache/
+ollama_models/
+.ollama/
+
+# Векторные базы и индексы
+*.faiss
+*.index
+vectorstore/
+embeddings/
+chroma_db/
+pinecone/
+
+# Кэш моделей
+.cache/
+huggingface/
+transformers_cache/
+torch_cache/
+
+# ============================================
+# 4. MCP И ИНТЕГРАЦИИ
+# ============================================
+# Claude Desktop конфиги (могут содержать токены)
+claude_desktop_config.json
+mcp_servers.json
+**/claude_desktop_config.json
+
+# Slack, Gmail, Google Calendar токены
+slack_token*
+google_credentials*
+oauth_token*
+
+# Miro токены
+miro_token*
+miro_credentials*
+
+# ============================================
+# 5. ДАННЫЕ ПОЛЬЗОВАТЕЛЕЙ
+# ============================================
+# Загруженные файлы пользователей
+uploads/
+user_data/
+temp_files/
+cache/
+
+# Персональные заметки и документы
+notes/
+personal/
+*.md.bak
+*PRIVATE*
+*private*
+
+# ============================================
+# 6. СИСТЕМНЫЕ И IDE
+# ============================================
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+venv/
+ENV/
+env/
+.venv
+
+# Node.js (если используется для MCP)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker секреты
+docker-compose.override.yml
+
+# ============================================
+# 7. СПЕЦИФИЧНЫЕ ДЛЯ ПРОЕКТА
+# ============================================
+# Тестовые данные с реальными примерами
+test_data/real_examples/
+samples/production/
+
+# Бэкапы
+*.bak
+*.backup
+*.old
+backup/
+backups/
+
+# Временные файлы
+tmp/
+temp/
+*.tmp
+.temp/
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# 8. СПЕЦИАЛЬНЫЕ СЛУЧАИ
+# ============================================
+# Git сам по себе (для предотвращения nested repos)
+.gitconfig
+
+# Jupyter notebooks с выводом (могут содержать sensitive info)
+.ipynb_checkpoints
+*-checkpoint.ipynb
+
+# Coverage и тесты
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ============================================
+# ВАЖНО: ВСЕГДА ДОБАВЛЯЙТЕ НОВЫЕ ПАТТЕРНЫ
+# при обнаружении новых типов sensitive data
+# ============================================
