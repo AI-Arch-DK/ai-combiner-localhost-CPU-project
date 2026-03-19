@@ -1,0 +1,70 @@
+[
+  {
+    "workflow_id": "wf_session_cleanup",
+    "task_type": "system_check",
+    "name": "очистка сессий",
+    "description": "Автоочистка устаревших папок skills-plugin. Оставляет только последнюю по дате. Архивирует старые в /tmp/sessions_archive/.",
+    "steps": [{"step":1,"action":"shell","cmd":"/ai/scripts/cleanup_sessions.sh","desc":"удалить старые session UUID, оставить новейший skills-plugin"},{"step":2,"action":"integrated","parent":"wf_check_resources","desc":"вызывается автоматически из check_resources.sh"}],
+    "run_count": 0,
+    "created_at": "2026-03-19 21:56:47"
+  },
+  {
+    "workflow_id": "wf_check_resources",
+    "task_type": "system_check",
+    "name": "проверь ресурсы / инфо о себе",
+    "description": "Токен-оптимизированная проверка системы при старте чата. 7 строк: HOST|DB|CFG|MCP|ROUTING|SKILLS|CLEANUP",
+    "steps": [{"step":1,"action":"shell","cmd":"/ai/scripts/check_resources.sh","desc":"хост+БД+MCP+роутинг+cleanup"},{"step":2,"action":"qwen_dispatch","task":"qt_021","max_tokens":120,"desc":"форматирование вывода"}],
+    "run_count": 0,
+    "created_at": "2026-03-19 20:06:55"
+  },
+  {
+    "workflow_id": "wf_mikrotik_nopubip_001",
+    "task_type": "network_config",
+    "name": "MikroTik без публичного IP — удалённый доступ",
+    "description": "Подключение к MikroTik в чужой сети без выделенного IP",
+    "steps": ["ollama_classify","hf_run_inference:cerebras","tavily-search"],
+    "rating": 5,
+    "last_run": "2026-03-14 18:23:27",
+    "result": "Методы: MikroTik Cloud (BTH), WireGuard+DDNS, ZeroTier, VPS-relay. Лучший: IP Cloud + BTH."
+  },
+  {
+    "workflow_id": "wf_keenetic_xray_002",
+    "task_type": "network_config",
+    "name": "Keenetic xray-core: полный пайплайн qwen+cerebras",
+    "description": "Тест пайплайна: классификация qwen + inference HF Cerebras llama3.1-8b",
+    "steps": ["ollama_classify","hf_run_inference:cerebras"],
+    "rating": 5,
+    "last_run": "2026-03-14 18:15:30",
+    "result": "xray-core напрямую недоступен. Правильный путь: xkeen скрипт или v2ray-core через opkg."
+  },
+  {
+    "workflow_id": "wf_keenetic_xray_001",
+    "task_type": "network_config",
+    "name": "Keenetic: opkg xray-core через Entware + xkeen",
+    "description": "Можно ли поставить xray-core на Keenetic через opkg и как",
+    "steps": ["ollama_classify","tavily-search"],
+    "rating": 5,
+    "last_run": "2026-03-14 18:10:28",
+    "result": "opkg install xray-core напрямую недоступен. Правильный путь: Entware + скрипт xkeen."
+  },
+  {
+    "workflow_id": "wf_vless_keenetic_001",
+    "task_type": "network_config",
+    "name": "VLESS туннель: сервер с IP → Keenetic без IP",
+    "description": "Организовать VPN туннель VLESS между VPN сервером с выделенным IP и домашним роутером Keenetic без выделенного IP",
+    "steps": ["ollama_classify","hf_search_models","hf_model_info","tavily-search"],
+    "rating": 5,
+    "last_run": "2026-03-14 17:41:47",
+    "result": "xray-core на сервере + xray-client на Keenetic через Entware. KeenDNS решает проблему отсутствия статического IP."
+  },
+  {
+    "workflow_id": "wf_init_debian_001",
+    "task_type": "system_init",
+    "name": "Инициализация Debian AI-комбайн v3/v4+",
+    "description": "Таск 1: настройка доступа, установка ollama, создание /ai структуры, создание БД, claude-shell bridge",
+    "steps": ["claude-shell setup","ollama install","ai structure","databases init"],
+    "rating": 5,
+    "last_run": "2026-03-14 13:22:18",
+    "result": "claude-shell v2 OK, ollama 0.18.0 OK, /ai structure OK, 6 DBs OK"
+  }
+]
