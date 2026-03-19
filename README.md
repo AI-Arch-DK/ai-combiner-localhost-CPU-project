@@ -1,46 +1,43 @@
-# AI Combiner - Localhost CPU Project
+# AI Combiner — localhost CPU project
 
-## 🎯 Цель проекта
-Создание децентрализованной AI-системы с оркестратором для автоматизации задач с минимизацией затрат токенов.
+Локальный AI-оркестратор на базе Claude Desktop + Qwen (Ollama) + MCP.
 
-## 🏗️ Архитектура
+## Архитектура
 
-### Текущий стек:
-- **OS**: Kali Linux (localhost)
-- **Оркестратор**: Claude MCP (Electron Desktop)
-- **Коннекторы**: 
-  - OpenRouter
-  - Hugging Face
-  - Miro
-  - GitHub (public/private)
-  - Gmail, Google Calendar
-
-### Планируемые компоненты:
-- **Локальные AI**: Ollama, Llamafile
-- **Облачные AI**: OpenAI, Cloud Kkiiddo
-- **Инструменты**: ZeroClaw, PicoClaw
-- **Фреймворки**: LangChain
-- **Языки**: Rust, Python
-
-## 📋 Принципы работы
-1. **Экономия токенов** оркестратора через делегирование задач локальным моделям
-2. **Приоритет бесплатных ресурсов** (Hugging Face, локальные модели)
-3. **Использование ресурсов localhost** перед облачными вызовами
-4. **Автоматизация** рутинных задач
-
-## 🚀 Ветки разработки
-- `main` - стабильная версия
-- `AI-combiner-ClaudeDesktop-OllamaWorkstation` - интеграция Claude Desktop с Ollama
-
-## 📦 Установка
-```bash
-# TODO: Инструкции по установке
+```
+Пользователь
+    │
+    ▼
+[СКИЛЛЫ] ← перехватывают первыми
+    │
+    ▼
+[CLAUDE DESKTOP] — дирижёр/оркестратор
+    │
+    ├─ qwen_dispatch → routing.db (qwen_tasks / parallel_config)
+    ├─ Стратегии: qwen_only | parallel | external_first | qwen_with_context
+    └─ Результат → БД → пользователь
 ```
 
-## 🔧 Конфигурация
-```bash
-# TODO: Настройка MCP серверов
-```
+## MCP серверы
+`sqlite | ollama-local | host-report | filesystem | github-pub | github-priv | huggingface | miro | tavily | shell | browser | clay | gcal | gmail`
 
-## 📝 Лицензия
-MIT
+## БД (`/ai/db/`)
+| БД | Назначение |
+|---|---|
+| routing.db | qwen_tasks (22 задачи) + parallel_config (13 стратегий) |
+| project.db | проекты, шаблоны |
+| network.db | FAQ кэш |
+| kombain_local.db | локальный комбайн |
+| models.db | реестр моделей |
+| tokens.db | учёт токенов |
+| tools.db | реестр инструментов |
+
+## Скрипты (`/ai/scripts/`)
+- `check_resources.sh` — 7-строчный дашборд системы (триггер: "инфо о себе")
+- `cleanup_sessions.sh` — автоочистка устаревших sessions Claude Desktop
+
+## Конфиг
+`/home/debai/.config/Claude/claude_desktop_config.json`
+
+## Старт сессии
+Первое сообщение: **"инфо о себе"** → запускает `check_resources.sh` → 7 строк состояния системы.
