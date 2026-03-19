@@ -1,0 +1,18 @@
+[Unit]
+Description=AI Kombain — resource check on login
+After=network.target ollama.service
+
+[Service]
+Type=oneshot
+ExecStart=/ai/scripts/check_resources.sh
+StandardOutput=append:/ai/logs/startup.log
+StandardError=append:/ai/logs/startup.log
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
+
+# Install:
+# cp ai-check-resources.service ~/.config/systemd/user/
+# systemctl --user daemon-reload
+# systemctl --user enable ai-check-resources.service
