@@ -1,0 +1,30 @@
+# СЕКРЕТЫ — никогда не пушить
+claude_desktop_config.json
+config.env
+*.env
+.env*
+
+# Файлы с токенами и ключами
+*token*
+*secret*
+*password*
+*api_key*
+*credentials*
+
+# Локальные БД (только схемы на гит)
+*.db
+*.sqlite
+*.sqlite3
+
+# Логи и временные файлы
+/ai/logs/
+/tmp/
+*.log
+
+# Бэкапы
+back_up*/
+sessions_bak/
+sessions_archive/
+
+# Пути с именами пользователей
+/home/*/
