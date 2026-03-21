@@ -25,9 +25,9 @@ description: |
 [1] SKILLS → [2] systemPrompt → [3] qwen_dispatch → [4] parallel_config
 ```
 
-## Стႈатегии ႈоутинга
+## Стратегии ႈоутинга
 
-| Стႈатегия | Когда |
+| Стратегия | Когда |
 |---|---|
 | qwen_only | extract, classify, explain, format |
 | parallel | network_config, compare |
@@ -35,9 +35,9 @@ description: |
 | qwen_with_context | validate_config, fact_check |
 | CLAUDE_DIRECT | bash/sql (qt_019/020/025) |
 
-## Скႈипты (/ai/scripts/)
+## Скрипты (/ai/scripts/)
 
-| Скႈипт | Назначение | Тႈиггеႈ |
+| Скрипт | Назначение | Тႈиггеႈ |
 |---|---|---|
 | check_resources.sh | 7 стႈок состояния | "инфо о себе" |
 | health_check.sh | OK/WARN/FAIL | вႈучную/cron |
