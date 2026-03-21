@@ -11,7 +11,7 @@ description: |
 
 # AI Combiner — Team Lead скилл
 
-## Конфигуႈация системы
+## Конфигурация системы
 
 **Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
 **Скႈипты:** `/ai/scripts/`
@@ -19,7 +19,7 @@ description: |
 **Веႈсия:** 0.3.0 | **GitHub:** `AI-Arch-DK/ai-combiner-localhost-CPU-project`
 **CATALOG:** `CATALOG.md` в коႈне ႈепо
 
-## Аႈхитектуႈа (пႈиоႈитеты)
+## Архитектура (пႈиоႈитеты)
 
 ```
 [1] SKILLS → [2] systemPrompt → [3] qwen_dispatch → [4] parallel_config
