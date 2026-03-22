@@ -57,7 +57,7 @@ bash /ai/scripts/backup_db.sh
 
 ## Что такое Office_MAIN?
 
-Концепция большой мульти-нодовой сети: центральная нода (Office_MAIN) + периферийные (debai, kali и др.). Синхронизация через `kombain_shared.db`. Статус: v0.5.0 plan.
+Концепция большой мульти-нодовой сети: центральная node (Office_MAIN) + периферийные (debai, sales_manager и др.). Синхронизация через `kombain_shared.db`. Статус: v0.5.0 plan.
 
 ---
 

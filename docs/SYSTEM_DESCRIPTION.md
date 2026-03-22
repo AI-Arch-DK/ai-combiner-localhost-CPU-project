@@ -4,7 +4,7 @@
 
 ---
 
-## 🖥 Железо (рабочая нода)
+## 🖥 Железо (рабочая node)
 
 | Параметр | Значение |
 |---|---|
@@ -28,7 +28,7 @@
 | sqlite | mcp-server-sqlite | БД routing/project/kombain_local |
 | ollama-local | ollama-server (node) | Qwen локальная LLM (11434) |
 | host-report | host-report-server (node) | Мониторинг хоста (system_audit) |
-| filesystem | @modelcontextprotocol/server-filesystem | /home/kali, /home/debai, /ai, /mnt/sda2, /tmp |
+| filesystem | @modelcontextprotocol/server-filesystem | /home/sales_manager, /home/debai, /ai, /mnt/sda2, /tmp |
 | shell | mcp-shell | Shell-команды |
 | github-public | github-mcp-server | Аккаунт AI-Arch-DK (open source) |
 | github-private | github-mcp-server | Аккаунт tehai-arch (приватные проекты) |
@@ -50,7 +50,7 @@
 |---|---|---|---|
 | routing.db | 3 | 56K | qwen_tasks (21 задача) + parallel_config (13 стратегий) + routing_log |
 | project.db | 3 | 108K | Проекты, шаблоны, FTS |
-| network.db | 3 | 100K | FAQ кэш (сетевые + пентест задачи) |
+| network.db | 3 | 100K | FAQ кэш (сетевые + sales задачи) |
 | kombain_local.db | 5 | — | Локальный комбайн: workflows, results, feedback, qwen_knowledge |
 | models.db | 2 | 28K | Реестр моделей |
 | tokens.db | 3 | 36K | Учёт токенов по сессиям |
@@ -60,9 +60,9 @@
 
 | БД | Путь | Назначение |
 |---|---|---|
-| kombain_shared.db | `/ai/external/kali/kombain_shared.db` | Общая БД для будущего **Office_MAIN-ноды** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debai) и kali-нодой. |
+| kombain_shared.db | `/ai/external/sales_manager/kombain_shared.db` | Общая БД для будущего **Office_MAIN-ноды** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debai) и sales_manager-нодой. |
 
-> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными нодами (kali, debai и др.). `kombain_shared.db` — точка синхронизации между нодами.
+> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными nodeми (sales_manager, debai и др.). `kombain_shared.db` — точка синхронизации между nodeми.
 
 ---
 
@@ -97,7 +97,7 @@
 | qt_005 | найди ошибки, error | extract_errors | Извлечение ошибок из логов |
 | qt_006 | сколько, посчитай | count | Подсчёт элементов |
 | qt_007 | конфиг mikrotik, mikrotik cli | network_mikrotik | MikroTik CLI команды |
-| qt_008 | конфиг keenetic, настройка keenetic | network_keenetic | Keenetic конфигурация |
+| qt_008 | конфиг cisco, настройка cisco | network_cisco | cisco конфигурация |
 | qt_011 | переведи, translate | translate | Перевод текста |
 | qt_012 | сокращи, summary, итог | summarize | Краткое резюме текста |
 | qt_013 | что такое, объясни кратко | explain_short | Краткое объяснение термина |
@@ -117,16 +117,16 @@
 ## 🏗 Концепция Office_MAIN (будущее)
 
 ```
-[Office_MAIN-нода] ← центральный оркестратор
+[Office_MAIN-node] ← центральный оркестратор
     │
-    ├── [debai-нода]  ← текущая рабочая нода (localhost CPU)
+    ├── [debai-node]  ← текущая рабочая node (localhost CPU)
     │       kombain_local.db
     │
-    ├── [kali-нода]   ← security/pentest нода  
+    ├── [sales_manager-node]   ← security/sales node  
     │       kombain_local.db
     │
     └── kombain_shared.db ← общая БД всех нод
-            /ai/external/kali/kombain_shared.db
+            /ai/external/sales_manager/kombain_shared.db
 ```
 
 Все ноды синхронизируются через `kombain_shared.db`. Office_MAIN выступает как главный дирижёр всей сети.

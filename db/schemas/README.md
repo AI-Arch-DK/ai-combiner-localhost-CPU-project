@@ -12,7 +12,7 @@
 
 ## Shared БД
 
-`/ai/external/kali/kombain_shared.db` — общая БД для синхронизации между нодами (Office_MAIN концепция).
+`/ai/external/sales_manager/kombain_shared.db` — общая БД для синхронизации между nodeми (Office_MAIN концепция).
 Схема идентична `kombain_local.db` + таблица `sync_log`.
 
 ## Правила

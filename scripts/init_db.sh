@@ -30,9 +30,9 @@ if [ ! -f "/ai/kombain/kombain_local.db" ]; then
 fi
 
 # kombain_shared.db
-if [ ! -f "/ai/external/kali/kombain_shared.db" ]; then
-  mkdir -p /ai/external/kali
-  sqlite3 /ai/external/kali/kombain_shared.db < "$SCHEMA_DIR/kombain_shared_db.sql" && \
+if [ ! -f "/ai/external/sales_manager/kombain_shared.db" ]; then
+  mkdir -p /ai/external/sales_manager
+  sqlite3 /ai/external/sales_manager/kombain_shared.db < "$SCHEMA_DIR/kombain_shared_db.sql" && \
     echo "  OK kombain_shared.db"
 fi
 

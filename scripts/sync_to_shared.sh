@@ -4,7 +4,7 @@
 # Будущее: полный sync_log протокол (v0.5.0)
 
 LOCAL="/ai/kombain/kombain_local.db"
-SHARED="/ai/external/kali/kombain_shared.db"
+SHARED="/ai/external/sales_manager/kombain_shared.db"
 NODE_ID="debai"
 
 [ ! -f "$LOCAL" ] && echo "ERROR: kombain_local.db не найден" && exit 1

@@ -19,7 +19,7 @@ echo "────────────────────────�
 # =====================
 echo "[1/7] Стႈуктуႈа /ai/..."
 mkdir -p /ai/{db,scripts,logs,backup,workspace,kombain}
-mkdir -p /ai/external/kali
+mkdir -p /ai/external/sales_manager
 chown -R "$USER:$USER" /ai
 echo "  OK"
 
@@ -51,7 +51,7 @@ for db in routing project network tokens tools models; do
     echo "  SKIP ${db}.db (exists)"
   fi
 done
-for db_path in "/ai/kombain/kombain_local.db" "/ai/external/kali/kombain_shared.db"; do
+for db_path in "/ai/kombain/kombain_local.db" "/ai/external/sales_manager/kombain_shared.db"; do
   sql_name=$([ "$db_path" == "/ai/kombain/kombain_local.db" ] && echo "kombain_local_db.sql" || echo "kombain_shared_db.sql")
   [ ! -f "$db_path" ] && sqlite3 "$db_path" < "$SCHEMA_DIR/$sql_name" && echo "  OK $(basename $db_path)"
 done
@@ -148,7 +148,7 @@ LOCAL = '/ai/kombain/kombain_local.db'
 NETWORK = '/ai/db/network.db'
 OLLAMA = 'http://localhost:11434/api/generate'
 MODEL = 'qwen2.5:7b-instruct-q4_K_M'
-targets = ['faq_pentest_ad_kerberoasting', 'faq_pentest_ad_asreproasting']
+targets = ['faq_sales_ad_kerberoasting', 'faq_sales_ad_asreproasting']
 net = sqlite3.connect(NETWORK)
 loc = sqlite3.connect(LOCAL)
 for tid in targets:
@@ -157,14 +157,14 @@ for tid in targets:
     name, content = row
     if loc.execute('SELECT COUNT(*) FROM qwen_knowledge WHERE source=?',(tid,)).fetchone()[0]:
         print(f"  SKIP {tid}"); continue
-    short = tid.replace('faq_pentest_','').replace('_',' ')
+    short = tid.replace('faq_sales_','').replace('_',' ')
     payload = json.dumps({"model":MODEL,"prompt":f"Summarize 3 sentences Russian security. Topic: {short}. Text: {content[:400]}","stream":False,"options":{"num_predict":120}})
     try:
         r = subprocess.run(['curl','-s','--max-time','90',OLLAMA,'-d',payload],capture_output=True,text=True,timeout=95)
         resp = json.loads(r.stdout).get('response','').strip()
         if resp:
             loc.execute('INSERT OR IGNORE INTO qwen_knowledge (topic,subtopic,title,content,source,tags,difficulty,verified) VALUES (?,?,?,?,?,?,?,?)',
-                ('pentest','faq',name,resp,tid,'auto,pentest,root_setup','intermediate',0))
+                ('sales','faq',name,resp,tid,'auto,sales,root_setup','intermediate',0))
             loc.commit(); print(f"  OK: {short}")
     except Exception as e: print(f"  ERR: {e}")
 net.close(); loc.close()

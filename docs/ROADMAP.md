@@ -10,7 +10,7 @@
 - [x] 7 локальных БД
 - [x] 12 MCP серверов
 - [x] 20 qwen_tasks + 12 parallel_config
-- [x] Первые workflows: MikroTik, Keenetic, VLESS
+- [x] Первые workflows: MikroTik, cisco, L2TP
 
 ## ✅ v0.2.0 — Скиллы (2026-03-18)
 - [x] Скилл `ib-consultant`
@@ -35,8 +35,8 @@
 
 ## 🔄 v0.5.0 — Мульти-нодовость (plan)
 - [ ] Полная реализация kombain_shared.db sync
-- [ ] kali-нода: пентест задачи → shared
-- [ ] Office_MAIN-нода: центральный оркестратор
+- [ ] sales_manager-node: sales задачи → shared
+- [ ] Office_MAIN-node: центральный оркестратор
 - [ ] Конфликт-резолюшн через sync_log
 
 ## 🔄 v0.6.0 — GPU / большая модель (plan)

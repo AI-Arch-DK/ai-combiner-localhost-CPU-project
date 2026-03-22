@@ -10,7 +10,7 @@ curl -fsSL https://ollama.ai/install.sh | sh
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
 # 2. Создать структуру
-mkdir -p /ai/{db,scripts,logs,backup,workspace,external/kali,kombain}
+mkdir -p /ai/{db,scripts,logs,backup,workspace,external/sales_manager,kombain}
 
 # 3. Инициализировать БД
 bash scripts/init_db.sh

@@ -128,7 +128,7 @@ ok "routing_log: $RL записей"
 ### v0.5.0 (цель: multi-node)
 
 - [ ] sync_to_shared.sh полный sync_log пᑀотокол
-- [ ] kali-нода подключается к kombain_shared.db
+- [ ] sales_manager-node подключается к kombain_shared.db
 - [ ] conflict resolution в sync_log
 - [ ] Семантический поиск по qwen_knowledge (sentence-transformers)
 

@@ -7,43 +7,43 @@
 ## Топология
 
 ```
-                    [Office_MAIN-нода]
+                    [Office_MAIN-node]
                     центральный оркестратор
                     Claude + Qwen (главный)
                     kombain_shared.db
                            |
               ┌─────────────┬───────────┐
               │            │           │
-    [debai-нода]   [kali-нода]  [другие-ноды]
+    [debai-node]   [sales_manager-node]  [другие-ноды]
     localhost CPU   security       ...
-    текущая      pentest
+    текущая      sales
     kombain         kombain
     _local.db       _local.db
 ```
 
 ## Ноды
 
-| Нода | Роль | Статус |
+| node | Роль | Статус |
 |---|---|---|
-| **debai** | Рабочая localhost CPU нода | ✅ активна |
-| **kali** | Security/pentest нода | ✅ активна |
+| **debai** | Рабочая localhost CPU node | ✅ активна |
+| **sales_manager** | Security/sales node | ✅ активна |
 | **Office_MAIN** | Центральный оркестратор | 🚧 v0.5.0 plan |
 
 ## Компоненты Office_MAIN
 
-### Каждая нода имеет:
+### Каждая node имеет:
 - `kombain_local.db` — локальная БД (workflows, results, knowledge)
 - Свой экземпляр Ollama/Qwen
 - Набор MCP-серверов под свои задачи
 
 ### Общее:
-- `kombain_shared.db` (файл `/ai/external/kali/kombain_shared.db`)
+- `kombain_shared.db` (файл `/ai/external/sales_manager/kombain_shared.db`)
 - `sync_log` — журнал всех изменений от всех нод
 
 ## Протокол синхронизации
 
 ```
-Нода выполняет задачу
+node выполняет задачу
     │
     ├── Запись в kombain_local.db
     └── INSERT в sync_log (node_id, operation, table_name, payload, status='pending')
@@ -62,11 +62,11 @@
     │
     ├── Локальная задача → локальный Qwen
     ├── Общая задача → Office_MAIN оркестрирует
-    └── Специализация → передаётся спецноде (kali)
+    └── Специализация → передаётся спецноде (sales_manager)
 ```
 
 ## Текущее состояние
 
-- `kombain_shared.db` уже создана и доступна через `/ai/external/kali/`
+- `kombain_shared.db` уже создана и доступна через `/ai/external/sales_manager/`
 - Схема готова: `db/schemas/kombain_shared_db.sql`
 - Реализация синхронизации: план v0.5.0 (issue #4)

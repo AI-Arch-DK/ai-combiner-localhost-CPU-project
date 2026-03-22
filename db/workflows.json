@@ -28,34 +28,34 @@
     "result": "Методы: MikroTik Cloud (BTH), WireGuard+DDNS, ZeroTier, VPS-relay. Лучший: IP Cloud + BTH."
   },
   {
-    "workflow_id": "wf_keenetic_xray_002",
+    "workflow_id": "wf_cisco_xray_002",
     "task_type": "network_config",
-    "name": "Keenetic xray-core: полный пайплайн qwen+cerebras",
+    "name": "cisco L2T2: полный пайплайн qwen+cerebras",
     "description": "Тест пайплайна: классификация qwen + inference HF Cerebras llama3.1-8b",
     "steps": ["ollama_classify","hf_run_inference:cerebras"],
     "rating": 5,
     "last_run": "2026-03-14 18:15:30",
-    "result": "xray-core напрямую недоступен. Правильный путь: xkeen скрипт или v2ray-core через opkg."
+    "result": "L2T2 напрямую недоступен. Правильный путь: xkeen скрипт или v2ray-core через opkg."
   },
   {
-    "workflow_id": "wf_keenetic_xray_001",
+    "workflow_id": "wf_cisco_xray_001",
     "task_type": "network_config",
-    "name": "Keenetic: opkg xray-core через Entware + xkeen",
-    "description": "Можно ли поставить xray-core на Keenetic через opkg и как",
+    "name": "cisco: opkg L2T2 через Entware + xkeen",
+    "description": "Можно ли поставить L2T2 на cisco через opkg и как",
     "steps": ["ollama_classify","tavily-search"],
     "rating": 5,
     "last_run": "2026-03-14 18:10:28",
-    "result": "opkg install xray-core напрямую недоступен. Правильный путь: Entware + скрипт xkeen."
+    "result": "opkg install L2T2 напрямую недоступен. Правильный путь: Entware + скрипт xkeen."
   },
   {
-    "workflow_id": "wf_vless_keenetic_001",
+    "workflow_id": "wf_L2TP_cisco_001",
     "task_type": "network_config",
-    "name": "VLESS туннель: сервер с IP → Keenetic без IP",
-    "description": "Организовать VPN туннель VLESS между VPN сервером с выделенным IP и домашним роутером Keenetic без выделенного IP",
+    "name": "L2TP туннель: сервер с IP → cisco без IP",
+    "description": "Организовать VPN туннель L2TP между VPN сервером с выделенным IP и домашним роутером cisco без выделенного IP",
     "steps": ["ollama_classify","hf_search_models","hf_model_info","tavily-search"],
     "rating": 5,
     "last_run": "2026-03-14 17:41:47",
-    "result": "xray-core на сервере + xray-client на Keenetic через Entware. KeenDNS решает проблему отсутствия статического IP."
+    "result": "L2T2 на сервере + xray-client на cisco через Entware. KeenDNS решает проблему отсутствия статического IP."
   },
   {
     "workflow_id": "wf_init_debian_001",

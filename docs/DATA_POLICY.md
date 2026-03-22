@@ -15,7 +15,7 @@
 | Бэкапы | `/ai/backup/` |
 | Логи | `/ai/logs/` |
 | Конфиг MCP | `~/.config/Claude/claude_desktop_config.json` |
-| БД Shared | `/ai/external/kali/kombain_shared.db` |
+| БД Shared | `/ai/external/sales_manager/kombain_shared.db` |
 
 ## Что передаётся во внешние API
 

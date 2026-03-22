@@ -24,7 +24,7 @@
 | [routing_logic.md](docs/routing_logic.md) | ASCII схема + матрица 13 стратегий |
 | [DATA_FLOW.md](docs/DATA_FLOW.md) | Потоки данных, токены, запись в БД |
 | [SYSTEM_DESCRIPTION.md](docs/SYSTEM_DESCRIPTION.md) | Железо, все MCP, все БД, routing rules |
-| [OFFICE_MAIN_CONCEPT.md](docs/OFFICE_MAIN_CONCEPT.md) | Мульти-нода, синх через kombain_shared.db |
+| [OFFICE_MAIN_CONCEPT.md](docs/OFFICE_MAIN_CONCEPT.md) | Мульти-node, синх через kombain_shared.db |
 | [PERFORMANCE.md](docs/PERFORMANCE.md) | Замеры Qwen CPU, сравнение с Cerebras |
 
 ### Настройка
@@ -42,7 +42,7 @@
 | [FAQ.md](docs/FAQ.md) | 8 частых вопросов |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 5 частых проблем + решения |
 | [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | Шпаргалка: все команды в одном месте |
-| [NETWORK_TEMPLATES.md](docs/NETWORK_TEMPLATES.md) | 20 FAQ: MikroTik/Keenetic/Pentest |
+| [NETWORK_TEMPLATES.md](docs/NETWORK_TEMPLATES.md) | 20 FAQ: MikroTik/cisco/sales |
 | [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) | Итоговый обзор проекта |
 
 ### Разработка
@@ -91,7 +91,7 @@
 | tools_db.sql | tools.db | tools(8), tool_usage |
 | models_db.sql | models.db | models(5), performance |
 | kombain_local_db.sql | kombain_local.db | workflows, results, feedback, knowledge |
-| kombain_shared_db.sql | kombain_shared.db | То же + sync_log (мульти-нода) |
+| kombain_shared_db.sql | kombain_shared.db | То же + sync_log (мульти-node) |
 
 ### data/ — seed данные
 | Файл | Содержит |

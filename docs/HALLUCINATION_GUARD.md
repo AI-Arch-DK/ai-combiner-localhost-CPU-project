@@ -64,7 +64,7 @@ def confidence_score(response: str, task_category: str) -> float:
         sentences = r.count('.') + r.count('!')
         return 1.0 if 2 <= sentences <= 6 else 0.5
 
-    if task_category in ('network_mikrotik', 'network_keenetic'):
+    if task_category in ('network_mikrotik', 'network_cisco'):
         # CLI команды должны содержать '/'
         return 1.0 if '/' in r else 0.3
 

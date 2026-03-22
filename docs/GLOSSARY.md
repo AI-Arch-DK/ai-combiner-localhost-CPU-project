@@ -14,10 +14,10 @@
 | **systemPrompt** | Главный промпт Claude. В `claude_desktop_config.json` |
 | **kombain_local.db** | Локальная БД ноды (workflows, results, knowledge) |
 | **kombain_shared.db** | Общая БД нод через sync_log |
-| **sync_log** | Таблица синхронизации между нодами |
-| **Office_MAIN** | Будущая центральная нода офисного AI-комбайна |
-| **debai-нода** | Текущая рабочая нода (localhost CPU, Debian) |
-| **kali-нода** | Security/pentest нода |
+| **sync_log** | Таблица синхронизации между nodeми |
+| **Office_MAIN** | Будущая центральная node офисного AI-комбайна |
+| **debai-node** | Текущая рабочая node (localhost CPU, Debian) |
+| **sales_manager-node** | Security/sales node |
 | **CLAUDE_DIRECT** | Маркер в qwen_tasks. Claude выполняет без Qwen |
 | **NO_MATCH** | Ответ qwen_dispatch: задача не найдена. Идёт к стратегии |
 | **qwen_only** | Стратегия: только Qwen, нет внешних запросов |

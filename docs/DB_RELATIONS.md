@@ -21,7 +21,7 @@
                                      workflows.workflow_id
 
 [kombain_shared.db] ←──── sync_log ──► [kombain_local.db] (debai)
-                    ←──── sync_log ──► [kombain_local.db] (kali)
+                    ←──── sync_log ──► [kombain_local.db] (sales_manager)
 ```
 
 ## Seed данные и их связи

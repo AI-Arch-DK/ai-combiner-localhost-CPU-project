@@ -23,8 +23,8 @@ if [ -f "/ai/kombain/kombain_local.db" ]; then
 fi
 
 # Бэкап shared БД
-if [ -f "/ai/external/kali/kombain_shared.db" ]; then
-  sqlite3 /ai/external/kali/kombain_shared.db ".backup '$BACKUP_DIR/kombain_shared.db'" && \
+if [ -f "/ai/external/sales_manager/kombain_shared.db" ]; then
+  sqlite3 /ai/external/sales_manager/kombain_shared.db ".backup '$BACKUP_DIR/kombain_shared.db'" && \
     echo "  OK kombain_shared.db"
 fi
 

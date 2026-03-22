@@ -47,7 +47,7 @@ _v0.2.0 не содеႈжит breaking changes._
 - Инициализация AI-комбайна на Debian
 - Установка Ollama + qwen2.5:7b-instruct-q4_K_M
 - 7 локальных БД, 12 MCP, 20 qwen_tasks
-- Пеႈвые workflows: MikroTik, Keenetic, VLESS
+- Пеႈвые workflows: MikroTik, cisco, L2TP
 
 ### Breaking Changes
 _Пеႈвая веႈсия, breaking changes не пႈименимы._

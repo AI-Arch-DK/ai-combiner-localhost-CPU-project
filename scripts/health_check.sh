@@ -41,7 +41,7 @@ for db in routing project network tokens tools models; do
   check "$db.db" "[ -f /ai/db/$db.db ]"
 done
 check "kombain_local.db" "[ -f /ai/kombain/kombain_local.db ]"
-check "kombain_shared.db" "[ -f /ai/external/kali/kombain_shared.db ]"
+check "kombain_shared.db" "[ -f /ai/external/sales_manager/kombain_shared.db ]"
 
 echo "🔷 Скрипты"
 for s in check_resources cleanup_sessions init_db backup_db; do

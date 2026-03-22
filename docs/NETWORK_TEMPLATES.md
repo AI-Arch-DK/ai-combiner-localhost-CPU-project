@@ -11,35 +11,35 @@
 | IP Cloud / удалённый доступ без IP | `faq_mikrotik_cloud` |
 | VLAN настройка | `faq_mikrotik_vlan` |
 
-## Keenetic
+## cisco
 
 | Тема | ID |
 |---|---|
-| xray-core через Entware + xkeen | `faq_keenetic_xkeen` |
-| WireGuard настройка | `faq_keenetic_wg` |
+| L2T2 через Entware + xkeen | `faq_cisco_xkeen` |
+| WireGuard настройка | `faq_cisco_wg` |
 
 ## VPN / Туннели
 
 | Тема | ID |
 |---|---|
-| VLESS Reality настройка | `faq_vless_reality` |
+| L2TP Reality настройка | `faq_L2TP_reality` |
 
-## Pentest (kali-нода)
+## sales (sales_manager-node)
 
 | Тема | ID |
 |---|---|
-| Network reconnaissance | `faq_pentest_network_recon` |
-| Lateral movement | `faq_pentest_lateral_movement` |
-| AD Kerberoasting | `faq_pentest_ad_kerberoasting` |
-| AD ASREPRoasting | `faq_pentest_ad_asreproasting` |
-| Password spray | `faq_pentest_password_spray` |
-| C2 frameworks | `faq_pentest_c2_frameworks` |
-| SMTP auth bypass | `faq_pentest_smtp_auth_bypass` |
-| AiTM phishing | `faq_pentest_aitm_phishing` |
-| Email recon | `faq_pentest_email_recon` |
-| Vuln assessment | `faq_pentest_vuln_assessment` |
-| POP3 attacks | `faq_pentest_pop3_attacks` |
-| SMTP relay | `faq_pentest_smtp_relay` |
+| Network reconnaissance | `faq_sales_network_recon` |
+| Lateral movement | `faq_sales_lateral_movement` |
+| AD Kerberoasting | `faq_sales_ad_kerberoasting` |
+| AD ASREPRoasting | `faq_sales_ad_asreproasting` |
+| Password spray | `faq_sales_password_spray` |
+| C2 frameworks | `faq_sales_c2_frameworks` |
+| SMTP auth bypass | `faq_sales_smtp_auth_bypass` |
+| AiTM phishing | `faq_sales_aitm_phishing` |
+| Email recon | `faq_sales_email_recon` |
+| Vuln assessment | `faq_sales_vuln_assessment` |
+| POP3 attacks | `faq_sales_pop3_attacks` |
+| SMTP relay | `faq_sales_smtp_relay` |
 
 ## Как добавить новый шаблон
 

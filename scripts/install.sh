@@ -33,7 +33,7 @@ echo "  OK"
 # 4. Структура /ai/
 echo "[4/6] Создание структуры /ai/..."
 mkdir -p /ai/{db,scripts,logs,backup,workspace,kombain}
-mkdir -p /ai/external/kali
+mkdir -p /ai/external/sales_manager
 chown -R "$USER:$USER" /ai
 echo "  OK"
 

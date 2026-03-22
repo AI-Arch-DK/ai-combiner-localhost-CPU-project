@@ -25,7 +25,7 @@ BACKUP_DIR=/ai/backup
 
 # === SQLITE ===
 KOMBAIN_LOCAL_DB=/ai/kombain/kombain_local.db
-KOMBAIN_SHARED_DB=/ai/external/kali/kombain_shared.db
+KOMBAIN_SHARED_DB=/ai/external/sales_manager/kombain_shared.db
 
 # === CLAUDE DESKTOP ===
 CLAUDE_CONFIG=~/.config/Claude/claude_desktop_config.json
