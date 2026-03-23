@@ -4,7 +4,7 @@
 # Оставляет только последнюю по дате папку в skills-plugin
 # Архивирует старые в /tmp/sessions_archive/
 
-SESSIONS="/home/debai/.config/Claude/local-agent-mode-sessions"
+SESSIONS="/home/debianAI/.config/Claude/local-agent-mode-sessions"
 PLUGIN_DIR="$SESSIONS/skills-plugin"
 ARCHIVE="/tmp/sessions_archive/$(date +%Y%m%d_%H%M%S)"
 

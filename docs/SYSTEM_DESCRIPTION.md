@@ -28,7 +28,7 @@
 | sqlite | mcp-server-sqlite | БД routing/project/kombain_local |
 | ollama-local | ollama-server (node) | Qwen локальная LLM (11434) |
 | host-report | host-report-server (node) | Мониторинг хоста (system_audit) |
-| filesystem | @modelcontextprotocol/server-filesystem | /home/sales_manager, /home/debai, /ai, /mnt/sda2, /tmp |
+| filesystem | @modelcontextprotocol/server-filesystem | /home/sales_manager, /home/debianAI, /ai, /mnt/sda2, /tmp |
 | shell | mcp-shell | Shell-команды |
 | github-public | github-mcp-server | Аккаунт GitHub public account (open source) |
 | github-private | github-mcp-server | Аккаунт GitHub private account (приватные проекты) |
@@ -60,9 +60,9 @@
 
 | БД | Путь | Назначение |
 |---|---|---|
-| kombain_shared.db | `/ai/external/sales_manager/kombain_shared.db` | Общая БД для будущего **Office_MAIN-nodes** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debai) и sales_manager-нодой. |
+| kombain_shared.db | `/ai/external/sales_manager/kombain_shared.db` | Общая БД для будущего **Office_MAIN-nodes** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debianAI) и sales_manager-нодой. |
 
-> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными nodes (sales_manager, debai и др.). `kombain_shared.db` — точка синхронизации между nodes.
+> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными nodes (sales_manager, debianAI и др.). `kombain_shared.db` — точка синхронизации между nodes.
 
 ---
 
@@ -119,7 +119,7 @@
 ```
 [Office_MAIN-node] ← центральный оркестратор
     │
-    ├── [debai-node]  ← текущая рабочая node (localhost CPU)
+    ├── [debianAI-node]  ← текущая рабочая node (localhost CPU)
     │       kombain_local.db
     │
     ├── [sales_manager-node]   ← security/sales node  

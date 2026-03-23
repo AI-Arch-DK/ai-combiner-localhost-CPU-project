@@ -20,7 +20,7 @@
      └─────────────────────────└─► [kombain_local.db]
                                      workflows.workflow_id
 
-[kombain_shared.db] ←──── sync_log ──► [kombain_local.db] (debai)
+[kombain_shared.db] ←──── sync_log ──► [kombain_local.db] (debianAI)
                     ←──── sync_log ──► [kombain_local.db] (sales_manager)
 ```
 

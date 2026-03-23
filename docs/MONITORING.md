@@ -20,7 +20,7 @@ bash /ai/scripts/health_check.sh
 bash /ai/scripts/check_resources.sh
 ```
 
-## Cron расписание (debai)
+## Cron расписание (debianAI)
 
 ```cron
 # Бэкап БД ежедневно в 3:00

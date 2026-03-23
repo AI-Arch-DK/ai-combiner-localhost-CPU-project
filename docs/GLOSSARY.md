@@ -16,7 +16,7 @@
 | **kombain_shared.db** | Общая БД нод через sync_log |
 | **sync_log** | Таблица синхронизации между nodes |
 | **Office_MAIN** | Будущая центральная node офисного AI-комбайна |
-| **debai-node** | Текущая рабочая node (localhost CPU, Debian) |
+| **debianAI-node** | Текущая рабочая node (localhost CPU, Debian) |
 | **sales_manager-node** | Security/sales node |
 | **CLAUDE_DIRECT** | Маркер в qwen_tasks. Claude выполняет без Qwen |
 | **NO_MATCH** | Ответ qwen_dispatch: задача не найдена. Идёт к стратегии |

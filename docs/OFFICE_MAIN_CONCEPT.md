@@ -2,7 +2,7 @@
 
 ## Цель
 
-Расширить однонодовый AI-комбайн (debai localhost) до централизованной сети нод с единой общей БД и центральным оркестратором.
+Расширить однонодовый AI-комбайн (debianAI localhost) до централизованной сети нод с единой общей БД и центральным оркестратором.
 
 ## Топология
 
@@ -14,7 +14,7 @@
                            |
               ┌─────────────┬───────────┐
               │            │           │
-    [debai-node]   [sales_manager-node]  [другие-nodes]
+    [debianAI-node]   [sales_manager-node]  [другие-nodes]
     localhost CPU   security       ...
     текущая      sales
     kombain         kombain
@@ -25,7 +25,7 @@
 
 | node | Роль | Статус |
 |---|---|---|
-| **debai** | Рабочая localhost CPU node | ✅ активна |
+| **debianAI** | Рабочая localhost CPU node | ✅ активна |
 | **sales_manager** | Security/sales node | ✅ активна |
 | **Office_MAIN** | Центральный оркестратор | 🚧 v0.5.0 plan |
 

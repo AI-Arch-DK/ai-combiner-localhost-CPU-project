@@ -13,7 +13,7 @@ description: |
 
 ## Конфигурация системы
 
-**Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
+**Config:** `/home/debianAI/.config/Claude/claude_desktop_config.json`
 **Скрипты:** `/ai/scripts/`
 **БД:** `/ai/db/` + `/ai/kombain/kombain_local.db`
 **Версия:** 0.3.0 | **GitHub:** `GitHub public account/ai-combiner-localhost-CPU-project`

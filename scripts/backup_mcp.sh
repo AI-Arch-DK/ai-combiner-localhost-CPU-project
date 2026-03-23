@@ -4,8 +4,8 @@
 # Запуск: cron 3:30 / перед апгрейдом
 
 BACKUP_DIR="/ai/backup/mcp_$(date +%Y%m%d_%H%M%S)"
-CONFIG_DIR="/home/debai/.config/Claude"
-MCP_DIR="/home/debai/.config/claude-mcp"
+CONFIG_DIR="/home/debianAI/.config/Claude"
+MCP_DIR="/home/debianAI/.config/claude-mcp"
 
 mkdir -p "$BACKUP_DIR"
 
@@ -40,7 +40,7 @@ if [ -d "$MCP_DIR" ]; then
 fi
 
 # 3. skills-plugin актуальная сессия
-SKILL_DIR=$(find /home/debai/.config/Claude/local-agent-mode-sessions/skills-plugin -name "SKILL.md" 2>/dev/null | sed 's|/SKILL.md||' | head -1 | xargs dirname 2>/dev/null)
+SKILL_DIR=$(find /home/debianAI/.config/Claude/local-agent-mode-sessions/skills-plugin -name "SKILL.md" 2>/dev/null | sed 's|/SKILL.md||' | head -1 | xargs dirname 2>/dev/null)
 if [ -n "$SKILL_DIR" ]; then
   cp -r "$SKILL_DIR" "$BACKUP_DIR/skills-plugin/" 2>/dev/null && echo "  OK skills-plugin"
 fi

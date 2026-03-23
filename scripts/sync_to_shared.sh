@@ -5,7 +5,7 @@
 
 LOCAL="/ai/kombain/kombain_local.db"
 SHARED="/ai/external/sales_manager/kombain_shared.db"
-NODE_ID="debai"
+NODE_ID="debianAI"
 
 [ ! -f "$LOCAL" ] && echo "ERROR: kombain_local.db не найден" && exit 1
 [ ! -f "$SHARED" ] && echo "ERROR: kombain_shared.db не найден" && exit 1

@@ -4,7 +4,7 @@
 # Делает: структура /ai, БД, скопирует scripts, создаёт скилл ai-combiner, cron, faq-обучение
 
 set -e
-USER="${1:-debai}"
+USER="${1:-debianAI}"
 HOME_DIR="/home/$USER"
 SKILLS_DIR="$HOME_DIR/.config/Claude/local-agent-mode-sessions/skills-plugin"
 SCRIPT_DIR="$(cd \"$(dirname \"${BASH_SOURCE[0]}\")\" && pwd)"
@@ -86,7 +86,7 @@ description: |
 # AI Combiner — Team Lead скилл
 
 ## Конфигурация
-**Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
+**Config:** `/home/debianAI/.config/Claude/claude_desktop_config.json`
 **Scripts:** `/ai/scripts/` | **DB:** `/ai/db/` + `/ai/kombain/kombain_local.db`
 **Version:** 0.3.0 | **GitHub:** `GitHub public account/ai-combiner-localhost-CPU-project`
 

@@ -22,7 +22,7 @@ done
 echo ""
 
 # CONFIG
-echo "CFG /home/debai/.config/Claude/claude_desktop_config.json"
+echo "CFG /home/debianAI/.config/Claude/claude_desktop_config.json"
 
 # MCP
 echo "MCP sqlite|ollama|host-report|filesystem|github-pub|github-priv|huggingface|miro|tavily|shell|browser|clay|gcal|gmail"
@@ -33,7 +33,7 @@ QT=$(sqlite3 /ai/db/routing.db "SELECT COUNT(*) FROM qwen_tasks WHERE is_active=
 echo "ROUTING pc:$PC qt:$QT"
 
 # СКИЛЛЫ
-SKILL_DIR=$(find /home/debai/.config/Claude/local-agent-mode-sessions/skills-plugin -name "SKILL.md" 2>/dev/null \
+SKILL_DIR=$(find /home/debianAI/.config/Claude/local-agent-mode-sessions/skills-plugin -name "SKILL.md" 2>/dev/null \
   | sed 's|.*/skills/||;s|/SKILL.md||' | sort -u | tr '\n' '|' | sed 's/|$//')
 echo "SKILLS $SKILL_DIR"
 

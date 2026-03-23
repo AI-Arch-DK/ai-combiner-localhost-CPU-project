@@ -38,8 +38,8 @@ else
 fi
 
 echo "🔷 Сенситивные файлы"
-for f in "/home/debai/.config/Claude/claude_desktop_config.json" \
-         "/home/debai/.config/Claude/config.env"; do
+for f in "/home/debianAI/.config/Claude/claude_desktop_config.json" \
+         "/home/debianAI/.config/Claude/config.env"; do
   if [ -f "$f" ]; then
     perms=$(stat -c "%a" "$f" 2>/dev/null)
     [ "$perms" = "600" ] && ok "$(basename $f): 600" || warn "$(basename $f): $perms — реком. chmod 600"

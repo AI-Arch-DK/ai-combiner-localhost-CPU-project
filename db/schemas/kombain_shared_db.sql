@@ -1,7 +1,7 @@
 -- kombain_shared.db — общая БД для синхронизации нод AI-комбайна
 -- Путь: /ai/external/sales_manager/kombain_shared.db
 -- Концепция: Office_MAIN-node (центральный оркестратор)
--- nodes: debai-node (localhost CPU) + sales_manager-node (security/sales)
+-- nodes: debianAI-node (localhost CPU) + sales_manager-node (security/sales)
 -- Схема идентична kombain_local.db + таблица sync_log
 
 -- === КОПИЯ kombain_local.db ===
@@ -57,7 +57,7 @@ CREATE TABLE qwen_knowledge (
 
 CREATE TABLE sync_log (
     sync_id      TEXT PRIMARY KEY,
-    node_id      TEXT NOT NULL,        -- 'debai' | 'sales_manager' | 'office_main'
+    node_id      TEXT NOT NULL,        -- 'debianAI' | 'sales_manager' | 'office_main'
     operation    TEXT NOT NULL,        -- 'INSERT' | 'UPDATE' | 'DELETE' | 'SYNC'
     table_name   TEXT NOT NULL,
     record_id    TEXT,
@@ -74,7 +74,7 @@ CREATE INDEX idx_sync_table   ON sync_log(table_name);
 -- Office_MAIN-node — центральный оркестратор будущей офисной сети
 -- Все nodes пишут в sync_log свои изменения
 -- Office_MAIN читает sync_log и разрешает конфликты
--- node_id регистрирует кто сделал запись: 'debai' | 'sales_manager' | 'office_main'
+-- node_id регистрирует кто сделал запись: 'debianAI' | 'sales_manager' | 'office_main'
 Тема	ID
 Multi-agent orchestration	
 faq_Head_Office_MAIN_agent_orchestration	
