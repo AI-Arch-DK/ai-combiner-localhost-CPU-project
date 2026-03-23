@@ -16,7 +16,7 @@ description: |
 **Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
 **Скрипты:** `/ai/scripts/`
 **БД:** `/ai/db/` + `/ai/kombain/kombain_local.db`
-**Версия:** 0.3.0 | **GitHub:** `AI-Arch-DK/ai-combiner-localhost-CPU-project`
+**Версия:** 0.3.0 | **GitHub:** `GitHub public account/ai-combiner-localhost-CPU-project`
 **CATALOG:** `CATALOG.md` в корне репо
 
 ## Архитектура (приоритеты)

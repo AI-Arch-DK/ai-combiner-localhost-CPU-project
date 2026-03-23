@@ -88,7 +88,7 @@ description: |
 ## Конфигурация
 **Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
 **Scripts:** `/ai/scripts/` | **DB:** `/ai/db/` + `/ai/kombain/kombain_local.db`
-**Version:** 0.3.0 | **GitHub:** `AI-Arch-DK/ai-combiner-localhost-CPU-project`
+**Version:** 0.3.0 | **GitHub:** `GitHub public account/ai-combiner-localhost-CPU-project`
 
 ## Архитектура
 `[1] SKILLS → [2] systemPrompt → [3] qwen_dispatch → [4] parallel_config`

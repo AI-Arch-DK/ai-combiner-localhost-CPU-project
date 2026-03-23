@@ -44,4 +44,4 @@ bash/sql код  → Claude DIRECT (quality > speed)
 
 ## Репозиторий
 
-`github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project`
+`github.com/GitHub public account/ai-combiner-localhost-CPU-project`

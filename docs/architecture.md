@@ -40,5 +40,5 @@ shell → /ai/scripts/cleanup_sessions.sh
 ```
 
 ## GitHub аккаунты
-- `AI-Arch-DK` — публичные/open source проекты
+- `GitHub public account` — публичные/open source проекты
 - `GitHub private account` — приватные проекты

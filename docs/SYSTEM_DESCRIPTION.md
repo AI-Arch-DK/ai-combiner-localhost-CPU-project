@@ -30,7 +30,7 @@
 | host-report | host-report-server (node) | Мониторинг хоста (system_audit) |
 | filesystem | @modelcontextprotocol/server-filesystem | /home/sales_manager, /home/debai, /ai, /mnt/sda2, /tmp |
 | shell | mcp-shell | Shell-команды |
-| github-public | github-mcp-server | Аккаунт AI-Arch-DK (open source) |
+| github-public | github-mcp-server | Аккаунт GitHub public account (open source) |
 | github-private | github-mcp-server | Аккаунт GitHub private account (приватные проекты) |
 | huggingface | huggingface-server (node) | HF API + inference (cerebras/novita/together) |
 | miro | mcp.miro.com | Визуализация DAG/архитектуры |
