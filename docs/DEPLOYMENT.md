@@ -12,7 +12,7 @@
 
 ## Процедура деплоя (Production)
 
-```
+```text
 [1] Бэкап текущего состояния
     bash /ai/scripts/backup_db.sh
 
@@ -29,32 +29,40 @@
 
 [6] Проверка
     bash /ai/scripts/health_check.sh
-```
+
+```text
 
 ## Процедура Rollback
 
 ```bash
 # 1. Найти последний бэкап
+
 ls /ai/backup/ | sort | tail -3
 
 # 2. Восстановить БД
+
 BACKUP="/ai/backup/20260319_030000"
 for db in routing project network tokens tools models; do
   cp "$BACKUP/$db.db" "/ai/db/$db.db"
 done
 
 # 3. Вернуться на предыдущий коммит
+
 git checkout <previous-commit-sha> -- scripts/ db/schemas/
 
 # 4. Проверка
+
 bash /ai/scripts/health_check.sh
-```
+
+```text
 
 ## Версионирование БД
 
 Перед каждым изменением схемы:
+
 ```bash
-# Сохранить версию 
+# Сохранить версию
 
 sqlite3 /ai/db/routing.db ".backup '/ai/backup/routing_pre_migration.db'"
-```
+
+```text

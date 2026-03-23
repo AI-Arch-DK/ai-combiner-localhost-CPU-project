@@ -6,7 +6,7 @@
 
 ## Топология
 
-```
+```text
                     [Office_MAIN-node]
                     центральный оркестратор
                     Claude + Qwen (главный)
@@ -19,7 +19,8 @@
     текущая      sales
     kombain         kombain
     _local.db       _local.db
-```
+
+```text
 
 ## Nodes
 
@@ -32,17 +33,19 @@
 ## Компоненты Office_MAIN
 
 ### Каждая node имеет:
+
 - `kombain_local.db` — локальная БД (workflows, results, knowledge)
 - Свой экземпляр Ollama/Qwen
 - Набор MCP-серверов под свои задачи
 
 ### Общее:
+
 - `kombain_shared.db` (файл `/ai/external/sales_manager/kombain_shared.db`)
 - `sync_log` — журнал всех изменений от всех нод
 
 ## Протокол синхронизации
 
-```
+```text
 node выполняет задачу
     │
     ├── Запись в kombain_local.db
@@ -53,17 +56,19 @@ node выполняет задачу
               │
               ├── Нет конфликта → status='done'
               └── Конфликт → status='conflict' → разрешение вручную
-```
+
+```text
 
 ## Маршрутизация запросов
 
-```
+```text
 Запрос на ноду
     │
     ├── Локальная задача → локальный Qwen
     ├── Общая задача → Office_MAIN оркестрирует
     └── Специализация → передаётся спецноде (sales_manager)
-```
+
+```text
 
 ## Текущее состояние
 

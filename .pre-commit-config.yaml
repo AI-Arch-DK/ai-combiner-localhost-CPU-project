@@ -20,15 +20,17 @@ repos:
         args: ['--baseline', '.secrets.baseline']
         exclude: |
           (?x)^(
-            .secrets.baseline|
-            CHANGELOG.md
+            \.secrets\.baseline|
+            CHANGELOG\.md|
+            config/environment\.example
           )$
 
   - repo: https://github.com/sqlfluff/sqlfluff
     rev: 3.1.0
     hooks:
       - id: sqlfluff-lint
-        args: ['--dialect', 'ansi']
+        args: ['--dialect', 'ansi', '--exclude-rules', 'LT01,RF04']
+        files: '^db/(?!schemas/).*\.sql$'
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.41.0

@@ -1,9 +1,11 @@
 # Quick Reference — AI Combiner
 
 ## Старт сессии
-```
+
+```text
 Первое сообщение Claude Desktop: инфо о себе
-```
+
+```text
 
 ## Ключевые триггеры
 
@@ -25,20 +27,25 @@
 /ai/scripts/init_db.sh            # инициализация БД с нуля
 /ai/scripts/sync_to_shared.sh     # синх в kombain_shared.db
 /ai/scripts/rotate_logs.sh        # ротация логов
-```
+
+```text
 
 ## БД быстрый доступ
 
 ```bash
 # Таски Qwen
+
 sqlite3 /ai/db/routing.db "SELECT task_id, trigger, category FROM qwen_tasks WHERE is_active=1;"
 
 # Стратегии
+
 sqlite3 /ai/db/routing.db "SELECT config_id, task_category, strategy FROM parallel_config;"
 
 # Воркфлоу
+
 sqlite3 /ai/kombain/kombain_local.db "SELECT workflow_id, name, rating FROM workflows ORDER BY created_at DESC LIMIT 5;"
-```
+
+```text
 
 ## Ollama
 
@@ -46,7 +53,8 @@ sqlite3 /ai/kombain/kombain_local.db "SELECT workflow_id, name, rating FROM work
 ollama list                          # список моделей
 systemctl --user status ollama       # статус
 curl http://localhost:11434/api/tags # проверка API
-```
+
+```text
 
 ## Документация
 

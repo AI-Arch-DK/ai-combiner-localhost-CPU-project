@@ -21,22 +21,24 @@
 
 ## Ключевые компоненты
 
-```
+```text
 Claude Desktop  →  дирижёр/оркестратор
 Qwen 7B (local) →  воркер (бесплатно)
 Cerebras llama  →  быстрый внешний inference
 Tavily / browser → актуальные данные
 routing.db      →  правила маршрутизации
-```
+
+```text
 
 ## Стратегия экономии токенов
 
-```
+```text
 Типовые задачи → Qwen (local, free)
 Исследования    → Cerebras (serverless, free)
 bash/sql код  → Claude DIRECT (quality > speed)
 Оркестрация   → Claude (only complex tasks)
-```
+
+```text
 
 ## Версия
 

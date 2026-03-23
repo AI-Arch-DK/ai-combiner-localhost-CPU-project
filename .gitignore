@@ -28,3 +28,6 @@ sessions_archive/
 
 # Пути с именами пользователей
 /home/*/
+
+# allow detect-secrets baseline
+!.secrets.baseline

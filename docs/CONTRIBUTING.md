@@ -10,24 +10,30 @@
 
 ```bash
 # 1. Fork репозитория на GitHub
+
 # 2. Клонировать свой fork
+
 git clone git@github.com:<your-username>/ai-combiner-localhost-CPU-project.git
 cd ai-combiner-localhost-CPU-project
 
 # 3. Добавить upstream
+
 git remote add upstream git@github.com:AI-Arch-DK/ai-combiner-localhost-CPU-project.git
 
 # 4. Установить pre-commit
+
 pip install pre-commit
 pre-commit install
 
 # 5. Создать ветку для изменений
+
 git checkout -b feature/my-feature
-```
+
+```text
 
 ## Структура проекта
 
-```
+```text
 scripts/        — shell-скрипты (init, health, backup, cleanup)
 db/schemas/     — SQL схемы баз данных
 db/data/        — seed-данные (qwen_tasks, parallel_config)
@@ -35,7 +41,8 @@ docs/           — документация
 config/         — конфиги ollama, systemd-сервисы
 skills/         — SKILL.md файлы для Claude Desktop
 .github/        — CI/CD, issue/PR шаблоны
-```
+
+```text
 
 ## Типы вкладов
 
@@ -50,7 +57,8 @@ INSERT INTO qwen_tasks VALUES (
   'Short prompt for qwen. Max 50 words. Output only.',
   200, 1, 'Описание задачи', 0, 1, 60
 );
-```
+
+```text
 
 **Правила промпта:**
 - Максимум 50 слов
@@ -65,7 +73,8 @@ INSERT INTO parallel_config VALUES (
   'pc_NNN', 'task_category',
   1, 0, 0, 1, 30, 'qwen_with_context', 'Описание'
 );
-```
+
+```text
 
 ### Добавить новый скилл
 
@@ -80,14 +89,17 @@ description: |
   Использовать ТОЛЬКО когда пользователь упоминает: <триггеры>.
 ---
 # My Skill
+
 ...
-```
+
+```text
 
 3. Скопировать в актуальную сессию Claude Desktop:
 
-```
+```text
 $HOME/.config/Claude/local-agent-mode-sessions/skills-plugin/<UUID>/<SESSION>/skills/
-```
+
+```text
 
 4. Перезапустить Claude Desktop
 
@@ -105,7 +117,8 @@ $HOME/.config/Claude/local-agent-mode-sessions/skills-plugin/<UUID>/<SESSION>/sk
 
 ```bash
 pre-commit run --all-files
-```
+
+```text
 
 ## Правила безопасности перед push
 
@@ -115,7 +128,8 @@ pre-commit run --all-files
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}|password=|api.key" \
   --include="*.sh" --include="*.json" --include="*.md" --include="*.sql" . \
   && echo "❌ НАЙДЕНЫ СЕКРЕТЫ" || echo "✅ Чисто"
-```
+
+```text
 
 Подробнее: `docs/SECURITY_CHECKLIST.md`
 

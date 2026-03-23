@@ -34,7 +34,8 @@ Qwen работает локально бесплатно, экономия Clau
 ```sql
 INSERT INTO qwen_tasks VALUES ('qt_NNN', 'триггер', 'category',
   'Short prompt. Output only.', 200, 1, 'описание', 0, 1, 60);
-```
+
+```text
 См. `docs/CONTRIBUTING.md`
 
 ---
@@ -44,8 +45,10 @@ INSERT INTO qwen_tasks VALUES ('qt_NNN', 'триггер', 'category',
 ```bash
 bash /ai/scripts/backup_db.sh
 # Бэкапы сохраняются в /ai/backup/YYYYMMDD_HHMMSS/
+
 # Авто-удаление старше 7 дней
-```
+
+```text
 
 ---
 

@@ -2,9 +2,10 @@
 
 ## Формат коммитов
 
-```
+```text
 <тип>: <описание> [(ссылка на issue)]
-```
+
+```text
 
 ## Типы
 
@@ -28,7 +29,8 @@ docs: update ROADMAP v0.4.0 tasks
 db: add kombain_shared sync_log index
 routing: pc_014 docker_check strategy qwen_only
 security: gitignore add *.key pattern
-```
+
+```text
 
 ## Правила
 

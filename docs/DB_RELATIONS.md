@@ -2,7 +2,7 @@
 
 ## Схема связей между БД
 
-```
+```text
 [routing.db]
   qwen_tasks ──────────────► [kombain_local.db]
   parallel_config            workflow_results.model_used
@@ -22,7 +22,8 @@
 
 [kombain_shared.db] ←──── sync_log ──► [kombain_local.db] (debianAI)
                     ←──── sync_log ──► [kombain_local.db] (sales_manager)
-```
+
+```text
 
 ## Seed данные и их связи
 
@@ -40,9 +41,15 @@
 
 ```bash
 # Правильный порядок загрузки seed данных:
+
 # 1. routing.db: qwen_tasks → parallel_config
+
 # 2. models.db: models → model_performance
+
 # 3. tokens.db: token_accounts → token_usage (optional)
+
 # 4. tools.db: tools → tool_usage (optional)
+
 # 5. kombain_local.db: через init_db.sh
-```
+
+```text

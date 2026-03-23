@@ -6,9 +6,10 @@
 
 Проект следует [Semantic Versioning](https://semver.org/):
 
-```
+```text
 MAJOR.MINOR.PATCH
-```
+
+```text
 
 - **MAJOR** — breaking changes (несовместимые изменения API/схем БД)
 - **MINOR** — новые фичи (новые qwen_tasks, MCP-серверы, скиллы)
@@ -20,12 +21,15 @@ MAJOR.MINOR.PATCH
 
 ```bash
 # Убедиться что main чистый
+
 git checkout main && git pull upstream main
 
 # Прогнать все проверки
+
 pre-commit run --all-files
 bash scripts/health_check.sh
-```
+
+```text
 
 ### 2. Обновить CHANGELOG.md
 
@@ -35,14 +39,18 @@ bash scripts/health_check.sh
 ## [vX.Y.Z] — YYYY-MM-DD
 
 ### Added
+
 - ...
 
 ### Fixed
+
 - ...
 
 ### Changed
+
 - ...
-```
+
+```text
 
 ### 3. Обновить VERSION
 
@@ -50,14 +58,16 @@ bash scripts/health_check.sh
 echo "vX.Y.Z" > VERSION
 git add VERSION CHANGELOG.md
 git commit -m "chore: release vX.Y.Z"
-```
+
+```text
 
 ### 4. Создать git tag
 
 ```bash
 git tag -a vX.Y.Z -m "Release vX.Y.Z"
 git push upstream main --tags
-```
+
+```text
 
 ### 5. GitHub Release
 
@@ -73,6 +83,7 @@ git push upstream main --tags
 
 ```yaml
 # .github/workflows/release.yml
+
 name: Release
 on:
   push:
@@ -88,7 +99,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body_path: CHANGELOG.md
-```
+
+```text
 
 ## Ветки и PR
 

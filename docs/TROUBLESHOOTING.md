@@ -7,9 +7,11 @@
 **Причина:** Скиллы работают до systemPrompt (приоритет №1).
 
 **Решение:** Добавить в `SKILL.md` перед `description`:
-```
+
+```text
 НЕ активировать при: "инфо о себе", "проверь ресурсы", "вспомни о себе".
-```
+
+```text
 
 ---
 
@@ -25,12 +27,15 @@
 
 ```bash
 # Проверка
+
 curl http://localhost:11434/api/tags
 systemctl --user status ollama
 
 # Запуск
+
 systemctl --user start ollama
-```
+
+```text
 
 ---
 
@@ -39,21 +44,25 @@ systemctl --user start ollama
 **Причина:** триггер не совпадает ни с одним записями `qwen_tasks`.
 
 **Решение:**
+
 ```sql
 -- Добавить триггер к существующему таску:
 UPDATE qwen_tasks SET trigger = trigger || ',новый триггер'
 WHERE task_id = 'qt_XXX';
-```
+
+```text
 
 ---
 
 ## Проблема: старые skills-plugin папки накапливаются
 
 **Решение:**
+
 ```bash
 /ai/scripts/cleanup_sessions.sh
 # или срабатывает автоматически при "инфо о себе"
-```
+
+```text
 
 ---
 

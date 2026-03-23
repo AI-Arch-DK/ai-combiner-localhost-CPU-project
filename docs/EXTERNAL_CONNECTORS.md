@@ -13,42 +13,52 @@
 ## Паттерны интеграции
 
 ### Miro — визуализация архитектуры
-```
+
+```text
 Триггер: "нарисуй архитектуру" / "обнови диаграмму"
 Маршрут: orchestration → external_first
 Claude → Miro:diagram_create(данные) → борд
 Или: Claude → Miro:table_sync(данные из БД)
-```
+
+```text
 
 ### Gmail — уведомления
-```
+
+```text
 Триггер: "отправь отчёт" / "напиши письмо"
 Маршрут: orchestration → external_first
 Claude → qwen генерирует текст → Gmail:send
 Claude → Gmail:search → обработка ответов
-```
+
+```text
 
 ### Google Calendar — планирование
-```
+
+```text
 Триггер: "запланируй" / "покажи расписание"
 Маршрут: orchestration → external_first
 Claude → GCal:list_events → qwen:format_output → сводная таблица
-```
+
+```text
 
 ### Clay — enrichment
-```
+
+```text
 Триггер: "найди контакт" / "обогати данные"
 Маршрут: research → external_first
 Claude → Clay:enrich → запись в network.db/devices
-```
+
+```text
 
 ### HuggingFace — inference
-```
+
+```text
 Триггер: TIMEOUT Qwen / compare_options / research
 Маршрут: parallel / external_first
 Claude → HF:hf_run_inference(cerebras) → мерж с Qwen
 ~500 t/s vs ~13 t/s у Qwen — использовать для быстрых задач
-```
+
+```text
 
 ## Правила использования
 

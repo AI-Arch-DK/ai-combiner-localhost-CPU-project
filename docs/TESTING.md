@@ -4,16 +4,20 @@
 
 ```bash
 # Тест Qwen (4 таска)
+
 bash /ai/scripts/test_qwen_tasks.sh
 
 # Health check (все компоненты)
+
 bash /ai/scripts/health_check.sh
 
 # Security check
+
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" \
   --include="*.sh" --include="*.json" --include="*.md" . \
   && echo "❌ SECRETS" || echo "✅ CLEAN"
-```
+
+```text
 
 ## Тестовая матрица
 

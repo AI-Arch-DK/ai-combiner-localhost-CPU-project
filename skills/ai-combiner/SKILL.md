@@ -21,9 +21,10 @@ description: |
 
 ## Архитектура (приоритеты)
 
-```
+```text
 [1] SKILLS → [2] systemPrompt → [3] qwen_dispatch → [4] parallel_config
-```
+
+```text
 
 ## Стратегии роутинга
 
@@ -64,7 +65,8 @@ SELECT workflow_id, name, rating FROM workflows ORDER BY created_at DESC LIMIT 5
 
 -- qwen_knowledge
 SELECT COUNT(*), SUM(verified), MAX(created_at) FROM qwen_knowledge;
-```
+
+```text
 
 ## Безопасность перед push (qt_023/024)
 
@@ -72,7 +74,8 @@ SELECT COUNT(*), SUM(verified), MAX(created_at) FROM qwen_knowledge;
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" \
   --include="*.sh" --include="*.json" --include="*.md" . \
   && echo "❌ BLOCKED" || echo "✅ SAFE"
-```
+
+```text
 
 ## Скиллы системы (9)
 

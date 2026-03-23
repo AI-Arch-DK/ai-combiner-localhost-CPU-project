@@ -11,34 +11,40 @@
 
 ## Логика роутинга
 
-```
+```text
 запрос → qwen_dispatch
     MATCH   → Qwen отвечает → AS-IS
     NO_MATCH → parallel_config стратегия
     TIMEOUT  → HF+tavily параллельно → qwen_get_late_answer
     HALLUC.  → qwen_cancel → внешние инструменты
-```
+
+```text
 
 ## Скрипты автостарта
 
 ```bash
 # Триггер: "инфо о себе"
+
 shell → /ai/scripts/check_resources.sh
 # Автоматически вызывает:
+
 shell → /ai/scripts/cleanup_sessions.sh
-```
+
+```text
 
 ## Структура /ai/
 
-```
+```text
 /ai/
 ├── db/           # routing.db, project.db, network.db, tokens.db, tools.db, models.db
 ├── scripts/      # check_resources.sh, cleanup_sessions.sh
 ├── logs/         # startup.log
 ├── backup/       # бэкапы БД
 └── workspace/    # рабочие файлы
-```
+
+```text
 
 ## GitHub аккаунты
+
 - `GitHub public account` — публичные/open source проекты
 - `GitHub private account` — приватные проекты

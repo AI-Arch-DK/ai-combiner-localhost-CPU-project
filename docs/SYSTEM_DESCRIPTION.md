@@ -116,18 +116,19 @@
 
 ## 🏗 Концепция Office_MAIN (будущее)
 
-```
+```text
 [Office_MAIN-node] ← центральный оркестратор
     │
     ├── [debianAI-node]  ← текущая рабочая node (localhost CPU)
     │       kombain_local.db
     │
-    ├── [sales_manager-node]   ← security/sales node  
+    ├── [sales_manager-node]   ← security/sales node
     │       kombain_local.db
     │
     └── kombain_shared.db ← общая БД всех нод
             /ai/external/sales_manager/kombain_shared.db
-```
+
+```text
 
 Все nodes синхронизируются через `kombain_shared.db`. Office_MAIN выступает как главный дирижёр всей сети.
 

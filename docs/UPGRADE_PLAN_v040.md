@@ -13,7 +13,8 @@
 -- Каждый запрос проходит через qt_002 → результат сохраняется
 ALTER TABLE routing_log ADD COLUMN auto_category TEXT;
 ALTER TABLE routing_log ADD COLUMN confidence REAL DEFAULT 0.0;
-```
+
+```text
 
 **Имплементация:**
 1. `qwen_dispatch(user_query)` → всегда первым запускает `qt_002` (классификация)
@@ -29,7 +30,8 @@ SELECT selected_model, COUNT(*) as calls,
        AVG(tokens_saved) as avg_saved
 FROM routing_log
 GROUP BY selected_model ORDER BY calls DESC;
-```
+
+```text
 
 **Имплементация:** HTML дашборд через Artifact Claude или `flask --app dashboard.py run`
 
@@ -37,42 +39,51 @@ GROUP BY selected_model ORDER BY calls DESC;
 
 ```bash
 # backup_restore_test.sh
+
 BACKUP=$(ls -t /ai/backup/*.db 2>/dev/null | head -1)
 [ -z "$BACKUP" ] && echo "FAIL: no backup" && exit 1
 sqlite3 "$BACKUP" "SELECT COUNT(*) FROM qwen_tasks;" \
   && echo "PASS: restore OK" || echo "FAIL: restore broken"
-```
+
+```text
 
 ### 4. Retry логика в night_learning
 
 ```python
 # Добавить в run_night_learning.py:
+
 for attempt in range(3):  # 3 попытки
     try:
         r = subprocess.run([...], timeout=90)
         if r.returncode == 0: break
     except subprocess.TimeoutExpired:
         time.sleep(10)  # пауза перед повтором
-```
+
+```text
 
 ### 5. Метрики health_check.sh
 
 ```bash
 # Добавить в health_check.sh:
+
 # Ollama latency
+
 START=$(date +%s%N)
 curl -s http://localhost:11434/api/tags > /dev/null
 LAT=$(( ($(date +%s%N) - START) / 1000000 ))
 [ "$LAT" -lt 500 ] && ok "Ollama latency: ${LAT}ms" || warn "Ollama slow: ${LAT}ms"
 
 # qwen_knowledge рост
+
  QK=$(sqlite3 /ai/kombain/kombain_local.db "SELECT COUNT(*) FROM qwen_knowledge;" 2>/dev/null)
 [ "$QK" -gt 0 ] && ok "qwen_knowledge: $QK" || warn "qwen_knowledge empty"
 
 # routing_log накопление
+
 RL=$(sqlite3 /ai/db/routing.db "SELECT COUNT(*) FROM routing_log;" 2>/dev/null)
 ok "routing_log: $RL записей"
-```
+
+```text
 
 ---
 

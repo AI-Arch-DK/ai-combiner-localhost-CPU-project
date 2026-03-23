@@ -27,10 +27,12 @@
 
 ```bash
 # Запусти перед каждым git push:
+
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}|password|api.key|secret" \
   --include="*.sh" --include="*.json" --include="*.md" --include="*.sql" \
   . 2>/dev/null && echo "❌ НАЙДЕНЫ СЕКРЕТЫ" || echo "✅ Чисто"
-```
+
+```text
 
 ## 🤖 Автоматическая проверка
 

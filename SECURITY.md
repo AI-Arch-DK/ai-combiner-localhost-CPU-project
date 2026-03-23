@@ -19,7 +19,7 @@ You will receive a response within **72 hours**.
 
 ## Scope
 
-This project runs **locally (localhost, CPU-only)**. External attack surface is minimal.  
+This project runs **locally (localhost, CPU-only)**. External attack surface is minimal.
 However, please report:
 
 - Secrets or API keys accidentally committed

@@ -18,6 +18,7 @@
 ## 📖 docs/ — документация
 
 ### Архитектура
+
 | Файл | Зачем |
 |---|---|
 | [architecture.md](docs/architecture.md) | Приоритеты слоёв, логика оркестрации |
@@ -28,6 +29,7 @@
 | [PERFORMANCE.md](docs/PERFORMANCE.md) | Замеры Qwen CPU, сравнение с Cerebras |
 
 ### Настройка
+
 | Файл | Зачем |
 |---|---|
 | [MCP_SETUP.md](docs/MCP_SETUP.md) | Настройка 13 MCP серверов |
@@ -36,6 +38,7 @@
 | [COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md) | Конвенция коммитов |
 
 ### Референс
+
 | Файл | Зачем |
 |---|---|
 | [GLOSSARY.md](docs/GLOSSARY.md) | 25 терминов системы |
@@ -46,6 +49,7 @@
 | [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) | Итоговый обзор проекта |
 
 ### Разработка
+
 | Файл | Зачем |
 |---|---|
 | [ROADMAP.md](docs/ROADMAP.md) | v0.1–v0.6: что сделано и что планируется |
@@ -55,6 +59,7 @@
 | [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Деплой + rollback процедура |
 
 ### Безопасность
+
 | Файл | Зачем |
 |---|---|
 | [SECURITY_CHECKLIST.md](docs/SECURITY_CHECKLIST.md) | Правила + команда проверки перед push |
@@ -82,6 +87,7 @@
 ## 🗄 db/ — базы данных
 
 ### schemas/
+
 | Файл | БД | Ключевое |
 |---|---|---|
 | routing_db.sql | routing.db | qwen_tasks(21) + parallel_config(13) |
@@ -94,6 +100,7 @@
 | kombain_shared_db.sql | kombain_shared.db | То же + sync_log (мульти-node) |
 
 ### data/ — seed данные
+
 | Файл | Содержит |
 |---|---|
 | qwen_tasks.json | 21 активных таск, промпты, категории |

@@ -23,31 +23,39 @@
 
 ```bash
 # 1. Install Ollama + model
+
 curl -fsSL https://ollama.ai/install.sh | sh
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
 # 2. Create directory structure
+
 mkdir -p /ai/{db,scripts,logs,backup,workspace,external/sales_manager,kombain}
 
 # 3. Init databases
+
 bash scripts/init_db.sh
 
 # 4. Copy scripts
+
 cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
 
 # 5. Configure Claude Desktop (see docs/MCP_SETUP.md)
+
 # 6. Launch Claude Desktop
+
 # 7. First message: "инфо о себе"
-```
+
+```text
 
 ---
 
 ## 🏗 Architecture
 
-```
+```text
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
-```
+
+```text
 
 **Models:** Qwen 7B (local, free) | Claude Sonnet (conductor) | Cerebras llama3.1-8b (external) | Tavily (search)
 
@@ -55,7 +63,7 @@ User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → R
 
 ## 📁 Repository Structure
 
-```
+```text
 ai-combiner-localhost-CPU-project/
 ├── README.md
 ├── CHANGELOG.md
@@ -86,7 +94,8 @@ ai-combiner-localhost-CPU-project/
     ├── workflows.json
     ├── schemas/
     └── data/
-```
+
+```text
 
 ---
 

@@ -2,7 +2,7 @@
 
 ## Архитектура
 
-```
+```text
 Пользователь: "память" / "mem 009" / "что делал"
          │
          ▼
@@ -10,7 +10,8 @@
          │
          ├─ КРАТКО (индекс): claude_index → 1 SQL → ~20 строк
          └─ ПОЛНО (по запросу): claude_memory WHERE key=mem_NNN
-```
+
+```text
 
 ## Три таблицы в kombain_local.db
 
@@ -24,20 +25,26 @@
 
 ```bash
 # Краткий индекс — 0 токенов Claude:
+
 bash /ai/scripts/claude_memory.sh index
 
 # Полный контент по категории:
+
 bash /ai/scripts/claude_memory.sh full SCRIPT
 
 # Конкретная запись:
+
 bash /ai/scripts/claude_memory.sh get mem_009
 
 # Поиск:
+
 bash /ai/scripts/claude_memory.sh search curl
 
 # Добавить знание:
+
 bash /ai/scripts/claude_memory.sh add FIX "заголовок" "полный контент"
-```
+
+```text
 
 ## Триггеры в чате
 

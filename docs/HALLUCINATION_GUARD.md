@@ -2,7 +2,7 @@
 
 ## Уровни защиты
 
-```
+```text
 [Уровень 1] Промпт-ограничения
   → max 50 слов в prompt_template
   → "Отвечай только X, нет объяснений"
@@ -20,7 +20,8 @@
 [Уровень 4] Кросс-проверка (validate_config)
   → tavily получает документацию
   → Qwen сравнивает свой ответ с документацией
-```
+
+```text
 
 ## Признаки галлюцинации
 
@@ -71,9 +72,12 @@ def confidence_score(response: str, task_category: str) -> float:
     return 0.7  # default for other categories
 
 # Использование:
+
 # score = confidence_score(qwen_response, task.category)
+
 # if score < 0.5: qwen_cancel(query_id, reason='hallucination')
-```
+
+```text
 
 ## Связанные таски
 
