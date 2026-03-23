@@ -125,10 +125,10 @@
 ```text
 [Office_MAIN-node] ← Central Orchestrator
     │
-    ├── [debianAI-node]  ← Current worker node (localhost CPU)
+    ├── [Product Manager]  ← Current worker node (localhost#1 CPU)
     │       kombain_local.db
     │
-    ├── [sales_manager-node]   ← Security / Sales node
+    ├── [sales_manager-node]   ← Sales Manager / Sales node (localhost#2 CPU)
     │       kombain_local.db
     │
     └── kombain_shared.db ← Shared database across all nodes
