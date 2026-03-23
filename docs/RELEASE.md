@@ -1,71 +1,108 @@
 # Release Process
 
-AI Combiner follows [Semantic Versioning](https://semver.org): `MAJOR.MINOR.PATCH`
+Полный процесс выпуска новой версии AI Combiner.
 
-| Type | When | Example |
-|---|---|---|
-| PATCH | Bug fixes, docs, minor tweaks | `0.3.0` → `0.3.1` |
-| MINOR | New features, new qwen_tasks, new MCP | `0.3.0` → `0.4.0` |
-| MAJOR | Breaking changes to routing/DB schema | `0.3.0` → `1.0.0` |
+## Версионирование
 
-## Step-by-step Release
+Проект следует [Semantic Versioning](https://semver.org/):
 
-### 1. Update VERSION
-
-```bash
-echo "0.4.0" > VERSION
+```
+MAJOR.MINOR.PATCH
 ```
 
-### 2. Update CHANGELOG.md
+- **MAJOR** — breaking changes (несовместимые изменения API/схем БД)
+- **MINOR** — новые фичи (новые qwen_tasks, MCP-серверы, скиллы)
+- **PATCH** — исправления багов, документация, безопасность
 
-Add a new section at the top:
+## Шаги релиза
+
+### 1. Подготовка
+
+```bash
+# Убедиться что main чистый
+git checkout main && git pull upstream main
+
+# Прогнать все проверки
+pre-commit run --all-files
+bash scripts/health_check.sh
+```
+
+### 2. Обновить CHANGELOG.md
+
+Добавить секцию в начало файла:
 
 ```markdown
-## [0.4.0] - YYYY-MM-DD
+## [vX.Y.Z] — YYYY-MM-DD
+
 ### Added
 - ...
-### Changed
-- ...
+
 ### Fixed
 - ...
+
+### Changed
+- ...
 ```
 
-### 3. Commit
+### 3. Обновить VERSION
 
 ```bash
+echo "vX.Y.Z" > VERSION
 git add VERSION CHANGELOG.md
-git commit -m "chore: release v0.4.0"
+git commit -m "chore: release vX.Y.Z"
 ```
 
-### 4. Tag
+### 4. Создать git tag
 
 ```bash
-git tag -a v0.4.0 -m "Release v0.4.0"
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
 git push upstream main --tags
 ```
 
 ### 5. GitHub Release
 
-Go to **Releases → Draft a new release** → select tag → paste CHANGELOG section → publish.
+На странице репозитория: **Releases → Draft a new release**
 
-## Automated VERSION bump (optional)
+- Tag: `vX.Y.Z`
+- Title: `AI Combiner vX.Y.Z`
+- Body: скопировать секцию из CHANGELOG.md
 
-```bash
-# bump_version.sh — increment PATCH automatically
-current=$(cat VERSION)
-IFS='.' read -r maj min pat <<< "$current"
-new_pat=$((pat + 1))
-echo "$maj.$min.$new_pat" > VERSION
-echo "Bumped: $current → $maj.$min.$new_pat"
+## Автоматизация VERSION (опционально)
+
+Для автоматического обновления VERSION при теге можно добавить workflow:
+
+```yaml
+# .github/workflows/release.yml
+name: Release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update VERSION file
+        run: echo "${GITHUB_REF_NAME}" > VERSION
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: CHANGELOG.md
 ```
 
-## Branch Strategy
+## Ветки и PR
 
-```
-main          ← stable, protected
-dev           ← integration branch (optional)
-feature/*     ← feature branches
-fix/*         ← bugfix branches
-```
+- Все изменения через PR в `main`
+- Ветки именовать: `feat/`, `fix/`, `docs/`, `chore/`
+- Squash merge для чистоты истории
 
-All PRs target `main`. Direct pushes to `main` are restricted (configure in Settings → Branches).
+## Labels для Issues/PR
+
+| Label | Описание |
+|---|---|
+| `good first issue` | Подходит для новичков |
+| `bug` | Баг |
+| `enhancement` | Новая фича |
+| `help wanted` | Нужна помощь |
+| `documentation` | Только документация |
+| `security` | Связано с безопасностью |

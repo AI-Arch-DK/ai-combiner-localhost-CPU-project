@@ -1,5 +1,6 @@
 # Pre-commit hooks for AI Combiner
 # Install: pip install pre-commit && pre-commit install
+# Run all: pre-commit run --all-files
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -12,6 +13,17 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
 
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: |
+          (?x)^(
+            .secrets.baseline|
+            CHANGELOG.md
+          )$
+
   - repo: https://github.com/sqlfluff/sqlfluff
     rev: 3.1.0
     hooks:
@@ -22,4 +34,4 @@ repos:
     rev: v0.41.0
     hooks:
       - id: markdownlint
-        args: ['--ignore', 'CHANGELOG.md']
+        args: ['--ignore', 'CHANGELOG.md', '--config', '.markdownlint.json']

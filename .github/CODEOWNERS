@@ -1,0 +1,21 @@
+# CODEOWNERS — AI Combiner
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# Note: CODEOWNERS must live in .github/, docs/, or root. This file is in .github/.
+
+# Default owner for everything
+* @AI-Arch-DK
+
+# Documentation
+/docs/ @AI-Arch-DK
+
+# DB schemas and seed data
+/db/ @AI-Arch-DK
+
+# CI/CD workflows
+/.github/workflows/ @AI-Arch-DK
+
+# Scripts
+/scripts/ @AI-Arch-DK
+
+# Skills
+/skills/ @AI-Arch-DK
