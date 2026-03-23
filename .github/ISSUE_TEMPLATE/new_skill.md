@@ -1,29 +1,31 @@
 ---
-name: "🧠 Новый скилл"
-about: "Добавить новый SKILL.md"
+name: "➕ New Skill"
+about: "Propose a new Claude Desktop skill"
 labels: ["enhancement", "skill"]
 ---
 
-## Название скилла
+## Skill Name
 
-## Триггеры (когда активировать)
+## Trigger Phrases
 
-## Исключения (не активировать при)
+Keywords or phrases that should activate this skill:
 
-- "инфо о себе"
-- "проверь ресурсы"
-- (+ свои исключения)
+## Do NOT Activate When
 
-## Описание (что делает скилл)
+- "about yourself", "check resources"
+- (add any other exclusions)
 
-## Пример SKILL.md заголовка
+## Example SKILL.md Header
 
 ```yaml
 ---
-name: skill-name
+name: my-skill
 description: |
-  НЕ активировать при: "инфо о себе", "проверь ресурсы".
-  Использовать ТОЛЬКО когда пользователь упоминает: <триггеры>.
+  Do NOT activate when: "about yourself", "check resources".
+  Use ONLY when the user mentions: <triggers>.
 ---
+```
 
-```text
+## Notes
+
+Any additional context, edge cases, or integration points.

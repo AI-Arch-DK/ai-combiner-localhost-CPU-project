@@ -1,151 +1,141 @@
 # Contributing to AI Combiner
 
-Спасибо за интерес к проекту! Это руководство поможет тебе внести вклад правильно.
+Thanks for your interest in the project! This guide will help you contribute the right way.
 
-## Кодекс поведения
+## Code of Conduct
 
-Участвуя в проекте, ты соглашаешься соблюдать [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md).
+By participating, you agree to follow the [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md).
 
-## Быстрый старт для контрибьюторов
+## Quick Start
 
 ```bash
-# 1. Fork репозитория на GitHub
+# 1. Fork the repository on GitHub
 
-# 2. Клонировать свой fork
-
+# 2. Clone your fork
 git clone git@github.com:<your-username>/ai-combiner-localhost-CPU-project.git
 cd ai-combiner-localhost-CPU-project
 
-# 3. Добавить upstream
-
+# 3. Add upstream
 git remote add upstream git@github.com:AI-Arch-DK/ai-combiner-localhost-CPU-project.git
 
-# 4. Установить pre-commit
-
+# 4. Install pre-commit
 pip install pre-commit
 pre-commit install
 
-# 5. Создать ветку для изменений
-
+# 5. Create a feature branch
 git checkout -b feature/my-feature
+```
+
+## Project Structure
 
 ```text
+scripts/        — shell scripts (init, health, backup, cleanup)
+db/schemas/     — SQL database schemas
+db/data/        — seed data (qwen_tasks, parallel_config)
+docs/           — documentation
+config/         — ollama config, systemd services
+skills/         — SKILL.md files for Claude Desktop
+.github/        — CI/CD, issue/PR templates
+```
 
-## Структура проекта
+## Types of Contributions
 
-```text
-scripts/        — shell-скрипты (init, health, backup, cleanup)
-db/schemas/     — SQL схемы баз данных
-db/data/        — seed-данные (qwen_tasks, parallel_config)
-docs/           — документация
-config/         — конфиги ollama, systemd-сервисы
-skills/         — SKILL.md файлы для Claude Desktop
-.github/        — CI/CD, issue/PR шаблоны
-
-```text
-
-## Типы вкладов
-
-### Добавить новый qwen_task
+### Add a new qwen_task
 
 ```sql
--- db/data/qwen_tasks.json или routing.db
+-- db/data/qwen_tasks.json or routing.db
 INSERT INTO qwen_tasks VALUES (
   'qt_NNN',
-  'триггер1,триггер2,keyword',
+  'trigger1,trigger2,keyword',
   'category_name',
   'Short prompt for qwen. Max 50 words. Output only.',
-  200, 1, 'Описание задачи', 0, 1, 60
+  200, 1, 'Task description', 0, 1, 60
 );
+```
 
-```text
+**Prompt rules:**
 
-**Правила промпта:**
-- Максимум 50 слов
-- Заканчивать: `Output X only.`
-- Не использовать личные данные
-- Указывать язык вывода: `in Russian` / `in English`
+- Maximum 50 words
+- End with: `Output X only.`
+- No personal or sensitive data
+- Specify output language: `in English`
 
-### Добавить стратегию parallel_config
+### Add a parallel_config strategy
 
 ```sql
 INSERT INTO parallel_config VALUES (
   'pc_NNN', 'task_category',
-  1, 0, 0, 1, 30, 'qwen_with_context', 'Описание'
+  1, 0, 0, 1, 30, 'qwen_with_context', 'Description'
 );
+```
 
-```text
+### Add a new skill
 
-### Добавить новый скилл
+1. Create `skills/<skill-name>/SKILL.md`
 
-1. Создать `skills/<skill-name>/SKILL.md`
-2. Формат файла:
+2. File format:
 
 ```yaml
 ---
 name: my-skill
 description: |
-  НЕ активировать при: "инфо о себе", "проверь ресурсы".
-  Использовать ТОЛЬКО когда пользователь упоминает: <триггеры>.
+  Do NOT activate when: "about yourself", "check resources".
+  Use ONLY when the user mentions: <triggers>.
 ---
 # My Skill
-
 ...
+```
 
-```text
-
-3. Скопировать в актуальную сессию Claude Desktop:
+3. Copy into the active Claude Desktop session:
 
 ```text
 $HOME/.config/Claude/local-agent-mode-sessions/skills-plugin/<UUID>/<SESSION>/skills/
+```
 
-```text
+4. Restart Claude Desktop
 
-4. Перезапустить Claude Desktop
+## Pre-commit Hooks
 
-## Pre-commit хуки
+After running `pre-commit install`, every commit is automatically checked for:
 
-После `pre-commit install` при каждом коммите автоматически проверяются:
+- Trailing whitespace and missing end-of-file newlines
+- YAML and JSON syntax errors
+- Merge conflict markers
+- Private key detection
+- Secret detection (detect-secrets baseline)
+- Markdown lint (markdownlint)
 
-- trailing whitespace, end-of-file-fixer
-- check-yaml, check-json
-- detect-private-key ← **защита от случайного коммита секретов**
-- sqlfluff lint (SQL файлы)
-- markdownlint (MD файлы)
-
-Запустить вручную:
+Run manually at any time:
 
 ```bash
 pre-commit run --all-files
+```
 
-```text
+## Security Rules Before Push
 
-## Правила безопасности перед push
-
-Обязательная проверка (или запусти `pre-commit run --all-files`):
+Run the check below, or just let `pre-commit run --all-files` handle it:
 
 ```bash
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}|password=|api.key" \
   --include="*.sh" --include="*.json" --include="*.md" --include="*.sql" . \
-  && echo "❌ НАЙДЕНЫ СЕКРЕТЫ" || echo "✅ Чисто"
+  && echo "❌ SECRETS FOUND" || echo "✅ Clean"
+```
 
-```text
+See also: `docs/SECURITY_CHECKLIST.md`
 
-Подробнее: `docs/SECURITY_CHECKLIST.md`
+## PR Process
 
-## Процесс PR
+1. Ensure `pre-commit run --all-files` passes clean
+2. Ensure `scripts/health_check.sh` reports `STATUS: OK`
+3. Open a PR and fill in the template at `.github/pull_request_template.md`
+4. CI must pass (security_check + lint)
+5. Maintainer review within 7 days
 
-1. Убедись что `pre-commit run --all-files` проходит чисто
-2. Убедись что `scripts/health_check.sh` показывает `STATUS: OK`
-3. Открой PR — заполни шаблон `.github/pull_request_template.md`
-4. CI должен пройти (security_check + ci lint)
-5. Ревью от maintainer в течение 7 дней
+## Release Process
 
-## Процесс релиза
+See [docs/RELEASE.md](RELEASE.md) for the full step-by-step process including tagging and CHANGELOG.
 
-См. [docs/RELEASE.md](RELEASE.md) — там полный пошаговый процесс с тегированием и CHANGELOG.
+## Questions
 
-## Вопросы
-
-Открой [GitHub Discussion](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/discussions)
-или создай issue с лейблом `question`.
+Open a [GitHub Discussion](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/discussions)
+or create an issue with the `question` label.

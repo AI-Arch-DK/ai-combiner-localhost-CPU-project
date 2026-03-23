@@ -1,25 +1,25 @@
-## Тип изменений
+## Type of Change
 
-- [ ] feat: новая функция
-- [ ] fix: исправление ошибки
-- [ ] docs: документация
-- [ ] refactor: рефакторинг
-- [ ] security: безопасность
+- [ ] feat: new feature
+- [ ] fix: bug fix
+- [ ] docs: documentation
+- [ ] refactor: code refactor
+- [ ] security: security improvement
 
-## Описание
+## Description
 
-<!-- Что изменено и зачем? -->
+<!-- What changed and why? -->
 
-## Связанные Issues
+## Related Issues
 
-Закрывает #
+Closes #
 
-## Чеклист
+## Checklist
 
-- [ ] Security check пройден (`grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" .`)
-- [ ] Нет `.db` файлов в PR
-- [ ] Нет `claude_desktop_config.json` в PR
-- [ ] Скрипты протестированы локально
-- [ ] `health_check.sh` показывает `STATUS: OK`
-- [ ] `pre-commit run --all-files` прошёл без ошибок
-- [ ] CHANGELOG.md обновлён (для feat/fix)
+- [ ] Security check passed (`grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" .`)
+- [ ] No `.db` files included in PR
+- [ ] No `claude_desktop_config.json` included in PR
+- [ ] Scripts tested locally
+- [ ] `health_check.sh` reports `STATUS: OK`
+- [ ] `pre-commit run --all-files` passes clean
+- [ ] CHANGELOG.md updated (for feat/fix)

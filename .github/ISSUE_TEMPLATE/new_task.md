@@ -1,18 +1,18 @@
 ---
-name: "➕ Новый qwen_task"
-about: "Добавить новую задачу в routing.db"
+name: "➕ New qwen_task"
+about: "Add a new task to routing.db"
 labels: ["enhancement", "routing"]
 ---
 
-## Триггеры
+## Triggers
 
-Команды/фразы для распознавания:
+Keywords / phrases for recognition:
 
 ```text
-триггер 1, триггер 2
+trigger1, trigger2
 ```
 
-## Категория
+## Category
 
 - [ ] system_check
 - [ ] network_config
@@ -20,9 +20,10 @@ labels: ["enhancement", "routing"]
 - [ ] code_bash / code_sql
 - [ ] translate / summarize
 - [ ] fact_check / validate_config
-- [ ] Другая: ___
+- [ ] git_ops / git_check
+- [ ] Other: ___
 
-## Промпт (max 50 слов)
+## Prompt (max 50 words)
 
 ```text
 ...
@@ -30,7 +31,7 @@ labels: ["enhancement", "routing"]
 
 ## max_tokens
 
-## Стратегия из parallel_config
+## Strategy from parallel_config
 
 - [ ] qwen_only
 - [ ] parallel
