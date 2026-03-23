@@ -4,7 +4,7 @@
 
 | Name | GitHub | Area |
 |---|---|---|
-| AI-Arch-DK | [@AI-Arch-DK](https://github.com/AI-Arch-DK) | All components |
+| Dmitry K | [@AI-Arch-DK](https://github.com/AI-Arch-DK) | All components |
 
 ## Component Ownership
 
