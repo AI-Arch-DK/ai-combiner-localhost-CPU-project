@@ -102,7 +102,7 @@
 | tools_seed.json | 8 инструментов MCP |
 | token_budget_seed.json | 4 аккаунта + стратегия local_first |
 | model_performance_seed.json | 10 замеров производительности |
-| compliance_checklist.json | 14 пунктов, 12/14 выполнено |
+| compliance_checklist.json | 14 пунктов, 14/14 выполнено |
 
 ---
 
