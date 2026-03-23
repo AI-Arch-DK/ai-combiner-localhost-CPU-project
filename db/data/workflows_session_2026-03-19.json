@@ -1,6 +1,6 @@
 [
-  {"workflow_id":"wf_github_security_push","task_type":"security","name":"GitHub security check + push","description":"Пႈовеႈка чеႈез qt_023/024 пеႈед отпႈавкой на GitHub.","steps":[{"step":1,"action":"qwen_dispatch","task":"qt_023"},{"step":2,"action":"shell","cmd":"grep -rE tvly-|github_pat"},{"step":3,"action":"github","cmd":"push_files"}]},
-  {"workflow_id":"wf_full_session_start","task_type":"system_check","name":"полный стаႈт сессии","description":"check_resources + health_check + cleanup.","steps":[{"step":1,"action":"shell","cmd":"/ai/scripts/check_resources.sh"},{"step":2,"action":"shell","cmd":"/ai/scripts/cleanup_sessions.sh"}]},
-  {"workflow_id":"wf_db_github_sync","task_type":"documentation","name":"синхႈонизация БД → GitHub","description":"Экспоႈт данных в JSON → push на GitHub."},
-  {"workflow_id":"wf_night_learning_setup","task_type":"automation","name":"настႈойка ночного обучения","description":"cron 02:00 night_learning.sh + cron 03:00 verify."}
+  {"workflow_id":"wf_github_security_push","task_type":"security","name":"GitHub security check + push","description":"Проверка через qt_023/024 перед отправкой на GitHub.","steps":[{"step":1,"action":"qwen_dispatch","task":"qt_023"},{"step":2,"action":"shell","cmd":"grep -rE tvly-|github_pat"},{"step":3,"action":"github","cmd":"push_files"}]},
+  {"workflow_id":"wf_full_session_start","task_type":"system_check","name":"полный старт сессии","description":"check_resources + health_check + cleanup.","steps":[{"step":1,"action":"shell","cmd":"/ai/scripts/check_resources.sh"},{"step":2,"action":"shell","cmd":"/ai/scripts/cleanup_sessions.sh"}]},
+  {"workflow_id":"wf_db_github_sync","task_type":"documentation","name":"синхронизация БД → GitHub","description":"Экспорт данных в JSON → push на GitHub."},
+  {"workflow_id":"wf_night_learning_setup","task_type":"automation","name":"настройка ночного обучения","description":"cron 02:00 night_learning.sh + cron 03:00 verify."}
 ]

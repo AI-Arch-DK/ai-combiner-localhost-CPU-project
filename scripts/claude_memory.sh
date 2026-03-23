@@ -2,8 +2,8 @@
 # claude_memory.sh — механизм вызова памяти Claude
 # claude_memory.sh index          → краткий индекс (дёшево, 1 SQL)
 # claude_memory.sh session        → действия текущей сессии
-# claude_memory.sh full [CAT]     → полный контент по категоႈии
-# claude_memory.sh get mem_NNN   → конкႈетная запись
+# claude_memory.sh full [CAT]     → полный контент по категории
+# claude_memory.sh get mem_NNN   → конкретная запись
 # claude_memory.sh search СЛОВО  → поиск
 # claude_memory.sh stats          → статистика
 # claude_memory.sh add CAT TITLE CONTENT  → добавить запись
@@ -69,7 +69,7 @@ case "$CMD" in
     echo "  index           → краткий индекс (0 токенов Claude)"
     echo "  session         → только текущая сессия"
     echo "  full [CATEGORY] → полный контент (DB/SCRIPT/GITHUB/PATTERN/FIX/COMMAND/WORKFLOW/SKILL)"
-    echo "  get mem_NNN     → конкႈетная запись"
+    echo "  get mem_NNN     → конкретная запись"
     echo "  search СЛОВО    → поиск по тегам/заголовкам/контенту"
     echo "  stats           → статистика БД"
     echo "  add CAT TITLE CONTENT → добавить запись"

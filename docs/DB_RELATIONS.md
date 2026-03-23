@@ -39,7 +39,7 @@
 ## Порядок инициализации
 
 ```bash
-# Правильный поႈядок загႈузки seed данных:
+# Правильный порядок загрузки seed данных:
 # 1. routing.db: qwen_tasks → parallel_config
 # 2. models.db: models → model_performance
 # 3. tokens.db: token_accounts → token_usage (optional)

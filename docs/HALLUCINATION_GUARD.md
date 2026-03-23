@@ -31,7 +31,7 @@
 | Несуществующие команды/IP | qwen_cancel |
 | Отвечает не на том языке | qwen_cancel |
 
-## confidence_score() — реализация по категоႈиям
+## confidence_score() — реализация по категориям
 
 ```python
 import re

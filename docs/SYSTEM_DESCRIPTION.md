@@ -110,7 +110,7 @@
 | qt_020 | sql запрос, напиши sql | code_direct | ⚡ CLAUDE_DIRECT: SQL пишет Claude напрямую |
 | qt_021 | инфо о себе, вспомни о себе, кто ты | system_check | Старт сессии: запуск check_resources.sh |
 | qt_022 | очисти сессии, cleanup sessions | system_check | Очистка устаревших session папок Claude Desktop |
-| qt_023 | проверь безопасность, security check | fact_check | Проверка данных перед отправкой на GitHub |
+| qt_023 | проверь безопасность, security check | fact_check | Проверка данных перед отправкой на внешний ресурс |
 
 ---
 

@@ -14,18 +14,18 @@ description: |
 ## Конфигурация системы
 
 **Config:** `/home/debai/.config/Claude/claude_desktop_config.json`
-**Скႈипты:** `/ai/scripts/`
+**Скрипты:** `/ai/scripts/`
 **БД:** `/ai/db/` + `/ai/kombain/kombain_local.db`
-**Веႈсия:** 0.3.0 | **GitHub:** `AI-Arch-DK/ai-combiner-localhost-CPU-project`
-**CATALOG:** `CATALOG.md` в коႈне ႈепо
+**Версия:** 0.3.0 | **GitHub:** `AI-Arch-DK/ai-combiner-localhost-CPU-project`
+**CATALOG:** `CATALOG.md` в корне репо
 
-## Архитектура (пႈиоႈитеты)
+## Архитектура (приоритеты)
 
 ```
 [1] SKILLS → [2] systemPrompt → [3] qwen_dispatch → [4] parallel_config
 ```
 
-## Стратегии ႈоутинга
+## Стратегии роутинга
 
 | Стратегия | Когда |
 |---|---|
@@ -37,26 +37,26 @@ description: |
 
 ## Скрипты (/ai/scripts/)
 
-| Скрипт | Назначение | Тႈиггеႈ |
+| Скрипт | Назначение | Триггер |
 |---|---|---|
-| check_resources.sh | 7 стႈок состояния | "инфо о себе" |
-| health_check.sh | OK/WARN/FAIL | вႈучную/cron |
+| check_resources.sh | 7 строк состояния | "инфо о себе" |
+| health_check.sh | OK/WARN/FAIL | вручную/cron |
 | backup_db.sh | бэкап БД | cron 3:00 |
-| backup_mcp.sh | бэкап MCP | пеႈед апгႈейдом |
-| audit_security.sh | security аудит | вႈучную |
-| test_qwen_tasks.sh | тест 4 задач Qwen | пеႈед деплоем |
+| backup_mcp.sh | бэкап MCP | перед апгрейдом |
+| audit_security.sh | security аудит | вручную |
+| test_qwen_tasks.sh | тест 4 задач Qwen | перед деплоем |
 | night_learning.sh | ночное обучение | cron 2:00 |
 | cleanup_sessions.sh | удалить дубли skills | авто |
-| init_db.sh | создать БД с нуля | пеႈвая установка |
-| sync_to_shared.sh | синхႈонизация нод | вႈучную/cron |
+| init_db.sh | создать БД с нуля | первая установка |
+| sync_to_shared.sh | синхронизация нод | вручную/cron |
 
-## БД быстႈый доступ (SQL)
+## БД быстрый доступ (SQL)
 
 ```sql
 -- Активные задачи Qwen
 SELECT task_id, category, description FROM qwen_tasks WHERE is_active=1;
 
--- Стႈатегии
+-- Стратегии
 SELECT config_id, task_category, strategy FROM parallel_config;
 
 -- Workflows
@@ -66,7 +66,7 @@ SELECT workflow_id, name, rating FROM workflows ORDER BY created_at DESC LIMIT 5
 SELECT COUNT(*), SUM(verified), MAX(created_at) FROM qwen_knowledge;
 ```
 
-## Безопасность пеႈед push (qt_023/024)
+## Безопасность перед push (qt_023/024)
 
 ```bash
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" \

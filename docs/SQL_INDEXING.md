@@ -47,7 +47,7 @@ WHERE qwen_tasks_fts MATCH 'mikrotik OR ospf'
 ORDER BY rank;
 ```
 
-## Монитоႈинг производительности
+## Мониторинг производительности
 
 ```sql
 -- Анализ плана запроса
