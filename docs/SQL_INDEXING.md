@@ -3,6 +3,7 @@
 ## Текущие индексы
 
 ### routing.db
+
 ```sql
 CREATE INDEX idx_qt_category ON qwen_tasks(category);
 CREATE VIRTUAL TABLE qwen_tasks_fts USING fts5(
@@ -11,6 +12,7 @@ CREATE VIRTUAL TABLE qwen_tasks_fts USING fts5(
 ```
 
 ### project.db
+
 ```sql
 CREATE INDEX idx_roadmap_phase   ON roadmap(phase);
 CREATE INDEX idx_roadmap_status  ON roadmap(status);
@@ -22,6 +24,7 @@ CREATE VIRTUAL TABLE project_fts USING fts5(
 ```
 
 ### network.db
+
 ```sql
 CREATE INDEX idx_tpl_vendor   ON templates(vendor);
 CREATE INDEX idx_tpl_protocol ON templates(protocol);
