@@ -8,6 +8,7 @@ on:
 
 jobs:
   check-secrets:
+    name: Secret Detection
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,6 +34,58 @@ jobs:
             if grep -q "$pattern" .gitignore; then
               echo "  ✅ $pattern"
             else
-              echo "  ⚠️  $pattern не в .gitignore"
+              echo "  ⚠️  $pattern not in .gitignore"
             fi
           done
+
+  lint-sql:
+    name: SQL Lint (sqlfluff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install sqlfluff
+        run: pip install sqlfluff
+      - name: Lint SQL files
+        run: |
+          SQL_FILES=$(find . -name "*.sql" ! -path "./.git/*")
+          if [ -z "$SQL_FILES" ]; then
+            echo "No SQL files found, skipping."
+          else
+            echo "$SQL_FILES" | xargs sqlfluff lint --dialect ansi
+          fi
+
+  lint-json:
+    name: JSON Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install jsonlint
+        run: npm install -g jsonlint
+      - name: Lint JSON files
+        run: |
+          find . -name "*.json" ! -path "./.git/*" ! -path "./node_modules/*" \
+            | xargs -r jsonlint -q && echo "✅ All JSON valid"
+
+  lint-markdown:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+      - name: Lint Markdown files
+        run: |
+          markdownlint '**/*.md' \
+            --ignore node_modules \
+            --ignore '.git' \
+            --ignore 'CHANGELOG.md' \
+            --config .markdownlint.json
