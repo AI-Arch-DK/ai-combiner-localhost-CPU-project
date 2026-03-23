@@ -1,32 +1,32 @@
-# Network Templates — FAQ кэш (network.db)
+# Network Templates — FAQ Cache (network.db)
 
-Темы предвычисленных ответов в `network.db/templates`. Генерируются через `qwen-bg` / `hf+qwen` и кэшируются.
+Pre-computed answer topics stored in `network.db/templates`. Generated via `qwen-bg` / `hf+qwen` and cached.
 
 ## MikroTik
 
-| Тема | ID |
+| Topic | ID |
 |---|---|
-| OSPF настройка | `faq_mikrotik_ospf` |
-| BGP настройка | `faq_mikrotik_bgp` |
-| IP Cloud / удалённый доступ без IP | `faq_mikrotik_cloud` |
-| VLAN настройка | `faq_mikrotik_vlan` |
+| OSPF setup | `faq_mikrotik_ospf` |
+| BGP setup | `faq_mikrotik_bgp` |
+| IP Cloud / remote access without static IP | `faq_mikrotik_cloud` |
+| VLAN setup | `faq_mikrotik_vlan` |
 
-## cisco
+## Cisco
 
-| Тема | ID |
+| Topic | ID |
 |---|---|
-| L2T2 через Entware + xkeen | `faq_cisco_xkeen` |
-| WireGuard настройка | `faq_cisco_wg` |
+| L2TP via Entware + xkeen | `faq_cisco_xkeen` |
+| WireGuard setup | `faq_cisco_wg` |
 
-## VPN / Туннели
+## VPN / Tunnels
 
-| Тема | ID |
+| Topic | ID |
 |---|---|
-| L2TP Reality настройка | `faq_L2TP_reality` |
+| L2TP Reality setup | `faq_L2TP_reality` |
 
-## sales (sales_manager-node)
+## Security Research (sales_manager-node)
 
-| Тема | ID |
+| Topic | ID |
 |---|---|
 | Network reconnaissance | `faq_sales_network_recon` |
 | Lateral movement | `faq_sales_lateral_movement` |
@@ -37,18 +37,18 @@
 | SMTP auth bypass | `faq_sales_smtp_auth_bypass` |
 | AiTM phishing | `faq_sales_aitm_phishing` |
 | Email recon | `faq_sales_email_recon` |
-| Vuln assessment | `faq_sales_vuln_assessment` |
+| Vulnerability assessment | `faq_sales_vuln_assessment` |
 | POP3 attacks | `faq_sales_pop3_attacks` |
 | SMTP relay | `faq_sales_smtp_relay` |
 
-## Как добавить новый шаблон
+## Adding a New Template
 
 ```sql
 INSERT INTO templates VALUES (
   'faq_NAME', 'FAQ: faq_NAME',
-  'qwen-bg', 'faq', 'Описание',
-  'Текст ответа',
-  'тег: тег',
+  'qwen-bg', 'faq', 'Description',
+  'Answer text',
+  'tag: tag',
   CURRENT_TIMESTAMP
 );
 ```

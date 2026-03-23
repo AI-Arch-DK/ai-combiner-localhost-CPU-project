@@ -1,15 +1,15 @@
 # Config
 
-| Файл | Назначение |
+| File | Purpose |
 |---|---|
-| `ollama_model.md` | Параметры модели qwen2.5:7b + железо + производительность |
-| `ai-check-resources.service` | systemd user service — автозапуск check_resources при логине |
+| `ollama_model.md` | qwen2.5:7b model parameters, hardware specs, performance benchmarks |
+| `ai-check-resources.service` | systemd user service — auto-runs check_resources on login |
 
-## Файлы НЕ в репо (содержат секреты)
+## Files NOT in the repository (contain secrets)
 
-| Файл | Причина |
+| File | Reason |
 |---|---|
-| `~/.config/Claude/claude_desktop_config.json` | API ключи всех MCP серверов |
-| `~/.config/Claude/config.env` | Переменные окружения с токенами |
+| `~/.config/Claude/claude_desktop_config.json` | API keys for all MCP servers |
+| `~/.config/Claude/config.env` | Environment variables with tokens |
 
-См. `.gitignore` и `docs/SECURITY_CHECKLIST.md`.
+See `.gitignore` and `docs/SECURITY_CHECKLIST.md`.
