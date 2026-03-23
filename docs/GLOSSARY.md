@@ -12,9 +12,9 @@
 | **SKILL.md** | Файл скилла. Перехватывает запросы до systemPrompt |
 | **skills-plugin** | Папка скиллов в `local-agent-mode-sessions` |
 | **systemPrompt** | Главный промпт Claude. В `claude_desktop_config.json` |
-| **kombain_local.db** | Локальная БД ноды (workflows, results, knowledge) |
+| **kombain_local.db** | Локальная БД nodes (workflows, results, knowledge) |
 | **kombain_shared.db** | Общая БД нод через sync_log |
-| **sync_log** | Таблица синхронизации между nodeми |
+| **sync_log** | Таблица синхронизации между nodes |
 | **Office_MAIN** | Будущая центральная node офисного AI-комбайна |
 | **debai-node** | Текущая рабочая node (localhost CPU, Debian) |
 | **sales_manager-node** | Security/sales node |

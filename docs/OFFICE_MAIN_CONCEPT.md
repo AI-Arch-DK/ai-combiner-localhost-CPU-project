@@ -14,14 +14,14 @@
                            |
               ┌─────────────┬───────────┐
               │            │           │
-    [debai-node]   [sales_manager-node]  [другие-ноды]
+    [debai-node]   [sales_manager-node]  [другие-nodes]
     localhost CPU   security       ...
     текущая      sales
     kombain         kombain
     _local.db       _local.db
 ```
 
-## Ноды
+## Nodes
 
 | node | Роль | Статус |
 |---|---|---|

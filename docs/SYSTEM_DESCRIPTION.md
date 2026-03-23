@@ -60,9 +60,9 @@
 
 | БД | Путь | Назначение |
 |---|---|---|
-| kombain_shared.db | `/ai/external/sales_manager/kombain_shared.db` | Общая БД для будущего **Office_MAIN-ноды** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debai) и sales_manager-нодой. |
+| kombain_shared.db | `/ai/external/sales_manager/kombain_shared.db` | Общая БД для будущего **Office_MAIN-nodes** — центрального узла офисного AI-комбайна. Сейчас доступна как shared-ресурс между localhost-нодой (debai) и sales_manager-нодой. |
 
-> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными nodeми (sales_manager, debai и др.). `kombain_shared.db` — точка синхронизации между nodeми.
+> **Office_MAIN** — концепция большого офисного AI-комбайна с центральной нодой (Office_MAIN) и периферийными nodes (sales_manager, debai и др.). `kombain_shared.db` — точка синхронизации между nodes.
 
 ---
 
@@ -129,7 +129,7 @@
             /ai/external/sales_manager/kombain_shared.db
 ```
 
-Все ноды синхронизируются через `kombain_shared.db`. Office_MAIN выступает как главный дирижёр всей сети.
+Все nodes синхронизируются через `kombain_shared.db`. Office_MAIN выступает как главный дирижёр всей сети.
 
 ---
 
