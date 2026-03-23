@@ -15,7 +15,7 @@
 | `pdf` | публичный | .pdf, PDF form, fill PDF | Работа с PDF файлами |
 | `pptx` | публичный | deck, slides, presentation | Создание слайдов |
 | `xlsx` | публичный | spreadsheet, .xlsx, Excel | Работа с таблицами |
-| `product-consultant` | user experience | project manager , Sales team,product manager, system sales | personal sales consultant | system administrator
+| `product-consultant` | user experience | project manager , Sales team,product manager, system sales | personal sales consultant |
 | `mcp-builder` | публичный | MCP server, FastMCP, mcp tool | Построение MCP серверов |
 | `skill-creator` | публичный | create skill, skill eval | Создание/оптимизация скиллов |
 | `schedule` | публичный | schedule, планирование | Планирование задач |
