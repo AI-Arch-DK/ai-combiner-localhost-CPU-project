@@ -1,68 +1,60 @@
-# Claude Memory — персональная память Claude
+# Claude Memory — Persistent Session Memory
 
-## Архитектура
+## Architecture
 
 ```text
-Пользователь: "память" / "mem 009" / "что делал"
+User: "memory" / "mem 009" / "what did you do"
          │
          ▼
   qt_028 → bash /ai/scripts/claude_memory.sh index
          │
-         ├─ КРАТКО (индекс): claude_index → 1 SQL → ~20 строк
-         └─ ПОЛНО (по запросу): claude_memory WHERE key=mem_NNN
+         ├─ BRIEF (index): claude_index → 1 SQL query → ~20 lines
+         └─ FULL (on demand): claude_memory WHERE key=mem_NNN
+```
 
-```text
+## Three Tables in kombain_local.db
 
-## Три таблицы в kombain_local.db
-
-| Таблица | Содержимое | Токены |
+| Table | Contents | Tokens |
 |---|---|---|
-| `claude_index` | Категория + действие + объект + результат | минимальные |
-| `claude_memory` | Полный контент: код, SQL, описания | только по запросу |
-| `claude_triggers` | Слова-триггеры для вызова | не используются |
+| `claude_index` | Category + action + object + result | minimal |
+| `claude_memory` | Full content: code, SQL, descriptions | on-demand only |
+| `claude_triggers` | Trigger words for activation | not currently used |
 
-## Команды
+## Commands
 
 ```bash
-# Краткий индекс — 0 токенов Claude:
-
+# Brief index — 0 Claude tokens:
 bash /ai/scripts/claude_memory.sh index
 
-# Полный контент по категории:
-
+# Full content by category:
 bash /ai/scripts/claude_memory.sh full SCRIPT
 
-# Конкретная запись:
-
+# Specific record:
 bash /ai/scripts/claude_memory.sh get mem_009
 
-# Поиск:
-
+# Search:
 bash /ai/scripts/claude_memory.sh search curl
 
-# Добавить знание:
+# Add a knowledge entry:
+bash /ai/scripts/claude_memory.sh add FIX "title" "full content"
+```
 
-bash /ai/scripts/claude_memory.sh add FIX "заголовок" "полный контент"
+## Chat Triggers
 
-```text
-
-## Триггеры в чате
-
-| Фраза | Действие | Токены |
+| Phrase | Action | Tokens |
 |---|---|---|
-| `память` | краткий индекс | ~30 токенов вывода |
-| `mem 009` | полное содержание записи | ~100-300 токенов |
-| `покажи память SCRIPT` | все скрипты полностью | ~500+ токенов |
-| `найди в памяти curl` | поиск | ~50 токенов |
-| `запомни катег заголовок` | записать | 0 токенов |
+| `memory` | brief index | ~30 output tokens |
+| `mem 009` | full record content | ~100–300 tokens |
+| `show memory SCRIPT` | all scripts in full | ~500+ tokens |
+| `find in memory curl` | search | ~50 tokens |
+| `remember category title` | write entry | 0 tokens |
 
-## Категории
+## Categories
 
 `DB` `SCRIPT` `SKILL` `GITHUB` `WORKFLOW` `COMMAND` `PATTERN` `FIX`
 
-## Автоматический режим
+## Automatic Mode
 
-Концепция: при новом чате Claude сам не читает память автоматически — только после команды "память" или "mem NNN".
-Индекс — дёшево (один SQL-запрос). Полное содержание — только если нужно.
+Claude does not read memory automatically at session start — only when triggered by "memory" or "mem NNN". The index is cheap (one SQL query). Full content is fetched only when needed.
 
-v0.4.0: авто-запись по завершению каждого значимого действия (check_resources+result INSERT INTO claude_index).
+v0.4.0 plan: auto-write on completion of every significant action (check_resources + result INSERT INTO claude_index).

@@ -1,42 +1,41 @@
-# Security Checklist — перед каждым push на внешние ресурсы
+# Security Checklist — Before Every Push to External Resources
 
-## ❌ НИКОГДА не пушить
+## ❌ NEVER commit
 
-| Тип | Примеры |
+| Type | Examples |
 |---|---|
-| API ключи | `tvly-*`, `hf_*`, `sk-*` |
+| API keys | `tvly-*`, `hf_*`, `sk-*` |
 | GitHub PAT | `github_pat_*` |
-| HuggingFace токены | `hf_*` |
-| Пароли | любые строки `password=` |
-| `claude_desktop_config.json` | содержит все токены MCP |
-| `config.env` | переменные окружения |
-| Реальные `.db` файлы | содержат данные пользователя |
-| Пути `/home/debianAI/` | раскрывают имя пользователя |
+| HuggingFace tokens | `hf_*` |
+| Passwords | any string containing `password=` |
+| `claude_desktop_config.json` | contains all MCP tokens |
+| `config.env` | environment variables with secrets |
+| Real `.db` files | contain user data |
+| Hardcoded user paths | e.g. `/home/debianAI/` |
 
-## ✅ Что можно пушить
+## ✅ Safe to commit
 
-| Тип | Примеры |
+| Type | Examples |
 |---|---|
-| Скрипты без секретов | `check_resources.sh`, `cleanup_sessions.sh` |
-| SQL схемы | `routing_schema.sql` (без данных) |
-| Архитектурные доки | `architecture.md`, `README.md` |
-| Workflows JSON | без токенов и паролей |
-| `.gitignore` | всегда |
+| Scripts without secrets | `check_resources.sh`, `cleanup_sessions.sh` |
+| SQL schemas | `routing_schema.sql` (no data) |
+| Architecture docs | `architecture.md`, `README.md` |
+| Workflow JSON | without tokens or passwords |
+| `.gitignore` | always |
 
-## 🔍 Проверка перед push (команда)
+## 🔍 Pre-push verification command
 
 ```bash
-# Запусти перед каждым git push:
-
+# Run before every git push:
 grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}|password|api.key|secret" \
   --include="*.sh" --include="*.json" --include="*.md" --include="*.sql" \
-  . 2>/dev/null && echo "❌ НАЙДЕНЫ СЕКРЕТЫ" || echo "✅ Чисто"
+  . 2>/dev/null && echo "❌ SECRETS FOUND" || echo "✅ Clean"
+```
 
-```text
+## 🤖 Automated Check
 
-## 🤖 Автоматическая проверка
+Claude validates content via Qwen before every push:
 
-Claude проверяет данные через Qwen перед каждым push:
-1. Qwen сканирует контент на секреты
-2. При обнаружении — блокирует push
-3. Предлагает замену на `$ENV_VAR` плейсхолдеры
+1. Qwen scans content for secrets
+2. If detected — push is blocked
+3. Suggests replacing with `$ENV_VAR` placeholders
