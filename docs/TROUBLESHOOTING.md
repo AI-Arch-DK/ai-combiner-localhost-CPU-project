@@ -1,74 +1,68 @@
 # Troubleshooting — AI Combiner
 
-## Проблема: скилл перехватывает триггеры системных команд
+## Issue: skill intercepts system command triggers
 
-**Симптом:** "инфо о себе" → скилл `ib-consultant` читает профиль вместо `check_resources.sh`
+**Symptom:** "about yourself" → skill `ib-consultant` reads a profile instead of running `check_resources.sh`
 
-**Причина:** Скиллы работают до systemPrompt (приоритет №1).
+**Cause:** Skills run before the systemPrompt (priority #1).
 
-**Решение:** Добавить в `SKILL.md` перед `description`:
-
-```text
-НЕ активировать при: "инфо о себе", "проверь ресурсы", "вспомни о себе".
+**Fix:** Add the following to the top of the skill’s `SKILL.md` description:
 
 ```text
+Do NOT activate when: "about yourself", "check resources".
+```
 
 ---
 
-## Проблема: shell MCP возвращает `null` на `rm -rf`
+## Issue: shell MCP returns `null` on `rm -rf`
 
-**Причина:** shell MCP блокирует опасные команды.
+**Cause:** The shell MCP blocks destructive commands.
 
-**Решение:** Выполнять вручную в терминале от `debianAI`.
+**Fix:** Run the command manually in a terminal as `debianAI`.
 
 ---
 
-## Проблема: Ollama не отвечает
+## Issue: Ollama is not responding
 
 ```bash
-# Проверка
-
+# Check status
 curl http://localhost:11434/api/tags
 systemctl --user status ollama
 
-# Запуск
-
+# Start the service
 systemctl --user start ollama
-
-```text
+```
 
 ---
 
-## Проблема: qwen_dispatch возвращает `NO_MATCH`
+## Issue: qwen_dispatch returns `NO_MATCH`
 
-**Причина:** триггер не совпадает ни с одним записями `qwen_tasks`.
+**Cause:** The trigger does not match any record in `qwen_tasks`.
 
-**Решение:**
+**Fix:**
 
 ```sql
--- Добавить триггер к существующему таску:
-UPDATE qwen_tasks SET trigger = trigger || ',новый триггер'
+-- Add a trigger to an existing task:
+UPDATE qwen_tasks SET trigger = trigger || ',new trigger'
 WHERE task_id = 'qt_XXX';
-
-```text
+```
 
 ---
 
-## Проблема: старые skills-plugin папки накапливаются
+## Issue: stale skills-plugin folders accumulate
 
-**Решение:**
+**Fix:**
 
 ```bash
 /ai/scripts/cleanup_sessions.sh
-# или срабатывает автоматически при "инфо о себе"
-
-```text
+# Also runs automatically when you send "about yourself"
+```
 
 ---
 
-## Проблема: MCP сервер не подключается
+## Issue: MCP server fails to connect
 
-1. Проверь `claude_desktop_config.json` на ошибки JSON
-2. Проверь что `node` / `npx` / `uvx` доступны: `which node npx uvx`
-3. Перезапустить Claude Desktop
-4. Проверить логи: `~/.config/Claude/logs/`
+1. Validate `claude_desktop_config.json` for JSON syntax errors
+2. Confirm `node` / `npx` / `uvx` are on PATH: `which node npx uvx`
+3. Restart Claude Desktop
+4. Check logs: `~/.config/Claude/logs/`

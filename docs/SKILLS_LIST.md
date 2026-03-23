@@ -1,42 +1,42 @@
 # Skills List — AI Combiner
 
-Скиллы расположены в:
+Skills are located in:
 `~/.config/Claude/local-agent-mode-sessions/skills-plugin/<UUID>/<SESSION>/skills/`
 
-Текущая активная сессия: `1492d8b0-9be6-4a0c-9849-4678886b68d1`
+Current active session: `1492d8b0-9be6-4a0c-9849-4678886b68d1`
 
 ---
 
-## Скиллы (8 активных)
+## Active Skills (9)
 
-| Скилл | Тип | Триггер | Назначение |
+| Skill | Type | Trigger | Purpose |
 |---|---|---|---|
-| `docx` | публичный | Word doc, .docx, report, memo | Создание/редактирование Word документов |
-| `pdf` | публичный | .pdf, PDF form, fill PDF | Работа с PDF файлами |
-| `pptx` | публичный | deck, slides, presentation | Создание слайдов |
-| `xlsx` | публичный | spreadsheet, .xlsx, Excel | Работа с таблицами |
-| `product-consultant` | user experience | project manager , Sales team,product manager, system sales | personal sales consultant |
-| `mcp-builder` | публичный | MCP server, FastMCP, mcp tool | Построение MCP серверов |
-| `skill-creator` | публичный | create skill, skill eval | Создание/оптимизация скиллов |
-| `schedule` | публичный | schedule, планирование | Планирование задач |
+| `docx` | public | Word doc, .docx, report, memo | Create / edit Word documents |
+| `pdf` | public | .pdf, PDF form, fill PDF | Work with PDF files |
+| `pptx` | public | deck, slides, presentation | Create presentations |
+| `xlsx` | public | spreadsheet, .xlsx, Excel | Work with spreadsheets |
+| `product-consultant` | user experience | project manager, sales team, product manager | Personal sales consultant |
+| `mcp-builder` | public | MCP server, FastMCP, mcp tool | Build MCP servers |
+| `skill-creator` | public | create skill, skill eval | Create / optimize skills |
+| `schedule` | public | schedule, planning | Task scheduling |
+| `git-ops` | public | push, commit, sync repo, git tag, git status | Git workflow operations |
 
 ---
 
-## Правило приоритетов скиллов
+## Skill Priority Rule
 
-⚠️ Скиллы перехватывают запросы **до** systemPrompt. Обязательно указывайте в `SKILL.md`:
+⚠️ Skills intercept requests **before** the systemPrompt. Always include in `SKILL.md`:
 
 ```yaml
 description: |
-  НЕ активировать при: "инфо о себе", "проверь ресурсы", "вспомни о себе".
-  Использовать ТОЛЬКО когда пользователь упоминает: <триггеры>.
+  Do NOT activate when: "about yourself", "check resources".
+  Use ONLY when the user mentions: <triggers>.
 ```
 
-См. `docs/CONTRIBUTING.md` — подробная инструкция добавления скиллов.
+See `docs/CONTRIBUTING.md` for the full guide on adding skills.
 
 ---
 
-## Авточистка
+## Auto-cleanup
 
-`cleanup_sessions.sh` — оставляет только последнюю по дате папку `skills-plugin`,
-архивирует старые в `/tmp/sessions_archive/`.
+`cleanup_sessions.sh` keeps only the most recent `skills-plugin` folder and archives older ones to `/tmp/sessions_archive/`.

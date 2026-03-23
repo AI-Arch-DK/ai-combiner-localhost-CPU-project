@@ -1,18 +1,18 @@
 # MCP Setup Guide
 
-Инструкция по настройке MCP-серверов для AI Combiner.
-Конфиг: `~/.config/Claude/claude_desktop_config.json`
+How to configure MCP servers for AI Combiner.
+Config file: `~/.config/Claude/claude_desktop_config.json`
 
-> ⚠️ Файл конфига содержит API-ключи. Никогда не публиковать. Добавлен в `.gitignore`.
+> ⚠️ This file contains API keys. Never commit it. It is listed in `.gitignore`.
 
-## Требования
+## Requirements
 
-- Claude Desktop (установлен)
+- Claude Desktop (installed)
 - Node.js >= 18
-- Python >= 3.10 + `pip install uvx` или `pipx install uv`
-- Ollama (для локальной LLM)
+- Python >= 3.10 + `pip install uvx` or `pipx install uv`
+- Ollama (for local LLM)
 
-## Структура конфига
+## Config Structure
 
 ```json
 {
@@ -26,7 +26,7 @@
 }
 ```
 
-## Локальные MCP
+## Local MCP Servers
 
 ### filesystem
 
@@ -69,7 +69,7 @@
 }
 ```
 
-Установить Ollama:
+Install Ollama:
 
 ```bash
 curl -fsSL https://ollama.ai/install.sh | sh
@@ -95,18 +95,18 @@ ollama pull qwen2.5:7b-instruct-q4_K_M
 }
 ```
 
-## Облачные MCP (URL-based)
+## Cloud MCP Servers (URL-based)
 
-| Сервис | URL | Auth |
+| Service | URL | Auth |
 |---|---|---|
 | Miro | `https://mcp.miro.com` | Miro API token |
 | HuggingFace | `https://huggingface.co/mcp` | `HF_TOKEN` |
 | Google Calendar | `https://gcal.mcp.claude.com/mcp` | OAuth |
 | Gmail | `https://gmail.mcp.claude.com/mcp` | OAuth |
 | Clay | `https://api.clay.com/v3/mcp` | Clay API key |
-| Tavily | встроен в tavily-mcp | `TAVILY_API_KEY` |
+| Tavily | built into tavily-mcp | `TAVILY_API_KEY` |
 
-## GitHub (два аккаунта)
+## GitHub (two accounts)
 
 ```json
 "github-public": {
@@ -121,9 +121,9 @@ ollama pull qwen2.5:7b-instruct-q4_K_M
 }
 ```
 
-Права для PAT: `repo`, `read:org`, `read:user`
+Required PAT scopes: `repo`, `read:org`, `read:user`
 
-## Проверка работы MCP
+## Verifying MCP Servers
 
 ```bash
 # Ollama
@@ -135,23 +135,23 @@ sqlite3 /ai/db/routing.db "SELECT COUNT(*) FROM qwen_tasks;"
 # Filesystem
 ls /ai/db/
 
-# Health check (все компоненты)
+# Full health check
 bash scripts/health_check.sh
 ```
 
-## Порядок запуска
+## Startup Order
 
-1. Запустить Ollama: `systemctl --user start ollama`
-2. Запустить Claude Desktop
-3. Первое сообщение: **"инфо о себе"** → автоматический `check_resources.sh`
+1. Start Ollama: `systemctl --user start ollama`
+2. Launch Claude Desktop
+3. First message: **"about yourself"** → triggers `check_resources.sh` automatically
 
 ## Troubleshooting
 
-| Симптом | Решение |
+| Symptom | Fix |
 |---|---|
-| MCP не отвечает | Перезапустить Claude Desktop |
-| Ollama не стартует | `systemctl --user status ollama` → проверить логи |
-| sqlite ошибка пути | Проверить путь к `kombain_local.db` в конфиге |
-| `npx` not found | Установить Node.js, проверить PATH |
+| MCP not responding | Restart Claude Desktop |
+| Ollama won’t start | `systemctl --user status ollama` → check logs |
+| SQLite path error | Verify path to `kombain_local.db` in config |
+| `npx` not found | Install Node.js, check PATH |
 
-Подробнее: `docs/TROUBLESHOOTING.md`
+See also: `docs/TROUBLESHOOTING.md`

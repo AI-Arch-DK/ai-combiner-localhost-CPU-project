@@ -1,68 +1,59 @@
 # Deployment Strategy — AI Combiner
 
-## Окружения
+## Environments
 
-| Среда | Требования |
+| Parameter | Requirement |
 |---|---|
 | OS | Debian 12+ / Ubuntu 22.04+ |
-| CPU | x86_64, мин. 4 ядра |
-| RAM | мин. 8 GB (реком. 16 GB) |
-| Disk | мин. 20 GB свободно |
-| Сеть | интернет (для первой установки) |
+| CPU | x86_64, minimum 4 cores |
+| RAM | minimum 8 GB (16 GB recommended) |
+| Disk | minimum 20 GB free |
+| Network | internet access (required for initial setup) |
 
-## Процедура деплоя (Production)
+## Production Deployment
 
 ```text
-[1] Бэкап текущего состояния
+[1] Back up current state
     bash /ai/scripts/backup_db.sh
 
-[2] Пулл нового кода
-    cd /path/to/repo && git pull origin main
+[2] Pull new code
+    cd /path/to/repo && git pull upstream main
 
-[3] Обновление скриптов
+[3] Update scripts
     cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
 
-[4] Миграция БД (если есть изменения схем)
+[4] Migrate databases (if schema changes exist)
     sqlite3 /ai/db/routing.db < db/schemas/routing_db.sql
 
-[5] Перезапуск Claude Desktop
+[5] Restart Claude Desktop
 
-[6] Проверка
+[6] Verify
     bash /ai/scripts/health_check.sh
+```
 
-```text
-
-## Процедура Rollback
+## Rollback Procedure
 
 ```bash
-# 1. Найти последний бэкап
-
+# 1. Find the latest backup
 ls /ai/backup/ | sort | tail -3
 
-# 2. Восстановить БД
-
+# 2. Restore databases
 BACKUP="/ai/backup/20260319_030000"
 for db in routing project network tokens tools models; do
   cp "$BACKUP/$db.db" "/ai/db/$db.db"
 done
 
-# 3. Вернуться на предыдущий коммит
-
+# 3. Revert to a previous commit
 git checkout <previous-commit-sha> -- scripts/ db/schemas/
 
-# 4. Проверка
-
+# 4. Verify
 bash /ai/scripts/health_check.sh
+```
 
-```text
+## Database Versioning
 
-## Версионирование БД
-
-Перед каждым изменением схемы:
+Before any schema change:
 
 ```bash
-# Сохранить версию
-
 sqlite3 /ai/db/routing.db ".backup '/ai/backup/routing_pre_migration.db'"
-
-```text
+```
