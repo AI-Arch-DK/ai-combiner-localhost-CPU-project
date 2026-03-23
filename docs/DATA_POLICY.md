@@ -1,37 +1,37 @@
 # Data Policy — AI Combiner
 
-## Принципы
+## Principles
 
-1. **Local first** — все данные по возможности хранятся локально
-2. **Minimal external** — внешние API только при необходимости
-3. **No secrets in repo** — ключи никогда не пабликуются
-4. **Backup** — ежедневное резервное копирование БД
+1. **Local first** — all data is stored locally whenever possible
+2. **Minimal external** — external APIs are used only when necessary
+3. **No secrets in repo** — API keys are never committed
+4. **Backup** — daily automated database backups
 
-## Что хранится локально
+## What Is Stored Locally
 
-| Данные | Место |
+| Data | Location |
 |---|---|
-| БД проекта | `/ai/db/` |
-| Бэкапы | `/ai/backup/` |
-| Логи | `/ai/logs/` |
-| Конфиг MCP | `~/.config/Claude/claude_desktop_config.json` |
-| БД Shared | `/ai/external/sales_manager/kombain_shared.db` |
+| Project databases | `/ai/db/` |
+| Backups | `/ai/backup/` |
+| Logs | `/ai/logs/` |
+| MCP config | `~/.config/Claude/claude_desktop_config.json` |
+| Shared database | `/ai/external/sales_manager/kombain_shared.db` |
 
-## Что передаётся во внешние API
+## What Is Sent to External APIs
 
-| API | Что передаётся | Зачем |
+| API | What is sent | Why |
 |---|---|---|
-| Anthropic (Claude) | Текст запроса | Оркестрация |
-| Ollama (local) | Текст запроса | Генерация |
-| HuggingFace | Текст запроса | Доп. inference |
-| Tavily | Текст запроса | Поиск |
+| Anthropic (Claude) | Request text | Orchestration |
+| Ollama (local) | Request text | Inference |
+| HuggingFace | Request text | Additional inference |
+| Tavily | Request text | Web search |
 
-> Личные данные, пароли, IP никогда не передаются.
+> Personal data, passwords, and IP addresses are never transmitted.
 
-## Удаление данных
+## Data Retention
 
 ```bash
-# Логи хранятся MAX_AGE_DAYS=7 (rotate_logs.sh)
-# Бэкапы удаляются старше 7 дней (backup_db.sh)
-# Сессии архивируются в /tmp/sessions_archive/ (авто-удаление)
+# Logs: MAX_AGE_DAYS=7 (rotate_logs.sh)
+# Backups: removed after 7 days (backup_db.sh)
+# Sessions: archived to /tmp/sessions_archive/ (auto-removed)
 ```
