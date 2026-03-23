@@ -1,145 +1,147 @@
-# CATALOG — AI Combiner полный индекс репо
+# CATALOG — AI Combiner Repository Index
 
-> Быстрая навигация: найди нужный файл за 3 секунды.
-
----
-
-## 📦 Основные файлы
-
-| Файл | Зачем |
-|---|---|
-| [README.md](README.md) | Обзор, быстрый старт, железо, MCP |
-| [CHANGELOG.md](CHANGELOG.md) | История версий v0.1–v0.3 |
-| [VERSION](VERSION) | Текущая версия (0.3.0) |
-| [.gitignore](.gitignore) | Блокировка секретов и .db файлов |
+> Quick navigation: find any file in under 3 seconds.
 
 ---
 
-## 📖 docs/ — документация
+## 📦 Root Files
 
-### Архитектура
-
-| Файл | Зачем |
+| File | Purpose |
 |---|---|
-| [architecture.md](docs/architecture.md) | Приоритеты слоёв, логика оркестрации |
-| [routing_logic.md](docs/routing_logic.md) | ASCII схема + матрица 13 стратегий |
-| [DATA_FLOW.md](docs/DATA_FLOW.md) | Потоки данных, токены, запись в БД |
-| [SYSTEM_DESCRIPTION.md](docs/SYSTEM_DESCRIPTION.md) | Железо, все MCP, все БД, routing rules |
-| [OFFICE_MAIN_CONCEPT.md](docs/OFFICE_MAIN_CONCEPT.md) | Мульти-node, синх через kombain_shared.db |
-| [PERFORMANCE.md](docs/PERFORMANCE.md) | Замеры Qwen CPU, сравнение с Cerebras |
-
-### Настройка
-
-| Файл | Зачем |
-|---|---|
-| [MCP_SETUP.md](docs/MCP_SETUP.md) | Настройка 13 MCP серверов |
-| [SKILLS_LIST.md](docs/SKILLS_LIST.md) | 8 скиллов: триггеры, исключения, правила |
-| [CONTRIBUTING.md](docs/CONTRIBUTING.md) | Добавить qwen_task / скилл / стратегию |
-| [COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md) | Конвенция коммитов |
-
-### Референс
-
-| Файл | Зачем |
-|---|---|
-| [GLOSSARY.md](docs/GLOSSARY.md) | 25 терминов системы |
-| [FAQ.md](docs/FAQ.md) | 8 частых вопросов |
-| [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 5 частых проблем + решения |
-| [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | Шпаргалка: все команды в одном месте |
-| [NETWORK_TEMPLATES.md](docs/NETWORK_TEMPLATES.md) | 20 FAQ: MikroTik/cisco/sales |
-| [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) | Итоговый обзор проекта |
-
-### Разработка
-
-| Файл | Зачем |
-|---|---|
-| [ROADMAP.md](docs/ROADMAP.md) | v0.1–v0.6: что сделано и что планируется |
-| [EVALUATION_CRITERIA.md](docs/EVALUATION_CRITERIA.md) | Критерии качества Qwen |
-| [TESTING.md](docs/TESTING.md) | Таблица тестов, CI/CD |
-| [MONITORING.md](docs/MONITORING.md) | Метрики, пороги, cron |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Деплой + rollback процедура |
-
-### Безопасность
-
-| Файл | Зачем |
-|---|---|
-| [SECURITY_CHECKLIST.md](docs/SECURITY_CHECKLIST.md) | Правила + команда проверки перед push |
-| [DATA_POLICY.md](docs/DATA_POLICY.md) | Что хранится, что передаётся |
+| [README.md](README.md) | Overview, quick start, hardware, MCP |
+| [CHANGELOG.md](CHANGELOG.md) | Version history v0.1–v0.3 |
+| [VERSION](VERSION) | Current version (0.3.0) |
+| [.gitignore](.gitignore) | Blocks secrets and .db files |
 
 ---
 
-## 🛠 scripts/ — скрипты
+## 📖 docs/ — Documentation
 
-| Скрипт | Зачем | Триггер |
+### Architecture
+
+| File | Purpose |
+|---|---|
+| [architecture.md](docs/architecture.md) | Layer priorities, orchestration logic |
+| [routing_logic.md](docs/routing_logic.md) | ASCII diagram + 13-strategy matrix |
+| [DATA_FLOW.md](docs/DATA_FLOW.md) | Data flows, tokens, database writes |
+| [SYSTEM_DESCRIPTION.md](docs/SYSTEM_DESCRIPTION.md) | Hardware, all MCPs, all DBs, routing rules |
+| [OFFICE_MAIN_CONCEPT.md](docs/OFFICE_MAIN_CONCEPT.md) | Multi-node design, kombain_shared.db sync |
+| [PERFORMANCE.md](docs/PERFORMANCE.md) | Qwen CPU benchmarks vs Cerebras |
+
+### Setup
+
+| File | Purpose |
+|---|---|
+| [MCP_SETUP.md](docs/MCP_SETUP.md) | Configuring all 13 MCP servers |
+| [SKILLS_LIST.md](docs/SKILLS_LIST.md) | 8 skills: triggers, exclusions, rules |
+| [CONTRIBUTING.md](docs/CONTRIBUTING.md) | How to add qwen_task / skill / strategy |
+| [COMMIT_GUIDE.md](docs/COMMIT_GUIDE.md) | Commit message conventions |
+
+### Reference
+
+| File | Purpose |
+|---|---|
+| [GLOSSARY.md](docs/GLOSSARY.md) | 25 system-specific terms |
+| [FAQ.md](docs/FAQ.md) | 8 frequently asked questions |
+| [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 5 common issues + solutions |
+| [QUICK_REFERENCE.md](docs/QUICK_REFERENCE.md) | Cheat sheet: all commands in one place |
+| [NETWORK_TEMPLATES.md](docs/NETWORK_TEMPLATES.md) | 20 FAQ entries: MikroTik / Cisco / sales |
+| [PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) | High-level project summary |
+
+### Development
+
+| File | Purpose |
+|---|---|
+| [ROADMAP.md](docs/ROADMAP.md) | v0.1–v0.6: completed and planned work |
+| [EVALUATION_CRITERIA.md](docs/EVALUATION_CRITERIA.md) | Qwen output quality criteria |
+| [TESTING.md](docs/TESTING.md) | Test matrix, CI/CD |
+| [MONITORING.md](docs/MONITORING.md) | Metrics, thresholds, cron jobs |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md) | Deployment + rollback procedure |
+
+### Security
+
+| File | Purpose |
+|---|---|
+| [SECURITY_CHECKLIST.md](docs/SECURITY_CHECKLIST.md) | Rules + pre-push verification command |
+| [DATA_POLICY.md](docs/DATA_POLICY.md) | What is stored and what is transmitted |
+
+---
+
+## 🛠 scripts/ — Shell Scripts
+
+| Script | Purpose | Trigger |
 |---|---|---|
-| [check_resources.sh](scripts/check_resources.sh) | 7 строк: HOST│DB│MCP│ROUTING│SKILLS│CLEANUP | `инфо о себе` |
-| [health_check.sh](scripts/health_check.sh) | OK/WARN/FAIL всех компонентов | вручную / cron |
-| [install.sh](scripts/install.sh) | 6 шагов: apt→ollama→model→/ai/→scripts→BD | первая установка |
-| [init_db.sh](scripts/init_db.sh) | Инициализация 8 БД из схем | сброс / первая установка |
-| [backup_db.sh](scripts/backup_db.sh) | Бэкап всех БД, удаление старше 7 дней | вручную / cron 3:00 |
-| [cleanup_sessions.sh](scripts/cleanup_sessions.sh) | Удалить старые skills-plugin сессии | авто из check_resources |
-| [audit_security.sh](scripts/audit_security.sh) | Секреты, права, порты, файлы | вручную |
-| [test_qwen_tasks.sh](scripts/test_qwen_tasks.sh) | 4 теста Qwen PASS/FAIL | перед деплоем |
-| [rotate_logs.sh](scripts/rotate_logs.sh) | Ротация по размеру/возрасту | cron воскресенье |
-| [sync_to_shared.sh](scripts/sync_to_shared.sh) | Синх в kombain_shared.db | вручную / v0.5 авто |
+| [check_resources.sh](scripts/check_resources.sh) | 7 lines: HOST│DB│MCP│ROUTING│SKILLS│CLEANUP | `about yourself` |
+| [health_check.sh](scripts/health_check.sh) | OK/WARN/FAIL for all components | manual / cron |
+| [install.sh](scripts/install.sh) | 6 steps: apt→ollama→model→/ai/→scripts→DB | first install |
+| [init_db.sh](scripts/init_db.sh) | Initialize 8 databases from schemas | reset / first install |
+| [backup_db.sh](scripts/backup_db.sh) | Back up all DBs, remove backups older than 7 days | manual / cron 3:00 |
+| [cleanup_sessions.sh](scripts/cleanup_sessions.sh) | Remove stale skills-plugin sessions | auto via check_resources |
+| [audit_security.sh](scripts/audit_security.sh) | Secrets, permissions, ports, files | manual |
+| [git_sync.sh](scripts/git_sync.sh) | Commit + push to upstream in one command | manual |
+| [sync_to_shared.sh](scripts/sync_to_shared.sh) | Sync to kombain_shared.db | manual / v0.5 auto |
 
 ---
 
-## 🗄 db/ — базы данных
+## 🗄 db/ — Databases
 
 ### schemas/
 
-| Файл | БД | Ключевое |
+| File | Database | Key tables |
 |---|---|---|
-| routing_db.sql | routing.db | qwen_tasks(21) + parallel_config(13) |
-| project_db.sql | project.db | goals, roadmap, actions_log+FTS |
-| network_db.sql | network.db | devices, configs, templates+FTS |
+| routing_db.sql | routing.db | qwen_tasks (28) + parallel_config (15) |
+| project_db.sql | project.db | goals, roadmap, actions_log + FTS |
+| network_db.sql | network.db | devices, configs, templates + FTS |
 | tokens_db.sql | tokens.db | accounts, usage, budget |
-| tools_db.sql | tools.db | tools(8), tool_usage |
-| models_db.sql | models.db | models(5), performance |
+| tools_db.sql | tools.db | tools (8), tool_usage |
+| models_db.sql | models.db | models (5), performance |
 | kombain_local_db.sql | kombain_local.db | workflows, results, feedback, knowledge |
-| kombain_shared_db.sql | kombain_shared.db | То же + sync_log (мульти-node) |
+| kombain_shared_db.sql | kombain_shared.db | same + sync_log (multi-node) |
 
-### data/ — seed данные
+### data/ — Seed Data
 
-| Файл | Содержит |
+| File | Contents |
 |---|---|
-| qwen_tasks.json | 21 активных таск, промпты, категории |
-| parallel_config.json | 13 стратегий маршрутизации |
-| models_seed.json | 5 моделей (Qwen/Claude/Cerebras/Tavily) |
-| tools_seed.json | 8 инструментов MCP |
-| token_budget_seed.json | 4 аккаунта + стратегия local_first |
-| model_performance_seed.json | 10 замеров производительности |
-| compliance_checklist.json | 14 пунктов, 14/14 выполнено |
+| qwen_tasks.json | 28 active tasks, prompts, categories |
+| parallel_config.json | 15 routing strategies |
+| models_seed.json | 5 models (Qwen / Claude / Cerebras / Tavily) |
+| tools_seed.json | 8 MCP tools |
+| token_budget_seed.json | 4 accounts + local_first strategy |
+| model_performance_seed.json | 10 performance benchmarks |
+| compliance_checklist.json | 14 items, 14/14 completed |
 
 ---
 
 ## ⚙️ config/
 
-| Файл | Зачем |
+| File | Purpose |
 |---|---|
-| [ollama_model.md](config/ollama_model.md) | Параметры qwen2.5:7b + замеры CPU |
-| [ai-check-resources.service](config/ai-check-resources.service) | systemd user service автозапуска |
-| [environment.example](config/environment.example) | Шаблон переменных (без секретов) |
+| [ollama_model.md](config/ollama_model.md) | qwen2.5:7b parameters + CPU benchmarks |
+| [ai-check-resources.service](config/ai-check-resources.service) | systemd user service for auto-start |
+| [environment.example](config/environment.example) | Environment variable template (no secrets) |
 
 ---
 
 ## 🐛 .github/
 
-| Файл | Зачем |
+| File | Purpose |
 |---|---|
-| ISSUE_TEMPLATE/bug_report.md | Шаблон бага |
-| ISSUE_TEMPLATE/new_task.md | Шаблон нового qwen_task |
-| ISSUE_TEMPLATE/new_skill.md | Шаблон нового скилла |
-| pull_request_template.md | Чеклист безопасности перед merge |
-| workflows/security_check.yml | CI: блок пуш при нахождении секретов |
+| ISSUE_TEMPLATE/bug_report.md | Bug report template |
+| ISSUE_TEMPLATE/new_task.md | New qwen_task template |
+| ISSUE_TEMPLATE/new_skill.md | New skill template |
+| ISSUE_TEMPLATE/feature_request.md | Feature request template |
+| pull_request_template.md | Security checklist for merge |
+| workflows/ci.yml | CI: SQL, JSON, Markdown lint |
+| workflows/security_check.yml | CI: blocks push if secrets detected |
 
 ---
 
-## 📈 Статистика репо
+## 📈 Repository Stats
 
-| Параметр | Значение |
+| Parameter | Value |
 |---|---|
-| Всего файлов | ~60 |
-| Коммитов | 16 |
-| Открытых issues | 3 (v0.4.0 ×2, v0.5.0 ×1) |
-| Версия | 0.3.0 |
+| Total files | ~65 |
+| Current version | 0.3.1 |
+| qwen_tasks | 28 |
+| parallel_config strategies | 15 |
+| Pre-commit hooks | 8 (all passing) |

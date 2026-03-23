@@ -1,41 +1,39 @@
 # Commit Guide — AI Combiner
 
-## Формат коммитов
+## Commit Format
 
 ```text
-<тип>: <описание> [(ссылка на issue)]
+<type>: <description> [(issue reference)]
+```
 
-```text
+## Types
 
-## Типы
-
-| Тип | Когда использовать |
+| Type | When to use |
 |---|---|
-| `feat` | новый скрипт/схема/документ |
-| `fix` | исправление ошибки в скрипте/схеме |
-| `docs` | изменение документации |
-| `refactor` | переработка без изменения поведения |
-| `security` | изменения связанные с безопасностью |
-| `db` | изменение схем или seed данных |
-| `routing` | изменение qwen_tasks / parallel_config |
-| `chore` | незначительные обслуживание |
+| `feat` | new script, schema, or document |
+| `fix` | bug fix in a script or schema |
+| `docs` | documentation change |
+| `refactor` | restructuring without behavior change |
+| `security` | security-related change |
+| `db` | schema or seed data change |
+| `routing` | qwen_tasks or parallel_config change |
+| `chore` | minor maintenance |
 
-## Примеры
+## Examples
 
 ```bash
 feat: add qt_024 — docker container check
 fix: cleanup_sessions.sh — handle empty plugin dir
 docs: update ROADMAP v0.4.0 tasks
 db: add kombain_shared sync_log index
-routing: pc_014 docker_check strategy qwen_only
+routing: pc_014 git_ops strategy qwen_only
 security: gitignore add *.key pattern
+```
 
-```text
+## Rules
 
-## Правила
-
-- Описание на русском или английском
-- Максимум 72 символа в строке
-- **НИКОГДА** не коммитить `.db` файлы
-- **НИКОГДА** не коммитить `claude_desktop_config.json`
-- Security check перед каждым push: `qt_023` или см. `SECURITY_CHECKLIST.md`
+- Description in English
+- Maximum 72 characters per line
+- **NEVER** commit `.db` files
+- **NEVER** commit `claude_desktop_config.json`
+- Run security check before every push: `qt_023` or see `SECURITY_CHECKLIST.md`

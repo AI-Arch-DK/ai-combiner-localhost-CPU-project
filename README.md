@@ -1,6 +1,6 @@
 # AI Combiner — localhost CPU project
 
-> Локальный AI-оркестратор: Claude Desktop + Qwen/Ollama + 13 MCP. CPU-only, localhost.
+> Local AI orchestrator: Claude Desktop + Qwen/Ollama + 13 MCP. CPU-only, localhost.
 
 [![CI](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml/badge.svg)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -15,7 +15,7 @@
 - 🧠 **Claude** — orchestrates, codes, reasons
 - ⚙️ **Qwen 7B (q4_K_M)** — fast local inference for extraction, classification, translation
 - 🔌 **13 MCP servers** — SQLite, filesystem, shell, browser, GitHub, HuggingFace, Tavily, Gmail, GCal, Miro, Clay, and more
-- 🗄 **SQLite routing DB** — 21 task rules + 13 parallel strategies
+- 🗄 **SQLite routing DB** — 28 task rules + 15 parallel strategies
 
 ---
 
@@ -23,29 +23,22 @@
 
 ```bash
 # 1. Install Ollama + model
-
 curl -fsSL https://ollama.ai/install.sh | sh
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
 # 2. Create directory structure
-
 mkdir -p /ai/{db,scripts,logs,backup,workspace,external/sales_manager,kombain}
 
 # 3. Init databases
-
 bash scripts/init_db.sh
 
 # 4. Copy scripts
-
 cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
 
 # 5. Configure Claude Desktop (see docs/MCP_SETUP.md)
-
 # 6. Launch Claude Desktop
-
-# 7. First message: "инфо о себе"
-
-```text
+# 7. First message: "about yourself"
+```
 
 ---
 
@@ -54,8 +47,7 @@ cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
 ```text
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
-
-```text
+```
 
 **Models:** Qwen 7B (local, free) | Claude Sonnet (conductor) | Cerebras llama3.1-8b (external) | Tavily (search)
 
@@ -94,8 +86,7 @@ ai-combiner-localhost-CPU-project/
     ├── workflows.json
     ├── schemas/
     └── data/
-
-```text
+```
 
 ---
 
