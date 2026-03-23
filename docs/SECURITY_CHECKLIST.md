@@ -1,4 +1,4 @@
-# Security Checklist — перед каждым push на GitHub
+# Security Checklist — перед каждым push на внешние ресурсы
 
 ## ❌ НИКОГДА не пушить
 
