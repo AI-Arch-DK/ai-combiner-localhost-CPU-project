@@ -1,47 +1,47 @@
 # Project Summary — AI Combiner
 
-## Что это
+## What It Is
 
-**AI Combiner** — локальный AI-оркестратор на базе **Claude Desktop** + **Qwen 7B (Ollama)** + **13 MCP-серверов**. Работает целиком на CPU, без GPU.
+**AI Combiner** is a local AI orchestrator built on **Claude Desktop** + **Qwen 7B (Ollama)** + **13 MCP servers**. Runs entirely on CPU, no GPU required.
 
-## Цифры
+## By the Numbers
 
-| Параметр | Значение |
+| Parameter | Value |
 |---|---|
-| Модель | qwen2.5:7b-instruct-q4_K_M |
-| Размер модели | 4.4 GB |
-| Context | 32 768 токенов |
-| CPU | i7-8565U 4c/8t, буст 4.6 GHz |
+| Model | qwen2.5:7b-instruct-q4_K_M |
+| Model size | 4.4 GB |
+| Context | 32,768 tokens |
+| CPU | i7-8565U 4c/8t, boost 4.6 GHz |
 | RAM | 16 GB |
-| БД | 7 локальных + 1 shared |
-| qwen_tasks | 21 активных задач |
-| parallel_config | 13 стратегий |
-| Скиллы | 8 |
-| Файлов в репо | 55+ |
+| Databases | 7 local + 1 shared |
+| qwen_tasks | 28 active tasks |
+| parallel_config | 15 strategies |
+| Skills | 9 |
+| Repo files | 65+ |
 
-## Ключевые компоненты
+## Key Components
 
-```
-Claude Desktop  →  дирижёр/оркестратор
-Qwen 7B (local) →  воркер (бесплатно)
-Cerebras llama  →  быстрый внешний inference
-Tavily / browser → актуальные данные
-routing.db      →  правила маршрутизации
-```
-
-## Стратегия экономии токенов
-
-```
-Типовые задачи → Qwen (local, free)
-Исследования    → Cerebras (serverless, free)
-bash/sql код  → Claude DIRECT (quality > speed)
-Оркестрация   → Claude (only complex tasks)
+```text
+Claude Desktop  →  conductor / orchestrator
+Qwen 7B (local) →  worker (free)
+Cerebras llama  →  fast external inference
+Tavily / browser→  real-time data
+routing.db      →  routing rules
 ```
 
-## Версия
+## Token Economy Strategy
 
-`v0.3.0` (2026-03-19) — см. [CHANGELOG.md](../CHANGELOG.md) и [ROADMAP.md](ROADMAP.md)
+```text
+Routine tasks   → Qwen (local, free)
+Research        → Cerebras (serverless, free)
+bash / sql code → Claude DIRECT (quality > speed)
+Orchestration   → Claude (complex tasks only)
+```
 
-## Репозиторий
+## Version
 
-`github.com/GitHub public account/ai-combiner-localhost-CPU-project`
+`v0.3.1` (2026-03-23) — see [CHANGELOG.md](../CHANGELOG.md) and [ROADMAP.md](ROADMAP.md)
+
+## Repository
+
+`github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project`

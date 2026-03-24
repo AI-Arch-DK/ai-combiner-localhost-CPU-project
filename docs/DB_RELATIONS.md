@@ -1,15 +1,15 @@
-# DB Relations — схема связей БД
+# DB Relations — Database Relationship Map
 
-## Схема связей между БД
+## Cross-database Relationships
 
-```
+```text
 [routing.db]
-  qwen_tasks ──────────────► [kombain_local.db]
+  qwen_tasks ────────────────► [kombain_local.db]
   parallel_config            workflow_results.model_used
   routing_log ←──────────────── workflows.task_type
 
 [project.db]                [network.db]
-  roadmap.tags ─────────►   templates.protocol='faq'
+  roadmap.tags ─────────►  templates.protocol='faq'
   actions_log.model_used     configs.device_id → devices
                          └─► [kombain_local.db]
                              qwen_knowledge.source=template_id
@@ -17,16 +17,16 @@
 [tokens.db]                 [tools.db]
   token_usage.workflow_id    tool_usage.workflow_id
      │                          │
-     └─────────────────────────└─► [kombain_local.db]
+     └───────────────────────└─► [kombain_local.db]
                                      workflows.workflow_id
 
-[kombain_shared.db] ←──── sync_log ──► [kombain_local.db] (debianAI)
-                    ←──── sync_log ──► [kombain_local.db] (sales_manager)
+[kombain_shared.db] ←──── sync_log ───► [kombain_local.db] (debianAI)
+                    ←──── sync_log ───► [kombain_local.db] (sales_manager)
 ```
 
-## Seed данные и их связи
+## Seed Data and Their Relationships
 
-| JSON файл | Инициализирует | Ссылается из |
+| JSON file | Initializes | Referenced from |
 |---|---|---|
 | qwen_tasks.json | routing.db/qwen_tasks | parallel_config.task_category |
 | parallel_config.json | routing.db/parallel_config | qwen_tasks.category |
@@ -34,15 +34,16 @@
 | tools_seed.json | tools.db/tools | tool_usage.tool_id |
 | token_budget_seed.json | tokens.db/token_accounts | token_usage.account_id |
 | model_performance_seed.json | models.db/model_performance | models.model_id |
-| compliance_checklist.json | (отдельный документ) | — |
+| compliance_checklist.json | (standalone document) | — |
 
-## Порядок инициализации
+## Initialization Order
 
 ```bash
-# Правильный порядок загрузки seed данных:
+# Correct seed data load order:
+
 # 1. routing.db: qwen_tasks → parallel_config
 # 2. models.db: models → model_performance
 # 3. tokens.db: token_accounts → token_usage (optional)
 # 4. tools.db: tools → tool_usage (optional)
-# 5. kombain_local.db: через init_db.sh
+# 5. kombain_local.db: via init_db.sh
 ```

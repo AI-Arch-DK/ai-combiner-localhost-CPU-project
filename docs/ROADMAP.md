@@ -1,52 +1,61 @@
 # ROADMAP — AI Combiner
 
-## Текущее состояние: v0.3.0
+## Current Status: v0.3.1
 
 ---
 
-## ✅ v0.1.0 — Инициализация (2026-03-14)
+## ✅ v0.1.0 — Initialization (2026-03-14)
 
 - [x] Debian + Ollama + qwen2.5:7b-instruct-q4_K_M
-- [x] Структура `/ai/` (db, scripts, workspace)
-- [x] 7 локальных БД
-- [x] 12 MCP серверов
-- [x] 20 qwen_tasks + 12 parallel_config
-- [x] Первые workflows: MikroTik, cisco, L2TP
+- [x] `/ai/` directory structure (db, scripts, workspace)
+- [x] 7 local databases
+- [x] 12 MCP servers
+- [x] 20 qwen_tasks + 12 parallel_config strategies
+- [x] First workflows: MikroTik, Cisco, L2TP
 
-## ✅ v0.2.0 — Скиллы (2026-03-18)
+## ✅ v0.2.0 — Skills (2026-03-18)
 
-- [x] Скилл `sales-consultant`
-- [x] Скилл `mcp-builder`
-- [x] Актуальная сессия skills-plugin `1492d8b0`
+- [x] Skill `sales-consultant`
+- [x] Skill `mcp-builder`
+- [x] Active skills-plugin session `1492d8b0`
 
-## ✅ v0.3.0 — Автоматизация старта (2026-03-19)
+## ✅ v0.3.0 — Startup Automation (2026-03-19)
 
-- [x] `check_resources.sh` v4 — 7 строк, ~80 токенов
-- [x] `cleanup_sessions.sh` — автоочистка дублей
-- [x] Триггер "инфо о себе" → автозапуск
+- [x] `check_resources.sh` v4 — 7 lines, ~80 tokens
+- [x] `cleanup_sessions.sh` — auto-cleanup of duplicate sessions
+- [x] Trigger "about yourself" → auto-start
 - [x] qt_021/022/023 + pc_013
-- [x] security check перед каждым push
-- [x] Полная документация проекта
+- [x] Security check before every push
+- [x] Full project documentation
+
+## ✅ v0.3.1 — Open Source Readiness (2026-03-23)
+
+- [x] Full open-source community setup (CI, pre-commit, SECURITY, CODEOWNERS)
+- [x] All documentation translated to English
+- [x] `git-ops` skill + routing rules (qt_029–qt_032, pc_014–pc_015)
+- [x] SSH-based git push via ssh-agent
+- [x] `git_ops.db` for git workflow knowledge
+- [x] 8 pre-commit hooks — all passing
 
 ---
 
-## 🔄 v0.4.0 — Улучшение роутинга (plan)
+## 🔄 v0.4.0 — Routing Improvements (planned)
 
-- [ ] Внедрение RAG или легких аналогов в дополнение к SQL(FTS)
-- [ ] Автоопределение типа запроса через qt_002
-- [ ] Автовыбор стратегии из parallel_config
-- [ ] routing_log — запись всех решений и токенов
-- [ ] Дашборд эффективности (tokens_saved по стратегиям)
+- [ ] RAG or lightweight FTS augmentation
+- [ ] Auto request-type detection via qt_002
+- [ ] Auto strategy selection from parallel_config
+- [ ] routing_log — record all decisions and token usage
+- [ ] Efficiency dashboard (tokens_saved by strategy)
 
-## 🔄 v0.5.0 — Мульти-нодовость (plan)
+## 🔄 v0.5.0 — Multi-node (planned)
 
-- [ ] Полная реализация kombain_shared.db sync
-- [ ] sales_manager-node: sales задачи → shared
-- [ ] Office_MAIN-node: центральный оркестратор
-- [ ] Конфликт-резолюшн через sync_log
+- [ ] Full kombain_shared.db sync implementation
+- [ ] sales_manager-node: sales tasks → shared DB
+- [ ] Office_MAIN-node: central orchestrator
+- [ ] Conflict resolution via sync_log
 
-## 🔄 v0.6.0 — GPU / большая модель (plan)
+## 🔄 v0.6.0 — GPU / Larger Model (planned)
 
-- [ ] Переход на qwen2.5:14b или 32b
-- [ ] Сравнение производительности CPU vs GPU
-- [ ] GGUF оптимизация под архитектуру хоста
+- [ ] Upgrade to qwen2.5:14b or 32b
+- [ ] CPU vs GPU performance benchmarks
+- [ ] GGUF optimization for host architecture

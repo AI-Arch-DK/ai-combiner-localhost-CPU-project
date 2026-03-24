@@ -1,50 +1,50 @@
 # Data Flow — AI Combiner
 
-## Цикл запроса
+## Request Cycle
 
-```
-Пользователь пишет запрос
+```text
+User sends a message
          │
          ▼
-   Claude Desktop получает сообщение
+   Claude Desktop receives the message
          │
-         ├───► [SKILL] перехватил? ──► да → SKILL отвечает
-         │ нет
+         ├──► [SKILL] intercepted? ──► yes → SKILL responds
+         │ no
          ▼
    qwen_dispatch(user_query)
          │
-         ├─► MATCH → qwen выполняет → запись в workflow_results
-         ├─► CLAUDE_DIRECT → Claude выполняет
-         ├─► NO_MATCH → стратегия из parallel_config
-         └─► TIMEOUT → HF+tavily параллельно
+         ├─ MATCH → Qwen executes → write to workflow_results
+         ├─ CLAUDE_DIRECT → Claude executes directly
+         ├─ NO_MATCH → strategy from parallel_config
+         └─ TIMEOUT → HF + tavily in parallel
                     │
                     ▼
               qwen_get_late_answer
                     │
                     ▼
-              Мерж ответов
+              Merge responses
          │
          ▼
-   Результат → workflow_results (kombain_local.db)
+   Result → workflow_results (kombain_local.db)
          │
          ▼
-   Ответ пользователю
+   Response to user
 ```
 
-## Потоки данных
+## Data Flows
 
-| Поток | Откуда | Куда |
+| Flow | From | To |
 |---|---|---|
-| Запрос | Claude Desktop | qwen_dispatch |
-| Результат Qwen | ollama:11434 | Claude |
-| Внешние данные | HF/tavily/browser | Claude |
-| Запись в БД | Claude | kombain_local.db |
-| Синх | kombain_local.db | kombain_shared.db |
+| Request | Claude Desktop | qwen_dispatch |
+| Qwen result | ollama:11434 | Claude |
+| External data | HF / tavily / browser | Claude |
+| DB write | Claude | kombain_local.db |
+| Sync | kombain_local.db | kombain_shared.db |
 
-## Токены
+## Token Costs
 
-```
-Qwen токены → бесплатные (локальные)
-Cerebras → бесплатные (serverless, лимит)
-Claude → платные — экономия ключевой приоритет
+```text
+Qwen tokens   → free (local)
+Cerebras      → free (serverless, rate-limited)
+Claude        → paid — minimizing Claude tokens is a core priority
 ```

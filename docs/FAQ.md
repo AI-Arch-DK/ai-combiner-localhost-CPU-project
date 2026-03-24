@@ -1,71 +1,72 @@
 # FAQ — AI Combiner
 
-## Что такое AI-комбайн?
+## What is AI Combiner?
 
-Оркестратор, который автоматически распределяет запросы между локальной LLM (Qwen), облачными API и инструментами MCP. Claude Desktop — дирижёр, Qwen — воркер.
-
----
-
-## Почему Qwen, а не Claude для всего?
-
-Qwen работает локально бесплатно, экономия Claude-токенов. Стратегия: типовые задачи (извлечь, переведи, подсчитай) → Qwen. Комплексные (оркестрация, код) → Claude.
+An orchestrator that automatically routes requests between a local LLM (Qwen), cloud APIs, and MCP tools. Claude Desktop acts as the conductor; Qwen is the worker.
 
 ---
 
-## Сколько времени отвечает Qwen?
+## Why Qwen instead of Claude for everything?
 
-| Задача | max_tokens | Время CPU |
+Qwen runs locally at no cost, saving Claude tokens. The strategy: routine tasks (extract, translate, count) go to Qwen; complex tasks (orchestration, code) go to Claude.
+
+---
+
+## How fast does Qwen respond?
+
+| Task | max_tokens | CPU time |
 |---|---|---|
-| classify | 10 | ~2 сек |
-| extract | 100 | ~8 сек |
-| summarize | 150 | ~12 сек |
-| network config | 200 | ~16 сек |
+| classify | 10 | ~2 sec |
+| extract | 100 | ~8 sec |
+| summarize | 150 | ~12 sec |
+| network config | 200 | ~16 sec |
 
 ---
 
-## Как запустить проверку системы?
+## How do I run a system check?
 
-Первое сообщение в чате: **"инфо о себе"** → запускается `check_resources.sh` → 7 строк состояния.
+Send **"about yourself"** as your first message in Claude Desktop. This triggers `check_resources.sh` and returns a 7-line status summary.
 
 ---
 
-## Как добавить новую задачу в Qwen?
+## How do I add a new Qwen task?
 
 ```sql
-INSERT INTO qwen_tasks VALUES ('qt_NNN', 'триггер', 'category',
-  'Short prompt. Output only.', 200, 1, 'описание', 0, 1, 60);
+INSERT INTO qwen_tasks VALUES ('qt_NNN', 'trigger', 'category',
+  'Short prompt. Output only.', 200, 1, 'description', 0, 1, 60);
 ```
-См. `docs/CONTRIBUTING.md`
+
+See `docs/CONTRIBUTING.md` for full details.
 
 ---
 
-## Как создать бэкап БД?
+## How do I back up the databases?
 
 ```bash
 bash /ai/scripts/backup_db.sh
-# Бэкапы сохраняются в /ai/backup/YYYYMMDD_HHMMSS/
-# Авто-удаление старше 7 дней
+# Backups are saved to /ai/backup/YYYYMMDD_HHMMSS/
+# Backups older than 7 days are removed automatically
 ```
 
 ---
 
-## Как добавить новый скилл?
+## How do I add a new skill?
 
-См. `docs/CONTRIBUTING.md` — раздел "Добавить новый скилл".
-
----
-
-## Что такое Office_MAIN?
-
-Концепция большой мульти-нодовой сети: центральная node (Office_MAIN) + периферийные (debianAI, sales_manager и др.). Синхронизация через `kombain_shared.db`. Статус: v0.5.0 plan.
+See `docs/CONTRIBUTING.md` — section "Add a new skill".
 
 ---
 
-## Что публиковать, а что нет?
+## What is Office_MAIN?
 
-| Можно ✅ | Нельзя ❌ |
+A concept for a large multi-node network: a central Office_MAIN node plus peripheral nodes (debianAI, sales_manager, etc.), synchronized through `kombain_shared.db`. Status: planned for v0.5.0.
+
+---
+
+## What can and cannot be committed?
+
+| OK ✅ | Never ❌ |
 |---|---|
-| SQL схемы | .db файлы |
-| Скрипты | claude_desktop_config.json |
-| Документация | config.env |
-| workflows JSON | API ключи |
+| SQL schemas | .db files |
+| Scripts | claude_desktop_config.json |
+| Documentation | config.env |
+| workflows JSON | API keys |

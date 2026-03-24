@@ -1,6 +1,6 @@
-# SQL Indexing — стратегия индексации
+# SQL Indexing — Indexing Strategy
 
-## Текущие индексы
+## Current Indexes
 
 ### routing.db
 
@@ -14,8 +14,8 @@ CREATE VIRTUAL TABLE qwen_tasks_fts USING fts5(
 ### project.db
 
 ```sql
-CREATE INDEX idx_roadmap_phase   ON roadmap(phase);
-CREATE INDEX idx_roadmap_status  ON roadmap(status);
+CREATE INDEX idx_roadmap_phase    ON roadmap(phase);
+CREATE INDEX idx_roadmap_status   ON roadmap(status);
 CREATE INDEX idx_actions_category ON actions_log(category);
 CREATE VIRTUAL TABLE project_fts USING fts5(
   title, description, tags, flags,
@@ -34,13 +34,13 @@ CREATE VIRTUAL TABLE templates_fts USING fts5(name, description, content);
 ## routing_log (v0.4.0)
 
 ```sql
-CREATE INDEX idx_rlog_task    ON routing_log(task_type);
-CREATE INDEX idx_rlog_model   ON routing_log(selected_model);
-CREATE INDEX idx_rlog_date    ON routing_log(created_at);
-CREATE INDEX idx_rlog_tokens  ON routing_log(tokens_saved);
+CREATE INDEX idx_rlog_task   ON routing_log(task_type);
+CREATE INDEX idx_rlog_model  ON routing_log(selected_model);
+CREATE INDEX idx_rlog_date   ON routing_log(created_at);
+CREATE INDEX idx_rlog_tokens ON routing_log(tokens_saved);
 ```
 
-## FTS5 поиск
+## FTS5 Search
 
 ```sql
 SELECT t.task_id, t.category, t.prompt_template
@@ -50,21 +50,21 @@ WHERE qwen_tasks_fts MATCH 'mikrotik OR ospf'
 ORDER BY rank;
 ```
 
-## Мониторинг производительности
+## Performance Monitoring
 
 ```sql
--- Анализ плана запроса
+-- Analyze query plan
 EXPLAIN QUERY PLAN
 SELECT * FROM qwen_tasks WHERE category = 'system_check';
--- Должно вывести: SEARCH qwen_tasks USING INDEX idx_qt_category
+-- Expected output: SEARCH qwen_tasks USING INDEX idx_qt_category
 
--- Статистика по стратегиям (v0.4.0 routing_log)
+-- Strategy statistics (v0.4.0 routing_log)
 SELECT selected_model, COUNT(*), AVG(tokens_saved), MAX(tokens_saved)
 FROM routing_log
 GROUP BY selected_model
 ORDER BY COUNT(*) DESC;
 
--- Топ-5 самых дорогих тасков
+-- Top 5 most expensive task types
 SELECT task_type, COUNT(*), SUM(tokens_saved)
 FROM routing_log
 GROUP BY task_type
@@ -72,7 +72,7 @@ ORDER BY SUM(tokens_saved) DESC
 LIMIT 5;
 ```
 
-## ANALYZE + VACUUM по расписанию
+## Scheduled ANALYZE + VACUUM
 
 ```bash
 for db in /ai/db/*.db; do
@@ -80,11 +80,11 @@ for db in /ai/db/*.db; do
 done
 ```
 
-## Правила
+## Rules
 
-| Правило | Обоснование |
+| Rule | Reason |
 |---|---|
-| FTS5 для trigger | Быстрый матчинг |
-| EXPLAIN QUERY PLAN | Проверка использования индекса |
-| Индекс только на колонки в WHERE/JOIN | Индекс на каждое поле = оверхед |
-| routing_log после 1000+ записей | ANALYZE пересчитывает статистику |
+| FTS5 for trigger column | Fast trigger matching |
+| Always check with EXPLAIN QUERY PLAN | Verify index is being used |
+| Index only columns used in WHERE / JOIN | Indexing every column adds overhead |
+| Run ANALYZE after 1000+ routing_log rows | Keeps query planner statistics fresh |

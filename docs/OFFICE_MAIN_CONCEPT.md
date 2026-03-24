@@ -1,72 +1,73 @@
-# Office_MAIN — концепция мульти-нодового AI-комбайна
+# Office_MAIN — Multi-node AI Combiner Concept
 
-## Цель
+## Goal
 
-Расширить однонодовый AI-комбайн (debianAI localhost) до централизованной сети нод с единой общей БД и центральным оркестратором.
+Expand the single-node AI Combiner (debianAI localhost) into a centralized node network with a shared database and a central orchestrator.
 
-## Топология
+## Topology
 
-```
+```text
                     [Office_MAIN-node]
-                    центральный оркестратор
-                    Claude + Qwen (главный)
+                    Central Orchestrator
+                    Claude + Qwen (primary)
                     kombain_shared.db
                            |
               ┌─────────────┬───────────┐
               │            │           │
-    [debianAI-node]   [sales_manager-node]  [другие-nodes]
-    localhost CPU   security       ...
-    текущая      sales
-    kombain         kombain
-    _local.db       _local.db
+    [debianAI-node]  [sales_manager-node]  [other-nodes]
+    localhost CPU   security / sales       ...
+    kombain_local   kombain_local
+    .db             .db
 ```
 
 ## Nodes
 
-| node | Роль | Статус |
+| Node | Role | Status |
 |---|---|---|
-| **debianAI** | Рабочая localhost CPU node | ✅ активна |
-| **sales_manager** | Security/sales node | ✅ активна |
-| **Office_MAIN** | Центральный оркестратор | 🚧 v0.5.0 plan |
+| **debianAI** | Primary localhost CPU node | ✅ active |
+| **sales_manager** | Security / sales node | ✅ active |
+| **Office_MAIN** | Central orchestrator | 🚧 planned for v0.5.0 |
 
-## Компоненты Office_MAIN
+## Office_MAIN Components
 
-### Каждая node имеет:
-- `kombain_local.db` — локальная БД (workflows, results, knowledge)
-- Свой экземпляр Ollama/Qwen
-- Набор MCP-серверов под свои задачи
+### Each node has
 
-### Общее:
-- `kombain_shared.db` (файл `/ai/external/sales_manager/kombain_shared.db`)
-- `sync_log` — журнал всех изменений от всех нод
+- `kombain_local.db` — local database (workflows, results, knowledge)
+- Its own Ollama / Qwen instance
+- A set of MCP servers tailored to its tasks
 
-## Протокол синхронизации
+### Shared across all nodes
 
-```
-node выполняет задачу
+- `kombain_shared.db` (path: `/ai/external/sales_manager/kombain_shared.db`)
+- `sync_log` — change journal from all nodes
+
+## Synchronization Protocol
+
+```text
+Node executes a task
     │
-    ├── Запись в kombain_local.db
-    └── INSERT в sync_log (node_id, operation, table_name, payload, status='pending')
+    ├── Write to kombain_local.db
+    └── INSERT into sync_log (node_id, operation, table_name, payload, status='pending')
               │
               ▼
-    Office_MAIN читает sync_log WHERE status='pending'
+    Office_MAIN reads sync_log WHERE status='pending'
               │
-              ├── Нет конфликта → status='done'
-              └── Конфликт → status='conflict' → разрешение вручную
+              ├── No conflict → status='done'
+              └── Conflict → status='conflict' → manual resolution
 ```
 
-## Маршрутизация запросов
+## Request Routing
 
-```
-Запрос на ноду
+```text
+Request arrives at a node
     │
-    ├── Локальная задача → локальный Qwen
-    ├── Общая задача → Office_MAIN оркестрирует
-    └── Специализация → передаётся спецноде (sales_manager)
+    ├── Local task → local Qwen
+    ├── Shared task → Office_MAIN orchestrates
+    └── Specialized task → routed to specialist node (sales_manager)
 ```
 
-## Текущее состояние
+## Current State
 
-- `kombain_shared.db` уже создана и доступна через `/ai/external/sales_manager/`
-- Схема готова: `db/schemas/kombain_shared_db.sql`
-- Реализация синхронизации: план v0.5.0 (issue #4)
+- `kombain_shared.db` is already created and accessible at `/ai/external/sales_manager/`
+- Schema ready: `db/schemas/kombain_shared_db.sql`
+- Sync implementation: planned for v0.5.0 (issue #4)

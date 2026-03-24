@@ -1,43 +1,43 @@
 # Monitoring — AI Combiner
 
-## Ключевые метрики
+## Key Metrics
 
-| Метрика | Порог WARN | Порог FAIL | Команда |
+| Metric | WARN threshold | FAIL threshold | Command |
 |---|---|---|---|
-| RAM доступно | < 3 GB | < 1 GB | `free -h` |
-| Disk / свободно | < 30 GB | < 10 GB | `df -h /` |
-| Ollama порт | не слушает | не слушает | `ss -tlnp \ grep 11434` |
-| qwen_tasks активных | < 15 | < 10 | `sqlite3 routing.db` |
-| Лог старта | > 5 MB | > 10 MB | `du -sh /ai/logs/` |
+| Available RAM | < 3 GB | < 1 GB | `free -h` |
+| Free disk space | < 30 GB | < 10 GB | `df -h /` |
+| Ollama port | not listening | not listening | `ss -tlnp \| grep 11434` |
+| Active qwen_tasks | < 15 | < 10 | `sqlite3 routing.db` |
+| Startup log size | > 5 MB | > 10 MB | `du -sh /ai/logs/` |
 
-## Автоматическая проверка
+## Automated Checks
 
 ```bash
-# Полная проверка всех компонентов
+# Full check of all components
 bash /ai/scripts/health_check.sh
 
-# Быстрая проверка ресурсов (7 строк)
+# Quick resource summary (7 lines)
 bash /ai/scripts/check_resources.sh
 ```
 
-## Cron расписание (debianAI)
+## Cron Schedule (debianAI)
 
 ```cron
-# Бэкап БД ежедневно в 3:00
+# Daily DB backup at 3:00
 0 3 * * * /ai/scripts/backup_db.sh >> /ai/logs/backup.log 2>&1
 
-# Ротация логов еженедельно
+# Weekly log rotation
 0 4 * * 0 /ai/scripts/rotate_logs.sh >> /ai/logs/rotate.log 2>&1
 
-# Health check ежечасно
+# Hourly health check
 0 * * * * /ai/scripts/health_check.sh >> /ai/logs/health.log 2>&1
 ```
 
-## Алерты
+## Alerts
 
-| Событие | Действие |
+| Event | Action |
 |---|---|
-| Ollama не запущен | `systemctl --user start ollama` |
-| health_check FAIL | Проверить компонент, см. TROUBLESHOOTING.md |
-| RAM < 1 GB | Kill завиших процессов: `check_resources.sh` |
-| БД повреждена | `backup_db.sh` → восстановить из `/ai/backup/` |
+| Ollama not running | `systemctl --user start ollama` |
+| health_check FAIL | Investigate component, see TROUBLESHOOTING.md |
+| RAM < 1 GB | Kill hanging processes via `check_resources.sh` |
+| Database corrupted | Run `backup_db.sh` → restore from `/ai/backup/` |

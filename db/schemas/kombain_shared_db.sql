@@ -76,27 +76,27 @@ CREATE INDEX idx_sync_table   ON sync_log(table_name);
 -- Office_MAIN читает sync_log и разрешает конфликты
 -- node_id регистрирует кто сделал запись: 'debianAI' | 'sales_manager' | 'office_main'
 Тема	ID
-Multi-agent orchestration	
-faq_Head_Office_MAIN_agent_orchestration	
-Cross-dept synchronization	
-faq_Head_Office_MAIN_dept_sync	
-Task routing & delegation	
-faq_Head_Office_MAIN_task_routing	
-Institutional knowledge fusion	
-faq_Head_Office_MAIN_knowledge_fusion	
-Predictive resource balancing	
-faq_Head_Office_MAIN_resource_balancing	
-Contextual access management	
-faq_Head_Office_MAIN_context_access	
-Workflow conflict resolution	
-faq_Head_Office_MAIN_conflict_resolve	
-Real-time KPI aggregation	
-faq_Head_Office_MAIN_kpi_aggregation	
-Proactive anomaly detection	
-faq_Head_Office_MAIN_anomaly_detection	
-Automated reporting pipeline	
-faq_Head_Office_MAIN_auto_reporting	
-Skill matrix alignment	
-faq_Head_Office_MAIN_skill_alignment	
-Policy & logic distribution	
+Multi-agent orchestration
+faq_Head_Office_MAIN_agent_orchestration
+Cross-dept synchronization
+faq_Head_Office_MAIN_dept_sync
+Task routing & delegation
+faq_Head_Office_MAIN_task_routing
+Institutional knowledge fusion
+faq_Head_Office_MAIN_knowledge_fusion
+Predictive resource balancing
+faq_Head_Office_MAIN_resource_balancing
+Contextual access management
+faq_Head_Office_MAIN_context_access
+Workflow conflict resolution
+faq_Head_Office_MAIN_conflict_resolve
+Real-time KPI aggregation
+faq_Head_Office_MAIN_kpi_aggregation
+Proactive anomaly detection
+faq_Head_Office_MAIN_anomaly_detection
+Automated reporting pipeline
+faq_Head_Office_MAIN_auto_reporting
+Skill matrix alignment
+faq_Head_Office_MAIN_skill_alignment
+Policy & logic distribution
 faq_Head_Office_MAIN_logic_distribution

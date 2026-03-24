@@ -1,6 +1,6 @@
 # AI Combiner — localhost CPU project
 
-> Локальный AI-оркестратор: Claude Desktop + Qwen/Ollama + 13 MCP. CPU-only, localhost.
+> Local AI orchestrator: Claude Desktop + Qwen/Ollama + 13 MCP. CPU-only, localhost.
 
 [![CI](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml/badge.svg)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -15,7 +15,7 @@
 - 🧠 **Claude** — orchestrates, codes, reasons
 - ⚙️ **Qwen 7B (q4_K_M)** — fast local inference for extraction, classification, translation
 - 🔌 **13 MCP servers** — SQLite, filesystem, shell, browser, GitHub, HuggingFace, Tavily, Gmail, GCal, Miro, Clay, and more
-- 🗄 **SQLite routing DB** — 21 task rules + 13 parallel strategies
+- 🗄 **SQLite routing DB** — 28 task rules + 15 parallel strategies
 
 ---
 
@@ -37,14 +37,14 @@ cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
 
 # 5. Configure Claude Desktop (see docs/MCP_SETUP.md)
 # 6. Launch Claude Desktop
-# 7. First message: "инфо о себе"
+# 7. First message: "about yourself"
 ```
 
 ---
 
 ## 🏗 Architecture
 
-```
+```text
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
 ```
@@ -55,7 +55,7 @@ User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → R
 
 ## 📁 Repository Structure
 
-```
+```text
 ai-combiner-localhost-CPU-project/
 ├── README.md
 ├── CHANGELOG.md

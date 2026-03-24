@@ -1,42 +1,44 @@
-# Evaluation Criteria — Qwen Quality
+# Evaluation Criteria — Qwen Output Quality
 
-## Критерии оценки ответов Qwen
+## Qwen Response Scoring
 
-### 1. Точность (0–5)
+### 1. Accuracy (0–5)
 
-| Оценка | Описание |
+| Score | Description |
 |---|---|
-| 5 | Ответ 100% соответствует задаче |
-| 4 | Меньше ошибок, суть верна |
-| 3 | Половина верно, половина нет |
-| 2 | Много ошибок, использовать с осторожностью |
-| 1 | Ответ неверный |
-| 0 | Галлюцинация / cancel_on_hallucination=true |
+| 5 | Response 100% matches the task |
+| 4 | Minor errors, core answer is correct |
+| 3 | Half correct, half incorrect |
+| 2 | Many errors, use with caution |
+| 1 | Incorrect response |
+| 0 | Hallucination / cancel_on_hallucination=true |
 
-### 2. Соответствие формату
+### 2. Format Compliance
 
-| Категория | Ожидаемый формат | Проверка |
+| Category | Expected format | Check |
 |---|---|---|
-| classification | Одно слово из списка | regex |
-| extract_ip | IP один на строку | количество строк |
-| count | Целое число | int(response) |
-| translate | Только перевод | нет исходных слов |
-| summarize | 3-5 предложений | длина текста |
-| network_mikrotik | CLI команды | наличие `/` |
+| classification | Single word from a predefined list | regex |
+| extract_ip | One IP per line | line count |
+| count | Integer | int(response) |
+| translate | Translation only, no source words | absence check |
+| summarize | 3–5 sentences | text length |
+| network_mikrotik | CLI commands | presence of `/` |
 
-### 3. Детекция галлюцинаций
+### 3. Hallucination Detection
 
-Признаки — автомат `qwen_cancel`:
-- Ответ содержит несуществующие IP/команды
-- Длина превышает `max_tokens * 1.5`
-- Ответ на не том языке
-- Повторяет вопрос вместо ответа
+Automatic `qwen_cancel` triggers:
 
-## Рейтинг тасков
+- Response contains non-existent IPs or commands
+- Length exceeds `max_tokens * 1.5`
+- Response is in the wrong language
+- Response repeats the question instead of answering
 
-После выполнения записывается в `user_feedback`:
+## Task Rating
+
+After execution, results are written to `user_feedback`:
+
 ```sql
 INSERT INTO user_feedback VALUES (
-  'fb_NNN', 'wf_NNN', 5, 'комментарий', CURRENT_TIMESTAMP
+  'fb_NNN', 'wf_NNN', 5, 'comment', CURRENT_TIMESTAMP
 );
 ```

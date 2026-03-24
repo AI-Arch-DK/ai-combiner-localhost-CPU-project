@@ -1,30 +1,32 @@
 # Workflows — AI Combiner
 
-## Структура
+## Structure
 
-| Поле | Описание |
+| Field | Description |
 |---|---|
-| workflow_id | уникальный ID |
+| workflow_id | Unique ID |
 | task_type | system_check / network_config / system_init |
-| name | человекочитаемое название |
-| steps | шаги выполнения (shell / qwen / hf / tavily) |
-| rating | оценка 0-5 |
-| result | краткий результат последнего запуска |
+| name | Human-readable name |
+| steps | Execution steps (shell / qwen / hf / tavily) |
+| rating | Score 0–5 |
+| result | Brief result of the last run |
 
-## Триггеры system_check
+## system_check Triggers
 
-| Workflow | Триггер | Скрипт |
+| Workflow | Trigger | Script |
 |---|---|---|
-| wf_check_resources | "инфо о себе" / "проверь ресурсы" | `/ai/scripts/check_resources.sh` |
-| wf_session_cleanup | автозапуск из check_resources | `/ai/scripts/cleanup_sessions.sh` |
+| wf_check_resources | "about yourself" / "check resources" | `/ai/scripts/check_resources.sh` |
+| wf_session_cleanup | auto-called from check_resources | `/ai/scripts/cleanup_sessions.sh` |
 
 ## qwen_tasks (routing.db)
 
-| ID | Триггер | Категория |
+| ID | Trigger | Category |
 |---|---|---|
-| qt_021 | инфо о себе / проверь ресурсы | system_check |
-| qt_022 | очисти сессии | system_check |
-| qt_001–020 | система / сети / код / валидация | разные |
+| qt_021 | about yourself / check resources | system_check |
+| qt_022 | clean sessions | system_check |
+| qt_001–020 | system / network / code / validation | various |
+| qt_029–032 | git push / sync / release / status | git_ops / git_check |
 
-## Обновление
-После каждого `фиксируем` — workflows.json обновляется на внешние ресурсы.
+## Updates
+
+After each significant commit, `workflows.json` is updated and pushed to the repository.

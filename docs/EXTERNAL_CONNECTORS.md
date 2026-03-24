@@ -1,64 +1,69 @@
-# External Connectors — работа с внешними подключениями
+# External Connectors — Working with External Integrations
 
-## Активные коннекторы (URL-based MCP)
+## Active Connectors (URL-based MCP)
 
-| Коннектор | URL | Когда использовать |
+| Connector | URL | When to use |
 |---|---|---|
-| **Miro** | https://mcp.miro.com | Визуализация архитектуры, DAG, карты |
-| **Clay** | https://api.clay.com/v3/mcp | CRM, enrichment контактов |
-| **Gmail** | https://gmail.mcp.claude.com/mcp | Чтение/отправка писем |
-| **Google Calendar** | https://gcal.mcp.claude.com/mcp | Задачи, напоминания |
-| **HuggingFace** | https://huggingface.co/mcp | Inference, поиск моделей |
+| **Miro** | <https://mcp.miro.com> | Architecture visualization, DAGs, diagrams |
+| **Clay** | <https://api.clay.com/v3/mcp> | CRM, contact enrichment |
+| **Gmail** | <https://gmail.mcp.claude.com/mcp> | Read / send emails |
+| **Google Calendar** | <https://gcal.mcp.claude.com/mcp> | Tasks, reminders, scheduling |
+| **HuggingFace** | <https://huggingface.co/mcp> | Inference, model search |
 
-## Паттерны интеграции
+## Integration Patterns
 
-### Miro — визуализация архитектуры
-```
-Триггер: "нарисуй архитектуру" / "обнови диаграмму"
-Маршрут: orchestration → external_first
-Claude → Miro:diagram_create(данные) → борд
-Или: Claude → Miro:table_sync(данные из БД)
-```
+### Miro — Architecture Visualization
 
-### Gmail — уведомления
-```
-Триггер: "отправь отчёт" / "напиши письмо"
-Маршрут: orchestration → external_first
-Claude → qwen генерирует текст → Gmail:send
-Claude → Gmail:search → обработка ответов
+```text
+Trigger: "draw architecture" / "update diagram"
+Route: orchestration → external_first
+Claude → Miro:diagram_create(data) → board
+Or: Claude → Miro:table_sync(data from DB)
 ```
 
-### Google Calendar — планирование
-```
-Триггер: "запланируй" / "покажи расписание"
-Маршрут: orchestration → external_first
-Claude → GCal:list_events → qwen:format_output → сводная таблица
+### Gmail — Notifications
+
+```text
+Trigger: "send report" / "write an email"
+Route: orchestration → external_first
+Claude → Qwen generates text → Gmail:send
+Claude → Gmail:search → process replies
 ```
 
-### Clay — enrichment
-```
-Триггер: "найди контакт" / "обогати данные"
-Маршрут: research → external_first
-Claude → Clay:enrich → запись в network.db/devices
+### Google Calendar — Scheduling
+
+```text
+Trigger: "schedule" / "show calendar"
+Route: orchestration → external_first
+Claude → GCal:list_events → qwen:format_output → summary table
 ```
 
-### HuggingFace — inference
-```
-Триггер: TIMEOUT Qwen / compare_options / research
-Маршрут: parallel / external_first
-Claude → HF:hf_run_inference(cerebras) → мерж с Qwen
-~500 t/s vs ~13 t/s у Qwen — использовать для быстрых задач
+### Clay — Enrichment
+
+```text
+Trigger: "find contact" / "enrich data"
+Route: research → external_first
+Claude → Clay:enrich → write to network.db/devices
 ```
 
-## Правила использования
+### HuggingFace — Inference
 
-| Правило | Обоснование |
+```text
+Trigger: Qwen TIMEOUT / compare_options / research
+Route: parallel / external_first
+Claude → HF:hf_run_inference(cerebras) → merge with Qwen
+~500 t/s vs ~13 t/s for Qwen — use for latency-sensitive tasks
+```
+
+## Usage Rules
+
+| Rule | Reason |
 |---|---|
-| Внешние только при необходимости | Сечём токены Claude |
-| Qwen для форматирования результата | Бесплатно |
-| Стратегия orchestration | Для мульти-инструментных задач |
-| Запись результата в БД | Перед ответом пользователю |
+| Use external connectors only when necessary | Conserve Claude tokens |
+| Use Qwen to format results | Free |
+| Use orchestration strategy | For multi-tool tasks |
+| Write result to DB before responding | Ensures persistence |
 
-## Настройка в claude_desktop_config.json
+## Configuration
 
-См. `docs/MCP_SETUP.md` — раздел "Облачные MCP".
+See `docs/MCP_SETUP.md` — section "Cloud MCP Servers".

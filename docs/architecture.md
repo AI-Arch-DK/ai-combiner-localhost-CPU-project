@@ -1,44 +1,45 @@
-# Архитектура AI-комбайна
+# AI Combiner Architecture
 
-## Приоритеты обработки запроса
+## Request Processing Priorities
 
-| Порядок | Слой | Управляется |
+| Order | Layer | Managed by |
 |---|---|---|
-| 1️⃣ | Скиллы (SKILL.md) | `~/.config/Claude/local-agent-mode-sessions/skills-plugin/` |
+| 1️⃣ | Skills (SKILL.md) | `~/.config/Claude/local-agent-mode-sessions/skills-plugin/` |
 | 2️⃣ | systemPrompt | `claude_desktop_config.json` |
 | 3️⃣ | qwen_dispatch | `routing.db / qwen_tasks` |
-| 4️⃣ | Внешние MCP | `routing.db / parallel_config` |
+| 4️⃣ | External MCP | `routing.db / parallel_config` |
 
-## Логика роутинга
+## Routing Logic
 
+```text
+request → qwen_dispatch
+    MATCH    → Qwen responds → return as-is
+    NO_MATCH → parallel_config strategy
+    TIMEOUT  → HF + tavily in parallel → qwen_get_late_answer
+    HALLUC.  → qwen_cancel → external tools
 ```
-запрос → qwen_dispatch
-    MATCH   → Qwen отвечает → AS-IS
-    NO_MATCH → parallel_config стратегия
-    TIMEOUT  → HF+tavily параллельно → qwen_get_late_answer
-    HALLUC.  → qwen_cancel → внешние инструменты
-```
 
-## Скрипты автостарта
+## Auto-start Scripts
 
 ```bash
-# Триггер: "инфо о себе"
+# Trigger: "about yourself"
 shell → /ai/scripts/check_resources.sh
-# Автоматически вызывает:
+# Automatically calls:
 shell → /ai/scripts/cleanup_sessions.sh
 ```
 
-## Структура /ai/
+## /ai/ Directory Structure
 
-```
+```text
 /ai/
 ├── db/           # routing.db, project.db, network.db, tokens.db, tools.db, models.db
-├── scripts/      # check_resources.sh, cleanup_sessions.sh
+├── scripts/      # check_resources.sh, cleanup_sessions.sh, git_sync.sh
 ├── logs/         # startup.log
-├── backup/       # бэкапы БД
-└── workspace/    # рабочие файлы
+├── backup/       # database backups
+└── workspace/    # working files
 ```
 
-## GitHub аккаунты
-- `GitHub public account` — публичные/open source проекты
-- `GitHub private account` — приватные проекты
+## GitHub Accounts
+
+- `GitHub public account` — public / open source projects
+- `GitHub private account` — private projects

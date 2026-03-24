@@ -1,33 +1,33 @@
 ---
 name: "🐛 Bug Report"
-about: "Ошибка в работе компонента"
+about: "Something is broken"
 labels: ["bug"]
 ---
 
-## Описание
+## Description
 
-Краткое описание проблемы.
+A clear and concise summary of the problem.
 
-## Компонент
+## Component
 
-- [ ] Ollama/Qwen
+- [ ] Ollama / Qwen
 - [ ] Claude Desktop / systemPrompt
-- [ ] MCP сервер
-- [ ] Скрипт
-- [ ] БД
-- [ ] Скилл
+- [ ] MCP server
+- [ ] Script
+- [ ] Database
+- [ ] Skill
 
-## Шаги воспроизведения
+## Steps to Reproduce
 
 1.
 2.
 
-## Ожидаемое поведение
+## Expected Behavior
 
-## Фактическое поведение
+## Actual Behavior
 
-## Вывод health_check.sh
+## Output of health_check.sh
 
 ```text
-вставь вывод /ai/scripts/health_check.sh
+paste output of /ai/scripts/health_check.sh here
 ```

@@ -1,35 +1,35 @@
 # Release Process
 
-Полный процесс выпуска новой версии AI Combiner.
+Full step-by-step guide for cutting a new AI Combiner release.
 
-## Версионирование
+## Versioning
 
-Проект следует [Semantic Versioning](https://semver.org/):
+This project follows [Semantic Versioning](https://semver.org/):
 
-```
+```text
 MAJOR.MINOR.PATCH
 ```
 
-- **MAJOR** — breaking changes (несовместимые изменения API/схем БД)
-- **MINOR** — новые фичи (новые qwen_tasks, MCP-серверы, скиллы)
-- **PATCH** — исправления багов, документация, безопасность
+- **MAJOR** — breaking changes (incompatible API or database schema changes)
+- **MINOR** — new features (new qwen_tasks, MCP servers, skills)
+- **PATCH** — bug fixes, documentation updates, security patches
 
-## Шаги релиза
+## Release Steps
 
-### 1. Подготовка
+### 1. Prepare
 
 ```bash
-# Убедиться что main чистый
+# Make sure main is clean
 git checkout main && git pull upstream main
 
-# Прогнать все проверки
+# Run all checks
 pre-commit run --all-files
 bash scripts/health_check.sh
 ```
 
-### 2. Обновить CHANGELOG.md
+### 2. Update CHANGELOG.md
 
-Добавить секцию в начало файла:
+Add a new section at the top of the file:
 
 ```markdown
 ## [vX.Y.Z] — YYYY-MM-DD
@@ -44,7 +44,7 @@ bash scripts/health_check.sh
 - ...
 ```
 
-### 3. Обновить VERSION
+### 3. Update VERSION
 
 ```bash
 echo "vX.Y.Z" > VERSION
@@ -52,7 +52,7 @@ git add VERSION CHANGELOG.md
 git commit -m "chore: release vX.Y.Z"
 ```
 
-### 4. Создать git tag
+### 4. Create git tag
 
 ```bash
 git tag -a vX.Y.Z -m "Release vX.Y.Z"
@@ -61,15 +61,15 @@ git push upstream main --tags
 
 ### 5. GitHub Release
 
-На странице репозитория: **Releases → Draft a new release**
+From the repository page: **Releases → Draft a new release**
 
 - Tag: `vX.Y.Z`
 - Title: `AI Combiner vX.Y.Z`
-- Body: скопировать секцию из CHANGELOG.md
+- Body: paste the relevant section from CHANGELOG.md
 
-## Автоматизация VERSION (опционально)
+## Automating VERSION (optional)
 
-Для автоматического обновления VERSION при теге можно добавить workflow:
+To auto-update the VERSION file on tag push, add this workflow:
 
 ```yaml
 # .github/workflows/release.yml
@@ -90,19 +90,19 @@ jobs:
           body_path: CHANGELOG.md
 ```
 
-## Ветки и PR
+## Branches and PRs
 
-- Все изменения через PR в `main`
-- Ветки именовать: `feat/`, `fix/`, `docs/`, `chore/`
-- Squash merge для чистоты истории
+- All changes go through a PR into `main`
+- Branch naming: `feat/`, `fix/`, `docs/`, `chore/`
+- Squash merge to keep history clean
 
-## Labels для Issues/PR
+## Issue / PR Labels
 
-| Label | Описание |
+| Label | Description |
 |---|---|
-| `good first issue` | Подходит для новичков |
-| `bug` | Баг |
-| `enhancement` | Новая фича |
-| `help wanted` | Нужна помощь |
-| `documentation` | Только документация |
-| `security` | Связано с безопасностью |
+| `good first issue` | Suitable for first-time contributors |
+| `bug` | Something is broken |
+| `enhancement` | New feature or improvement |
+| `help wanted` | Extra attention needed |
+| `documentation` | Documentation only |
+| `security` | Security-related change |

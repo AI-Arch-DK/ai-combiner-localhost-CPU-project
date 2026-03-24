@@ -1,43 +1,43 @@
-# Hallucination Guard — защита от галлюцинаций
+# Hallucination Guard — Protection Against Hallucinations
 
-## Уровни защиты
+## Protection Layers
 
-```
-[Уровень 1] Промпт-ограничения
-  → max 50 слов в prompt_template
-  → "Отвечай только X, нет объяснений"
-  → Указание ожидаемого формата
+```text
+[Layer 1] Prompt constraints
+  → max 50 words in prompt_template
+  → "Output X only, no explanation"
+  → Specify expected output format
 
-[Уровень 2] Параметры задачи
+[Layer 2] Task parameters
   → cancel_on_hallucination = 1
-  → max_tokens ограничен
+  → max_tokens limited
   → max_wait_sec = 30–60
 
-[Уровень 3] Детекция системой
+[Layer 3] System detection
   → qwen_dispatch → HALLUCINATION → qwen_cancel
-  → Запрос перенаправляется во внешние инструменты
+  → Request is rerouted to external tools
 
-[Уровень 4] Кросс-проверка (validate_config)
-  → tavily получает документацию
-  → Qwen сравнивает свой ответ с документацией
+[Layer 4] Cross-validation (validate_config)
+  → tavily fetches reference documentation
+  → Qwen compares its answer against the docs
 ```
 
-## Признаки галлюцинации
+## Hallucination Signals
 
-| Симптом | Действие |
+| Symptom | Action |
 |---|---|
-| Ответ > max_tokens × 1.5 | qwen_cancel |
-| Повторяет вопрос вместо ответа | qwen_cancel |
-| Несуществующие команды/IP | qwen_cancel |
-| Отвечает не на том языке | qwen_cancel |
+| Response > max_tokens × 1.5 | qwen_cancel |
+| Repeats the question instead of answering | qwen_cancel |
+| Contains non-existent commands or IPs | qwen_cancel |
+| Responds in the wrong language | qwen_cancel |
 
-## confidence_score() — реализация по категориям
+## confidence_score() — Implementation by Category
 
 ```python
 import re
 
 def confidence_score(response: str, task_category: str) -> float:
-    """0.0 = галлюцинация, 1.0 = надёжный ответ"""
+    """0.0 = hallucination, 1.0 = reliable answer"""
     r = response.strip()
 
     if task_category == 'extract_ip':
@@ -52,12 +52,11 @@ def confidence_score(response: str, task_category: str) -> float:
         return 1.0 if r.isdigit() else 0.0
 
     if task_category == 'classification':
-        valid = {'network_config','code_generation','system_check',
-                 'database','orchestration','simple_query'}
+        valid = {'network_config', 'code_generation', 'system_check',
+                 'database', 'orchestration', 'simple_query'}
         return 1.0 if r.lower() in valid else 0.0
 
     if task_category == 'translate':
-        # Ответ не должен содержать исходных слов prompt
         return 0.8 if len(r) > 5 else 0.0
 
     if task_category in ('summarize', 'explain_short'):
@@ -65,18 +64,17 @@ def confidence_score(response: str, task_category: str) -> float:
         return 1.0 if 2 <= sentences <= 6 else 0.5
 
     if task_category in ('network_mikrotik', 'network_cisco'):
-        # CLI команды должны содержать '/'
         return 1.0 if '/' in r else 0.3
 
     return 0.7  # default for other categories
 
-# Использование:
+# Usage:
 # score = confidence_score(qwen_response, task.category)
 # if score < 0.5: qwen_cancel(query_id, reason='hallucination')
 ```
 
-## Связанные таски
+## Related Tasks
 
-- `qt_015` (validate_config) — кросс-проверка через tavily
-- `qt_018` (fact_check) — поиск противоречий
-- `qt_023` (security check) — проверка перед push
+- `qt_015` (validate_config) — cross-validation via tavily
+- `qt_018` (fact_check) — contradiction detection
+- `qt_023` (security check) — pre-push validation

@@ -1,12 +1,12 @@
 # Testing — AI Combiner
 
-## Автоматические тесты
+## Automated Tests
 
 ```bash
-# Тест Qwen (4 таска)
+# Qwen task tests (4 tasks)
 bash /ai/scripts/test_qwen_tasks.sh
 
-# Health check (все компоненты)
+# Full component health check
 bash /ai/scripts/health_check.sh
 
 # Security check
@@ -15,22 +15,24 @@ grep -rE "tvly-|github_pat|hf_[a-zA-Z]{20,}" \
   && echo "❌ SECRETS" || echo "✅ CLEAN"
 ```
 
-## Тестовая матрица
+## Test Matrix
 
-| Тест | Скрипт | Ожидаемый результат |
+| Test | Script | Expected result |
 |---|---|---|
-| Ollama запущен | `health_check.sh` | ✅ ollama отвечает |
-| БД доступны | `health_check.sh` | ✅ 7 БД |
+| Ollama running | `health_check.sh` | ✅ Ollama responds |
+| Databases accessible | `health_check.sh` | ✅ 7 databases |
 | Qwen classify | `test_qwen_tasks.sh` | network_config |
 | Qwen count | `test_qwen_tasks.sh` | 3 |
-| Qwen explain | `test_qwen_tasks.sh` | содержит OSPF |
-| Qwen translate | `test_qwen_tasks.sh` | привет/hello |
+| Qwen explain | `test_qwen_tasks.sh` | contains OSPF |
+| Qwen translate | `test_qwen_tasks.sh` | hello |
 | Security | GitHub Actions | ✅ no secrets |
-| Ресурсы | `check_resources.sh` | 7 строк |
+| Resources | `check_resources.sh` | 7 lines |
 
 ## CI/CD
 
-При каждом push автоматически запускается:
-- `.github/workflows/security_check.yml` — проверка секретов
+Every push automatically runs:
 
-См. `docs/EVALUATION_CRITERIA.md` для критериев качества Qwen.
+- `.github/workflows/ci.yml` — SQL, JSON, and Markdown lint
+- `.github/workflows/security_check.yml` — secret detection
+
+See `docs/EVALUATION_CRITERIA.md` for Qwen output quality criteria.

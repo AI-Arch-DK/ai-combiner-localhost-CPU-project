@@ -1,6 +1,9 @@
 # Pre-commit hooks for AI Combiner
 # Install: pip install pre-commit && pre-commit install
 # Run all: pre-commit run --all-files
+#
+# SQL linting runs in CI (see .github/workflows/ci.yml)
+# sqlfluff is excluded here due to parser limitations with sqlite FTS5/VIRTUAL TABLE
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -20,15 +23,10 @@ repos:
         args: ['--baseline', '.secrets.baseline']
         exclude: |
           (?x)^(
-            .secrets.baseline|
-            CHANGELOG.md
+            \.secrets\.baseline|
+            CHANGELOG\.md|
+            config/environment\.example
           )$
-
-  - repo: https://github.com/sqlfluff/sqlfluff
-    rev: 3.1.0
-    hooks:
-      - id: sqlfluff-lint
-        args: ['--dialect', 'ansi']
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.41.0

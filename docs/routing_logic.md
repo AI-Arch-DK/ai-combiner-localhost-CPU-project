@@ -1,55 +1,55 @@
 # Routing Logic — AI Combiner
 
-## Приоритеты обработки запроса
+## Request Processing Order
 
-```
-ЗАПРОС ПОЛЬЗОВАТЕЛЯ
+```text
+USER REQUEST
        │
        ▼
 ┌─────────────────────────────────────────┐
-│  [1] СКИЛЛЫ (SKILL.md)                  │  ← перехватывают ПЕРВЫМИ
+│  [1] SKILLS (SKILL.md)                  │  ← intercept FIRST
 │  ~/.config/Claude/local-agent-mode-     │
 │  sessions/skills-plugin/1492d8b0.../    │
-│  Триггер совпал? → отвечает скилл       │
+│  Trigger matched? → skill responds      │
 └──────────────┬──────────────────────────┘
-               │ нет совпадения
+               │ no match
                ▼
 ┌─────────────────────────────────────────┐
 │  [2] systemPrompt                       │  ← claude_desktop_config.json
-│  Приоритет №1: "инфо о себе" →         │
+│  Priority #1: "about yourself" →        │
 │  shell → /ai/scripts/check_resources.sh │
 └──────────────┬──────────────────────────┘
                │
                ▼
 ┌─────────────────────────────────────────┐
-│  [3] qwen_dispatch(user_query)          │  ← ВСЕГДА первым из инструментов
+│  [3] qwen_dispatch(user_query)          │  ← always called first among tools
 │                                         │
-│  MATCH   → Qwen отвечает → AS-IS       │
-│  NO_MATCH → переход к стратегии         │
+│  MATCH   → Qwen responds → return as-is │
+│  NO_MATCH → fall through to strategy    │
 │  TIMEOUT + required=false →             │
-│     параллельно HF+tavily               │
+│     HF + tavily in parallel             │
 │     → qwen_get_late_answer              │
 │  HALLUCINATION → qwen_cancel            │
-│     → внешние инструменты               │
+│     → external tools                    │
 └──────────────┬──────────────────────────┘
                │ NO_MATCH
                ▼
 ┌─────────────────────────────────────────┐
-│  [4] parallel_config стратегия          │
+│  [4] parallel_config strategy           │
 │                                         │
-│  qwen_only       → только Qwen          │
-│  parallel        → Qwen+HF+tavily       │
-│  external_first  → HF+browser+tavily    │
-│  qwen_with_context → tavily→Qwen        │
+│  qwen_only       → Qwen only            │
+│  parallel        → Qwen + HF + tavily   │
+│  external_first  → HF + browser + tavily│
+│  qwen_with_context → tavily → Qwen      │
 └──────────────┬──────────────────────────┘
                │
                ▼
-         РЕЗУЛЬТАТ → БД → пользователь
+         RESULT → DB → user
 ```
 
-## Матрица стратегий
+## Strategy Matrix
 
-| Тип задачи | Стратегия | Qwen | HF | Tavily | Browser |
+| Task type | Strategy | Qwen | HF | Tavily | Browser |
 |---|---|---|---|---|---|
 | network_config | parallel | ✅ | ✅ | ✅ | ✅ |
 | explain_short | qwen_only | ✅ | ❌ | ❌ | ❌ |
@@ -64,18 +64,20 @@
 | compare_options | parallel | ✅ | ✅ | ✅ | ❌ |
 | fact_check | qwen_with_context | ✅ | ❌ | ✅ | ❌ |
 | startup_check | qwen_only | ✅ | ❌ | ❌ | ❌ |
+| git_ops | qwen_only | ✅ | ❌ | ❌ | ❌ |
+| git_check | qwen_only | ✅ | ❌ | ❌ | ❌ |
 
-## CLAUDE_DIRECT маркеры
+## CLAUDE_DIRECT Markers
 
-`qt_019` (bash) и `qt_020` (sql) — специальные маркеры.
-Когда qwen_dispatch возвращает `code_direct` → Claude выполняет задачу напрямую без Qwen.
-Экономия: не тратим локальные ресурсы на задачи где Claude лучше справляется сам.
+`qt_019` (bash) and `qt_020` (sql) are special markers.
+When qwen_dispatch returns `code_direct` → Claude executes the task directly, bypassing Qwen.
+This saves local resources for tasks where Claude produces better results on its own.
 
-## Токен-экономия
+## Token Economy
 
-| Модель | Роль | Токены/запрос |
+| Model | Role | Tokens / request |
 |---|---|---|
-| Qwen 7b (local) | воркер | 10–200 (бесплатно) |
-| Claude Sonnet | дирижёр | минимум (только решения) |
-| HF Cerebras | внешний | параллельно, только при нужде |
-| Tavily | поиск | только external/context стратегии |
+| Qwen 7B (local) | worker | 10–200 (free) |
+| Claude Sonnet | conductor | minimal (decisions only) |
+| HF Cerebras | external | parallel, only when needed |
+| Tavily | search | only for external / context strategies |
