@@ -7,7 +7,11 @@
   "files.exclude": {"**/__pycache__": true},
   "[markdown]": {
     "editor.wordWrap": "on",
-    "editor.quickSuggestions": false
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
   },
   "[sql]": {
     "editor.defaultFormatter": "dorzey.vscode-sqlfluff"
