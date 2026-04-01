@@ -10,11 +10,11 @@ Turn your infrastructure into a self-learning engineering system
 
 ---
 
-## 🧭 What is AI Combiner?
+# 🧭 What is AI Combiner?
 
 AI Combiner is a local-first AI orchestration platform that integrates:
 
-# 🧠 Claude (agent / orchestrator)
+## 🧠 Claude (agent / orchestrator)
 ⚙️ Qwen via Ollama (local CPU inference)
 🔌 MCP ecosystem (13+ tools)
 🗄 SQLite-based knowledge system
