@@ -170,12 +170,12 @@ Tokens	tokens_db
 Background FAQ generation
 Token-aware routing
 
-## 💻 Hardware
-Type	Spec
-CPU	4c/8t+
+## 💻 Requirements 💻 Hardware 
+Component	Minimum
+CPU	4 cores / 8 threads
 RAM	16 GB
 Storage	NVMe
-OS	Debian/Ubuntu
+OS	Debian / Ubuntu
 
 Scales to 32B models (48GB RAM)
 
@@ -234,14 +234,6 @@ ai-combiner-localhost-CPU-project/
     ├── schemas/
     └── data/
 ```
-
----
-
-## 💻 Hardware (reference node)
-
-| CPU | RAM | NVMe | OS | Ollama model |
-|---|---|---|---|---|
-| i7-8565U 4c/8t 4.6GHz | 16 GB | 256 GB | Debian 6.19.6 | qwen2.5:7b-q4_K_M |
 
 ---
 
