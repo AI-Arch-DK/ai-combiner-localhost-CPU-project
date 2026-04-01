@@ -1,4 +1,4 @@
-🚀 AI Combiner
+# 🚀 AI Combiner
 Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
 
 Turn your infrastructure into a self-learning engineering system
@@ -32,34 +32,35 @@ AI Combiner is a local-first AI orchestration platform that integrates:
 **AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
 ---
 
-## 💡 Business Value
+# 💡 Business Value
 
 AI Combiner transforms AI from a tool into infrastructure and asset
 
-# 🔗 Full Value Proposition
+## 🔗 Full Value Proposition
 
 👉 See [AI Combiner — Value Proposition and Use Cases](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Value%20Proposition%20and%20Use%20Cases)
 
 ## 🧠 Executive Summary
 
-AI Combiner is built on four enterprise principles:
+#AI Combiner is built on four enterprise principles:
 
-1. Control & Governance
+## 1. Control & Governance
 Local execution (on-premise)
 Deterministic routing
 Full audit trail
-2. Knowledge as an Asset
+## 2. Knowledge as an Asset
 Every task → structured artifact
 Validated → stored → reusable
 Institutional memory grows over time
-3. Cost Predictability
+## 3. Cost Predictability
 Local inference → zero marginal cost
 FAQ cache → instant execution
 External models → controlled usage
-4. AI as Infrastructure
+## 4. AI as Infrastructure
 Embedded into DevOps workflows
 Not chat — execution layer
 Continuously improving system
+
 ## 🧬 Digital Twin of Expertise
 
 AI Combiner creates a Digital Twin of your engineering team:
@@ -149,7 +150,7 @@ OS	Debian/Ubuntu
 
 Scales to 32B models (48GB RAM)
 
-## 📁 Project Structure
+# 📁 Project Structure
 .
 ├── .github/              # CI/CD, templates
 ├── config/               # env, models, services
@@ -160,7 +161,7 @@ Scales to 32B models (48GB RAM)
 ├── AI Combiner — Value Proposition and Use Cases
 ├── README.md
 
-## 📚 Documentation
+# 📚 Documentation
 Topic	Path
 Architecture	docs/architecture.md
 Data Flow	docs/DATA_FLOW.md
@@ -207,7 +208,7 @@ ai-combiner-localhost-CPU-project/
 
 ---
 
-## 💻 Hardware (reference node)
+# 💻 Hardware (reference node)
 
 | CPU | RAM | NVMe | OS | Ollama model |
 |---|---|---|---|---|
