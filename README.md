@@ -1,6 +1,8 @@
-# AI Combiner — localhost CPU project
+🚀 AI Combiner
+Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
 
-> Local AI orchestrator: Claude Desktop + Qwen/Ollama + 13 MCP. CPU-only, localhost.
+Turn your infrastructure into a self-learning engineering system
+— not just AI usage, but AI ownership.
 
 [![CI](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml/badge.svg)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -8,50 +10,165 @@
 
 ---
 
-## What is AI Combiner?
+## 🧭 What is AI Combiner?
 
-**AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required.
+AI Combiner is a local-first AI orchestration platform that integrates:
 
-- 🧠 **Claude** — orchestrates, codes, reasons
-- ⚙️ **Qwen 7B (q4_K_M)** — fast local inference for extraction, classification, translation
-- 🔌 **13 MCP servers** — SQLite, filesystem, shell, browser, GitHub, HuggingFace, Tavily, Gmail, GCal, Miro, Clay, and more
-- 🗄 **SQLite routing DB** — 28 task rules + 15 parallel strategies
+# 🧠 Claude (agent / orchestrator)
+⚙️ Qwen via Ollama (local CPU inference)
+🔌 MCP ecosystem (13+ tools)
+🗄 SQLite-based knowledge system
 
+→ into a unified system that executes, validates, and remembers engineering decisions.
+
+| Problem             | Traditional AI         | AI Combiner                 |
+| ------------------- | ---------------------- | --------------------------- |
+| Data privacy        | ❌ Cloud-dependent      | ✅ Fully local               |
+| Knowledge reuse     | ❌ Stateless chats      | ✅ Persistent knowledge base |
+| Cost                | ❌ Unpredictable tokens | ✅ Controlled routing        |
+| Expertise retention | ❌ Lost                 | ✅ Accumulated               |
+| Control             | ❌ Black box            | ✅ Deterministic             |
+
+**AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
 ---
 
-## 🚀 Quick Start
+## 💡 Business Value
 
-```bash
-# 1. Install Ollama + model
+AI Combiner transforms AI from a tool into infrastructure and asset
+
+# 🔗 Full Value Proposition
+
+👉 https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/AI%20Combiner%20%E2%80%94%20Value%20Proposition%20and%20Use%20Cases
+
+## 🧠 Executive Summary
+
+AI Combiner is built on four enterprise principles:
+
+1. Control & Governance
+Local execution (on-premise)
+Deterministic routing
+Full audit trail
+2. Knowledge as an Asset
+Every task → structured artifact
+Validated → stored → reusable
+Institutional memory grows over time
+3. Cost Predictability
+Local inference → zero marginal cost
+FAQ cache → instant execution
+External models → controlled usage
+4. AI as Infrastructure
+Embedded into DevOps workflows
+Not chat — execution layer
+Continuously improving system
+## 🧬 Digital Twin of Expertise
+
+AI Combiner creates a Digital Twin of your engineering team:
+
+Task → Execution → Validation → Feedback → Knowledge → Reuse
+
+→ enabling:
+
+expertise retention
+onboarding acceleration
+internal AI agents
+monetization potential
+## 🚀 Quick Start
+# Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
+
+# Pull model
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
-# 2. Create directory structure
-mkdir -p /ai/{db,scripts,logs,backup,workspace,external/sales_manager,kombain}
+# Setup environment
+bash scripts/setup_all.sh
 
-# 3. Init databases
-bash scripts/init_db.sh
+# Launch
+Claude Desktop → "about yourself"
 
-# 4. Copy scripts
-cp scripts/*.sh /ai/scripts/ && chmod +x /ai/scripts/*.sh
-
-# 5. Configure Claude Desktop (see docs/MCP_SETUP.md)
-# 6. Launch Claude Desktop
-# 7. First message: "about yourself"
-```
-
----
+## 📖 Full setup: docs/MCP_SETUP.md
 
 ## 🏗 Architecture
-
-```text
+High-Level Flow
+User → Routing → Orchestration → Execution → Validation → Knowledge Base
+Detailed Flow
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
-```
+## Core Components
+Component	Role
+Claude	orchestration, reasoning
+Qwen	local execution
+MCP servers	tool integration
+SQLite DBs	memory & routing
+Background worker	knowledge enrichment
 
-**Models:** Qwen 7B (local, free) | Claude Sonnet (conductor) | Cerebras llama3.1-8b (external) | Tavily (search)
+## 🛠 Use Cases
 
----
+# 🖥️ System Admin — Zero-Trust NOC
+Log analysis (syslog, dmesg)
+Monitoring & automation
+→ Reduced MTTR
+# 🌐 Network Engineer — Config Engine
+Multi-vendor configs
+Validation & comparison
+→ Fewer errors
+# 🔒 Security — Local Pentest Engine
+Methodologies & commands
+Secure execution
+→ Reproducible audits
+# 👨‍💻 Developer — Full-Loop Dev
+Code generation & review
+GitHub integration
+→ Faster delivery
+# 🎓 Onboarding — AI Mentor
+Real cases, not theory
+Context-aware answers
+→ Faster onboarding
+# 🧬 Knowledge Engine
+Lifecycle
+Task → Result → Validation → Feedback → Storage → Indexing
+Storage Layers
+Layer	DB
+Workflows	kombain_local.db
+Templates	network.db
+Routing	routing.db
+Logs	project.db
+Tokens	tokens_db
+
+# 📊 Routing Intelligence
+28 task rules (qwen_tasks.json)
+15 parallel strategies (parallel_config.json)
+Background FAQ generation
+Token-aware routing
+
+## 💻 Hardware
+Type	Spec
+CPU	4c/8t+
+RAM	16 GB
+Storage	NVMe
+OS	Debian/Ubuntu
+
+Scales to 32B models (48GB RAM)
+
+## 📁 Project Structure
+.
+├── .github/              # CI/CD, templates
+├── config/               # env, models, services
+├── db/                   # schemas + data
+├── docs/                 # full documentation
+├── scripts/              # automation & ops
+├── skills/               # AI skill definitions
+├── AI Combiner — Value Proposition and Use Cases
+├── README.md
+
+## 📚 Documentation
+Topic	Path
+Architecture	docs/architecture.md
+Data Flow	docs/DATA_FLOW.md
+Security	docs/SECURITY_CHECKLIST.md
+MCP Setup	docs/MCP_SETUP.md
+Routing	docs/routing_logic.md
+FAQ	docs/FAQ.md
+
 
 ## 📁 Repository Structure
 
@@ -94,7 +211,7 @@ ai-combiner-localhost-CPU-project/
 
 | CPU | RAM | NVMe | OS | Ollama model |
 |---|---|---|---|---|
-| i7-8565U 4c/8t 4.6GHz | 16 GB | 954 GB | Debian 6.19.6 | qwen2.5:7b-q4_K_M |
+| i7-8565U 4c/8t 4.6GHz | 16 GB | 256 GB | Debian 6.19.6 | qwen2.5:7b-q4_K_M |
 
 ---
 
@@ -118,6 +235,9 @@ ai-combiner-localhost-CPU-project/
 ---
 
 ## 🤝 Contributing
+Use PR template
+Follow commit guide
+Add new tasks via ISSUE_TEMPLATE
 
 Contributions are welcome! Please read [CONTRIBUTING.md](docs/CONTRIBUTING.md) before submitting a PR.
 
@@ -126,17 +246,28 @@ Good first issues are tagged [`good first issue`](https://github.com/AI-Arch-DK/
 ---
 
 ## 🛡 Code of Conduct
-
 This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). Be respectful.
 
 ---
 
-## 🔒 Security
-
+## 🔐 Security
+Local-first execution
+Secrets in .env (not logs)
+MCP isolation
+Pre-flight checks before external calls
 See [SECURITY.md](SECURITY.md) for how to report vulnerabilities.
 
+## 📊 Project Maturity
+✅ Production-ready architecture
+✅ CI/CD + security checks
+✅ Modular MCP ecosystem
+🚧 Active development
+
+## 🧭 Final Note
+AI Combiner is not another AI wrapper.
+
+It is a system that turns engineering knowledge into a scalable, auditable, and ownable asset
 ---
 
 ## 📜 License
-
 [MIT](LICENSE) © AI-Arch-DK
