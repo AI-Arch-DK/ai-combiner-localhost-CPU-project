@@ -190,11 +190,7 @@ on-prem как ключевой дифференциатор
 3. Platform Scaling
 marketplace
 SDK для создания агентов
-⚠️ Риски и ограничения
-качество Digital Twin (нужна валидация)
-cold start marketplace
-конкуренция с SaaS AI
-необходимость UX abstraction
+
 🧭 Итог
 
 Модель AI Combiner:
@@ -204,5 +200,4 @@ Asset: knowledge base
 Product: Digital Twin
 Monetization: DTaaS + marketplace
 
-Если следующий шаг:
-могу разложить это в инвесторский pitch (10–12 слайдов) или сделать финансовую модель (Excel-структура с прогнозом на 3 года).
+
