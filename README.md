@@ -42,7 +42,7 @@ Turn your infrastructure into a self-learning engineering system
 
 ## 🧠 Executive Summary
 
-#AI Combiner is built on four enterprise principles:
+# AI Combiner is built on four enterprise principles:
 
 ## 1. Control & Governance
 Local execution (on-premise)
