@@ -72,28 +72,28 @@ expertise retention
 onboarding acceleration
 internal AI agents
 monetization potential
-## 🚀 Quick Start
-# Install Ollama
+# 🚀 Quick Start
+ Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 
-# Pull model
+ Pull model
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
-# Setup environment
+ Setup environment
 bash scripts/setup_all.sh
 
-# Launch
+ Launch
 Claude Desktop → "about yourself"
 
-## 📖 Full setup: docs/MCP_SETUP.md
+# 📖 Full setup: docs/MCP_SETUP.md
 
-## 🏗 Architecture
+# 🏗 Architecture
 High-Level Flow
 User → Routing → Orchestration → Execution → Validation → Knowledge Base
 Detailed Flow
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
-## Core Components
+# Core Components
 Component	Role
 Claude	orchestration, reasoning
 Qwen	local execution
@@ -101,7 +101,7 @@ MCP servers	tool integration
 SQLite DBs	memory & routing
 Background worker	knowledge enrichment
 
-## 🛠 Use Cases
+# 🛠 Use Cases
 
 # 🖥️ System Admin — Zero-Trust NOC
 Log analysis (syslog, dmesg)
