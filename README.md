@@ -1,7 +1,8 @@
 # 🚀 AI Combiner
 ## Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
-
-Turn your infrastructure into a self-learning engineering system
+**AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
+---
+# Turn your infrastructure into a self-learning engineering system
 — not just AI usage, but AI ownership.
 
 [![CI](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml/badge.svg)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml)
@@ -29,8 +30,6 @@ Turn your infrastructure into a self-learning engineering system
 | Expertise retention | ❌ Lost                 | ✅ Accumulated               |
 | Control             | ❌ Black box            | ✅ Deterministic             |
 
-**AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
----
 
 # 💡 Business Value
 
