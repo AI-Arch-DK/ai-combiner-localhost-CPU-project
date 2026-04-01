@@ -11,7 +11,7 @@
 
 ---
 
-# 🧭 What is AI Combiner?
+## 🧭 What is AI Combiner?
 
 ## AI Combiner is a local-first AI orchestration platform that integrates:
 
@@ -31,7 +31,7 @@
 | Control             | ❌ Black box            | ✅ Deterministic             |
 
 
-# 💡 Business Value
+## 💡 Business Value
 
 ## AI Combiner transforms AI from a tool into infrastructure and asset
 
@@ -47,14 +47,17 @@
 Local execution (on-premise)
 Deterministic routing
 Full audit trail
+
 ## 2. Knowledge as an Asset
 Every task → structured artifact
 Validated → stored → reusable
 Institutional memory grows over time
+
 ## 3. Cost Predictability
 Local inference → zero marginal cost
 FAQ cache → instant execution
 External models → controlled usage
+
 ## 4. AI as Infrastructure
 Embedded into DevOps workflows
 Not chat — execution layer
@@ -62,17 +65,40 @@ Continuously improving system
 
 ## 🧬 Digital Twin of Expertise
 
-AI Combiner creates a Digital Twin of your engineering team:
+AI Combiner creates a:
+
+Digital Twin of your engineering team
+
+Lifecycle:
 
 Task → Execution → Validation → Feedback → Knowledge → Reuse
 
-→ enabling:
+## 💸 Monetization (Digital Twin)
+Turn expertise into a scalable product
 
-expertise retention
-onboarding acceleration
-internal AI agents
-monetization potential
-# 🚀 Quick Start
+AI Combiner enables you to:
+Package engineering knowledge into AI agents
+Deliver expertise as a 24/7 service
+Scale without increasing headcount
+
+# 📦 Example Products
+Pentest automation agent
+Network configuration assistant
+DevOps runbook engine
+Security audit AI
+
+# 🏪 Distribution Channels
+AI Agent Store
+OpenClaw
+Clawt
+
+# 💼 Business Model
+Subscription (€10–2000+ / month)
+Pay-per-use (API / request-based)
+Enterprise licensing (on-prem deployments)
+
+
+## 🚀 Quick Start
  Install Ollama
 curl -fsSL https://ollama.ai/install.sh | sh
 
@@ -85,13 +111,14 @@ bash scripts/setup_all.sh
  Launch
 Claude Desktop → "about yourself"
 
-# 🏗 Architecture
+## 🏗 Architecture
 High-Level Flow
 User → Routing → Orchestration → Execution → Validation → Knowledge Base
 Detailed Flow
 User → [SKILLS] → [systemPrompt] → qwen_dispatch → parallel_config → Result
           ↑ intercept   ↑ claude_desktop   ↑ routing.db        ↑ routing.db
-# Core Components
+
+## Core Components
 Component	Role
 Claude	orchestration, reasoning
 Qwen	local execution
@@ -99,7 +126,7 @@ MCP servers	tool integration
 SQLite DBs	memory & routing
 Background worker	knowledge enrichment
 
-# 🛠 Use Cases
+## 🛠 Use Cases
 
 # 🖥️ System Admin — Zero-Trust NOC
 Log analysis (syslog, dmesg)
@@ -121,7 +148,8 @@ GitHub integration
 Real cases, not theory
 Context-aware answers
 → Faster onboarding
-# 🧬 Knowledge Engine
+
+## 🧬 Knowledge Engine
 Lifecycle
 Task → Result → Validation → Feedback → Storage → Indexing
 Storage Layers
@@ -132,7 +160,7 @@ Routing	routing.db
 Logs	project.db
 Tokens	tokens_db
 
-# 📊 Routing Intelligence
+## 📊 Routing Intelligence
 28 task rules (qwen_tasks.json)
 15 parallel strategies (parallel_config.json)
 Background FAQ generation
@@ -147,7 +175,7 @@ OS	Debian/Ubuntu
 
 Scales to 32B models (48GB RAM)
 
-# 📁 Project Structure
+## 📁 Project Structure
 .
 ├── .github/              # CI/CD, templates
 ├── config/               # env, models, services
@@ -158,7 +186,7 @@ Scales to 32B models (48GB RAM)
 ├── AI Combiner — Value Proposition and Use Cases
 ├── README.md
 
-# 📚 Documentation
+## 📚 Documentation
 Topic	Path
 Architecture	docs/architecture.md
 Data Flow	docs/DATA_FLOW.md
@@ -205,7 +233,7 @@ ai-combiner-localhost-CPU-project/
 
 ---
 
-# 💻 Hardware (reference node)
+## 💻 Hardware (reference node)
 
 | CPU | RAM | NVMe | OS | Ollama model |
 |---|---|---|---|---|
