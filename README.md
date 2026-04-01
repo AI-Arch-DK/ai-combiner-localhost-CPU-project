@@ -38,7 +38,7 @@ AI Combiner transforms AI from a tool into infrastructure and asset
 
 # 🔗 Full Value Proposition
 
-👉 See [AI Combiner — Value Proposition and Use Cases.md](AI Combiner — Value Proposition and Use Cases.md) 
+👉 See [AI Combiner — Value Proposition and Use Cases.md](/AI Combiner — Value Proposition and Use Cases.md) 
 
 ## 🧠 Executive Summary
 
