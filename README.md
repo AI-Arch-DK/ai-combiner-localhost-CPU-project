@@ -85,9 +85,6 @@ bash scripts/setup_all.sh
  Launch
 Claude Desktop → "about yourself"
 
-# 📖 Full setup MCP SERVERS
-👉 See [Full setup: MCP Configuration Guide](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/docs/MCP_SETUP.md)
-
 # 🏗 Architecture
 High-Level Flow
 User → Routing → Orchestration → Execution → Validation → Knowledge Base
@@ -220,20 +217,11 @@ ai-combiner-localhost-CPU-project/
 
 `sqlite` `ollama-local` `host-report` `filesystem` `github-pub` `github-priv` `huggingface` `miro` `tavily` `shell` `browser` `clay` `gcal` `gmail`
 
----
-
-## 🔗 Links
-
-| | |
-|---|---|
-| 📖 Architecture | [docs/architecture.md](docs/architecture.md) |
-| 🔀 Routing logic | [docs/routing_logic.md](docs/routing_logic.md) |
-| 📡 MCP Setup | [docs/MCP_SETUP.md](docs/MCP_SETUP.md) |
-| 🚧 Roadmap | [docs/ROADMAP.md](docs/ROADMAP.md) |
-| ❓ FAQ | [docs/FAQ.md](docs/FAQ.md) |
-| 🔧 Troubleshooting | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+# 📖 Full setup MCP SERVERS
+👉 See [Full setup: MCP Configuration Guide](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/docs/MCP_SETUP.md)
 
 ---
+
 
 ## 🤝 Contributing
 Use PR template
@@ -263,6 +251,20 @@ See [SECURITY.md](SECURITY.md) for how to report vulnerabilities.
 ✅ CI/CD + security checks
 ✅ Modular MCP ecosystem
 🚧 Active development
+
+
+## 🔗 Links
+
+| | |
+|---|---|
+| 📖 Architecture | [docs/architecture.md](docs/architecture.md) |
+| 🔀 Routing logic | [docs/routing_logic.md](docs/routing_logic.md) |
+| 📡 MCP Setup | [docs/MCP_SETUP.md](docs/MCP_SETUP.md) |
+| 🚧 Roadmap | [docs/ROADMAP.md](docs/ROADMAP.md) |
+| ❓ FAQ | [docs/FAQ.md](docs/FAQ.md) |
+| 🔧 Troubleshooting | [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) |
+
+---
 
 ## 🧭 Final Note
 AI Combiner is not another AI wrapper.
