@@ -2,7 +2,7 @@
 ## Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
 **AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
 ---
-# Turn your infrastructure into a self-learning engineering system
+## Turn your infrastructure into a self-learning engineering system
 — not just AI usage, but AI ownership.
 
 [![CI](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml/badge.svg)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/actions/workflows/ci.yml)
@@ -31,7 +31,7 @@
 | Control             | ❌ Black box            | ✅ Deterministic             |
 
 
-## 💡 Business Value
+# 💡 Business Value
 
 ## AI Combiner transforms AI from a tool into infrastructure and asset
 
@@ -63,7 +63,7 @@ Embedded into DevOps workflows
 Not chat — execution layer
 Continuously improving system
 
-## 🧬 Digital Twin of Expertise
+# 🧬 Digital Twin of Expertise
 
 AI Combiner creates a:
 
@@ -73,7 +73,7 @@ Lifecycle:
 
 Task → Execution → Validation → Feedback → Knowledge → Reuse
 
-## 💸 Monetization (Digital Twin)
+# 💸 Monetization (Digital Twin)
 Turn expertise into a scalable product
 
 AI Combiner enables you to:
@@ -81,18 +81,18 @@ Package engineering knowledge into AI agents
 Deliver expertise as a 24/7 service
 Scale without increasing headcount
 
-# 📦 Example Products
+## 📦 Example Products
 Pentest automation agent
 Network configuration assistant
 DevOps runbook engine
 Security audit AI
 
-# 🏪 Distribution Channels
+## 🏪 Distribution Channels
 AI Agent Store
 OpenClaw
 Clawt
 
-# 💼 Business Model
+## 💼 Business Model
 Subscription (€10–2000+ / month)
 Pay-per-use (API / request-based)
 Enterprise licensing (on-prem deployments)
@@ -126,25 +126,29 @@ MCP servers	tool integration
 SQLite DBs	memory & routing
 Background worker	knowledge enrichment
 
-## 🛠 Use Cases
+# 🛠 Use Cases
 
-# 🖥️ System Admin — Zero-Trust NOC
+## 🖥️ System Admin — Zero-Trust NOC
 Log analysis (syslog, dmesg)
 Monitoring & automation
 → Reduced MTTR
-# 🌐 Network Engineer — Config Engine
+
+## 🌐 Network Engineer — Config Engine
 Multi-vendor configs
 Validation & comparison
 → Fewer errors
-# 🔒 Security — Local Pentest Engine
+
+## 🔒 Security — Local Pentest Engine
 Methodologies & commands
 Secure execution
 → Reproducible audits
-# 👨‍💻 Developer — Full-Loop Dev
+
+## 👨‍💻 Developer — Full-Loop Dev
 Code generation & review
 GitHub integration
 → Faster delivery
-# 🎓 Onboarding — AI Mentor
+
+## 🎓 Onboarding — AI Mentor
 Real cases, not theory
 Context-aware answers
 → Faster onboarding
@@ -245,7 +249,7 @@ ai-combiner-localhost-CPU-project/
 
 `sqlite` `ollama-local` `host-report` `filesystem` `github-pub` `github-priv` `huggingface` `miro` `tavily` `shell` `browser` `clay` `gcal` `gmail`
 
-# 📖 Full setup MCP SERVERS
+## 📖 Full setup MCP SERVERS
 👉 See [Full setup: MCP Configuration Guide](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/docs/MCP_SETUP.md)
 
 ---
