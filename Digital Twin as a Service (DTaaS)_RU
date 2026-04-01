@@ -1,5 +1,5 @@
-💸 Monetization Model — Digital Twin as a Service (DTaaS)
-🧠 Продукт
+# 💸 Monetization Model — Digital Twin as a Service (DTaaS)
+## 🧠 Продукт
 
 Digital Twin = AI-агент, обученный на:
 
@@ -12,17 +12,18 @@ validated решениях
 API / MCP agent
 SaaS (ограниченно)
 On-prem пакет (enterprise)
-🧩 Product Lines
-1. 🧑‍💻 Individual Experts (B2C/B2B2C)
 
-Кто: pentester, DevOps, network engineer
+## 🧩 Product Lines
+## 🧑‍💻 Individual Experts (B2C/B2B2C)
+
+Кто: pentester, DevOps, network engineer... every one
 
 Продукт:
 
 AI-агент с их экспертизой
 niche use-case (например: audit VLAN / pentest checklist)
 
-Монетизация:
+## Монетизация:
 
 подписка (€10–50 / мес)
 pay-per-use (€0.1–1 за запрос)
@@ -35,7 +36,7 @@ pay-per-use (€0.1–1 за запрос)
 AI-агент команды
 набор playbooks
 
-Монетизация:
+## Монетизация:
 
 лицензия (€200–2000 / мес)
 кастомные агенты
@@ -47,17 +48,19 @@ on-prem AI Combiner
 internal Digital Twin
 knowledge platform
 
-Монетизация:
+## Монетизация:
 
 лицензия (€20k–200k / год)
 внедрение (€10k–100k)
 support (€2k–10k / мес)
-📊 Unit Economics
+
+## 📊 Unit Economics
 Основная формула
 LTV = ARPU × Lifetime
 CAC = Acquisition Cost
 Unit Economics = LTV / CAC
-📈 Individual Expert (пример)
+
+## 📈 Individual Expert (пример)
 ARPU: €20 / мес
 Lifetime: 12 мес
 LTV: €240
@@ -65,7 +68,7 @@ CAC: €20–50
 
 → LTV/CAC = 4–10 (здоровая модель)
 
-📈 Team Product
+## 📈 Team Product
 ARPU: €500 / мес
 Lifetime: 18 мес
 LTV: €9000
@@ -73,7 +76,7 @@ CAC: €500–1500
 
 → LTV/CAC = 6+
 
-📈 Enterprise
+## 📈 Enterprise
 ARPU: €50k / год
 Lifetime: 3 года
 LTV: €150k
@@ -81,7 +84,8 @@ CAC: €5k–20k
 
 → LTV/CAC = 7–20
 
-💰 Pricing Strategy
+## 💰 Pricing Strategy
+
 1. Tiered Pricing
 Free / Community
 ограниченный агент
@@ -96,6 +100,7 @@ Enterprise
 on-prem
 кастомизация
 SLA
+
 2. Usage-Based Layer
 
 Дополнительно:
@@ -110,13 +115,15 @@ external LLM calls
 экономии времени инженеров
 предотвращенных ошибок
 ускорения delivery
-📦 Revenue Streams
+
+## 📦 Revenue Streams
 SaaS subscriptions
 Marketplace commission (10–30%)
 Enterprise licenses
 Implementation services
 Support contracts
-🏪 Marketplace Strategy
+
+##  🏪 Marketplace Strategy
 Платформы
 AI Agent Store
 OpenClaw
@@ -131,7 +138,7 @@ Network Effect
 
 → двусторонний рынок
 
-🚀 Go-To-Market (GTM)
+# 🚀 Go-To-Market (GTM)
 Phase 1 — Technical Audience
 
 Цель: early adopters
@@ -168,7 +175,8 @@ Phase 4 — Enterprise
 пилот (PoC)
 security-first позиционирование
 on-prem как ключевой дифференциатор
-🎯 Positioning
+
+## 🎯 Positioning
 Основной месседж
 
 “Turn engineering knowledge into a scalable asset”
@@ -181,7 +189,7 @@ on-prem как ключевой дифференциатор
 
 “Сократи зависимость от людей, сохранив их знания”
 
-📈 Scaling Strategy
+## 📈 Scaling Strategy
 1. Horizontal Scaling
 больше use-cases
 больше агентов
@@ -191,7 +199,7 @@ on-prem как ключевой дифференциатор
 marketplace
 SDK для создания агентов
 
-🧭 Итог
+## 🧭 Итог
 
 Модель AI Combiner:
 
