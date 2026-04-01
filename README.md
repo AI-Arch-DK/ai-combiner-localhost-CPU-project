@@ -86,7 +86,8 @@ bash scripts/setup_all.sh
  Launch
 Claude Desktop → "about yourself"
 
-# 📖 Full setup: docs/MCP_SETUP.md
+# 📖 Full setup MCP SERVERS
+👉 See [Full setup: MCP Configuration Guide](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/docs/MCP_SETUP.md)
 
 # 🏗 Architecture
 High-Level Flow
