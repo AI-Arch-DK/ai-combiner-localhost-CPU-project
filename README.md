@@ -136,7 +136,7 @@ Monitoring & automation
 ## 🌐 Network Engineer — Config Engine
 Multi-vendor configs
 Validation & comparison
-→ Fewer errors
+→ Fewer configuration errors
 
 ## 🔒 Security — Local Pentest Engine
 Methodologies & commands
@@ -149,8 +149,9 @@ GitHub integration
 → Faster delivery
 
 ## 🎓 Onboarding — AI Mentor
-Real cases, not theory
+Real cases knowledge access, not theory
 Context-aware answers
+Decision history
 → Faster onboarding
 
 ## 🧬 Knowledge Engine
@@ -170,7 +171,7 @@ Tokens	tokens_db
 Background FAQ generation
 Token-aware routing
 
-## 💻 Requirements 💻 Hardware 
+## 💻 Requirements Hardware 
 Component	Minimum
 CPU	4 cores / 8 threads
 RAM	16 GB
