@@ -1,5 +1,5 @@
 # 🚀 AI Combiner
-Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
+## Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
 
 Turn your infrastructure into a self-learning engineering system
 — not just AI usage, but AI ownership.
@@ -12,7 +12,7 @@ Turn your infrastructure into a self-learning engineering system
 
 # 🧭 What is AI Combiner?
 
-AI Combiner is a local-first AI orchestration platform that integrates:
+## AI Combiner is a local-first AI orchestration platform that integrates:
 
 ## 🧠 Claude (agent / orchestrator)
 ⚙️ Qwen via Ollama (local CPU inference)
@@ -34,7 +34,7 @@ AI Combiner is a local-first AI orchestration platform that integrates:
 
 # 💡 Business Value
 
-AI Combiner transforms AI from a tool into infrastructure and asset
+## AI Combiner transforms AI from a tool into infrastructure and asset
 
 ## 🔗 Full Value Proposition
 
