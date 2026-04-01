@@ -245,7 +245,7 @@ ai-combiner-localhost-CPU-project/
 
 ---
 
-## 📡 MCP Servers (13)
+## 📡 MCP Servers
 
 `sqlite` `ollama-local` `host-report` `filesystem` `github-pub` `github-priv` `huggingface` `miro` `tavily` `shell` `browser` `clay` `gcal` `gmail`
 
