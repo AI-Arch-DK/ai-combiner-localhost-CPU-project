@@ -38,7 +38,7 @@ AI Combiner transforms AI from a tool into infrastructure and asset
 
 # 🔗 Full Value Proposition
 
-👉 https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/AI%20Combiner%20%E2%80%94%20Value%20Proposition%20and%20Use%20Cases
+👉 See [AI Combiner — Value Proposition and Use Cases.md](AI Combiner — Value Proposition and Use Cases.md) 
 
 ## 🧠 Executive Summary
 
