@@ -77,7 +77,8 @@ Task → Execution → Validation → Feedback → Knowledge → Reuse
 # 💸 Monetization (Digital Twin)
 Turn expertise into a scalable product
 
-👉 See [Digital Twin as a Service (DTaaS)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Digital%20Twin%20as%20a%20Service%20(DTaaS).md)
+## 👉 See [Digital Twin as a Service (DTaaS)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Digital%20Twin%20as%20a%20Service%20(DTaaS).md)
+Read this in [English](<./Digital Twin as a Service (DTaaS).md>) | [Русский](<./Цифровой двойник как услуга (DTaaS)_RU.md>)
 
 AI Combiner enables you to:
 Package engineering knowledge into AI agents
