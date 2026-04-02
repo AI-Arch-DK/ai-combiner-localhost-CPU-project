@@ -37,7 +37,7 @@
 
 ## 🔗 Full Value Proposition
 
-👉 See [AI Combiner — Value Proposition and Use Cases](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Value%20Proposition%20and%20Use%20Cases.md)
+## 👉 See [AI Combiner — Value Proposition and Use Cases](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Value%20Proposition%20and%20Use%20Cases.md)
 Read this in [English](<./Value Proposition and Use Cases.md>) | [Русский](<./Ценностное предложение и примеры использования.md>)
 
 ## 🧠 Executive Summary
