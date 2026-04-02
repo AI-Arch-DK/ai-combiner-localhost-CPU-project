@@ -1,3 +1,4 @@
+[English](<./README.md>) | [Русский](<./README.RU.md>)
 # 🚀 AI Combiner
 ### Платформа локальной оркестрации ИИ (CPU • On-Premise • Enterprise-ready)
 
