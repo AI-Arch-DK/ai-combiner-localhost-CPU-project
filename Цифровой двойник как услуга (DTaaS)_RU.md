@@ -1,4 +1,4 @@
-# 💸 Monetization Model — Digital Twin as a Service (DTaaS)
+# 💸 Monetization Model — Digital Twin as a Service (DTaaS)_RU
 ## 🧠 Продукт
 
 Digital Twin = AI-агент, обученный на:
