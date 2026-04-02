@@ -41,7 +41,7 @@
 
 ## 🧠 Executive Summary
 
-# AI Combiner is built on four enterprise principles:
+## AI Combiner is built on four enterprise principles:
 
 ## 1. Control & Governance
 Local execution (on-premise)
@@ -75,6 +75,8 @@ Task → Execution → Validation → Feedback → Knowledge → Reuse
 
 # 💸 Monetization (Digital Twin)
 Turn expertise into a scalable product
+
+👉 See [Digital Twin as a Service (DTaaS)](https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project/blob/main/Digital%20Twin%20as%20a%20Service%20(DTaaS))
 
 AI Combiner enables you to:
 Package engineering knowledge into AI agents
