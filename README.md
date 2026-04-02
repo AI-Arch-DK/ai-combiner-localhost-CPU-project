@@ -1,3 +1,4 @@
+[English](<./README.md>) | [Русский](<./README.RU.md>)
 # 🚀 AI Combiner
 ## Local AI Orchestration Platform (CPU • On-Premise • Enterprise-ready)
 **AI Combiner** is a local AI orchestrator that routes tasks between Claude Desktop (conductor), a local Qwen 7B model via Ollama (CPU worker), and external tools/APIs — all on localhost, no GPU required
