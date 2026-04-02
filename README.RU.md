@@ -1,80 +1,80 @@
 # 🤖 AI COMBINER
-### Local AI Orchestration Platform for CPU-Based Inference
+### Локальная платформа оркестрации искусственного интеллекта для CPU-вычислений
 
-**Transform your machine into a self-hosted AI powerhouse. No cloud. No subscriptions. Zero external dependencies.**
+**Превратите свою машину в мощный самостоятельный AI-сервис. Без облака. Без подписок. Полная конфиденциальность.**
 
 ---
 
-## 📋 EXECUTIVE SUMMARY
+## 📋 КРАТКОЕ ОПИСАНИЕ
 
-AI Combiner is an intelligent local AI orchestration system that merges Claude Desktop's interface capabilities with Qwen 2.5 7B quantized inference and 13 Model Context Protocol (MCP) servers. Designed from the ground up for CPU-constrained environments, it delivers enterprise-grade task automation entirely on localhost.
+AI Combiner — это интеллектуальная система оркестрации локального ИИ, объединяющая интерфейс Claude Desktop, квантизованный инференс Qwen 2.5 7B и 13 серверов Model Context Protocol (MCP). Разработана для CPU-вычислений на потребительском оборудовании, работает полностью на localhost.
 
-| Feature | Specification |
+| Параметр | Значение |
 |---------|---|
-| **Core LLM** | Qwen 2.5 7B Instruct (q4_K_M quantization) |
-| **Inference Speed** | 15-20 tokens/sec on i7-8565U |
-| **Memory Footprint** | ~4.5GB active (with 14GB swap) |
-| **Architecture** | Multi-node capable (Office_MAIN concept) |
-| **Orchestration** | 13 MCP servers + SQLite-backed routing |
-| **Zero Cloud** | 100% local, airgapped deployment ready |
+| **Основная модель** | Qwen 2.5 7B Instruct (q4_K_M квантизация) |
+| **Скорость инференса** | 15-20 токенов/сек на i7-8565U |
+| **Оперативная память** | ~4.5GB активно (всего 14GB swap) |
+| **Архитектура** | Поддерживает многоузловые развертывания |
+| **Оркестрация** | 13 MCP-серверов + маршрутизация через SQLite |
+| **Без облака** | 100% локально, готова к airgapped развертыванию |
 
 ---
 
-## 🚀 QUICK START (5 minutes)
+## 🚀 БЫСТРЫЙ СТАРТ (5 минут)
 
-### Prerequisites
-- **OS:** Debian Linux (tested: kernel 6.19.6)
-- **CPU:** Any x86-64 multi-core (i7-8565U minimum recommended)
-- **RAM:** 16GB (12GB usable, 14GB swap)
-- **Storage:** 20GB free (for model + databases)
-- **Tools:** Claude Desktop, Ollama, Python 3.9+
+### Требования
+- **ОС:** Debian Linux (тестировано: kernel 6.19.6)
+- **CPU:** Любой x86-64 многоядерный (i7-8565U минимум)
+- **ОЗУ:** 16GB (12GB рабочей памяти, 14GB swap)
+- **Дисковое пространство:** 20GB свободного места
+- **Инструменты:** Claude Desktop, Ollama, Python 3.9+
 
-### Single-Command Installation
+### Установка в одну команду
 
 ```bash
-# Clone repository
+# Клонирование репозитория
 git clone https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project.git
 cd ai-combiner-localhost-CPU-project
 
-# Install dependencies
+# Установка зависимостей
 bash scripts/install_debian.sh
 
-# Start all services
+# Запуск всех сервисов
 bash scripts/startup.sh
 
-# Verify installation
+# Проверка установки
 python -c "import ollama; print(ollama.list())"
 ```
 
-### First Inference
+### Первый инференс
 
 ```python
-# Python client example
+# Пример на Python
 from ollama import Client
 
 client = Client(host="http://localhost:11434")
 response = client.generate(
     model="qwen2.5:7b-instruct-q4_K_M",
-    prompt="What is Model Context Protocol (MCP)?"
+    prompt="Что такое Model Context Protocol (MCP)?"
 )
 print(response["response"])
 ```
 
-Expected output: **~15-20 tokens/second on CPU**
+Ожидаемый результат: **~15-20 токенов в секунду на CPU**
 
 ---
 
-## 🏗️ SYSTEM ARCHITECTURE
+## 🏗️ АРХИТЕКТУРА СИСТЕМЫ
 
-### Data Flow Diagram
+### Диаграмма потока данных
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  USER INPUT (Claude Desktop UI / API)                       │
+│  ВВОД ПОЛЬЗОВАТЕЛЯ (Claude Desktop / API)                   │
 └────────────────────────┬────────────────────────────────────┘
                          │
                     ┌────▼─────────────────────┐
-                    │ Task Classification      │
+                    │ Классификация задачи     │
                     │ (qwen2:classify)         │
                     └────┬─────────────────────┘
                          │
@@ -82,18 +82,18 @@ Expected output: **~15-20 tokens/second on CPU**
      │                   │                   │
 ┌────▼──────────┐  ┌─────▼──────────┐  ┌────▼──────────┐
 │ qwen_only     │  │ external_first │  │ parallel      │
-│ (fast path)   │  │ (research)     │  │ (race)        │
+│ (быстро)      │  │ (исследование) │  │ (гонка)       │
 └────┬──────────┘  └─────┬──────────┘  └────┬──────────┘
      │                   │                   │
      │            ┌──────┴─────────┐         │
      │            │                │         │
   ┌──▼─────────┐  │   ┌────────────▼──────┐ │
-  │   Qwen     │  │   │ External Services │ │
-  │   7B LLM   │  │   │ (HF, Tavily, etc)│ │
+  │   Qwen     │  │   │ Внешние сервисы   │ │
+  │   7B LLM   │  │   │ (HF, Tavily, etc) │ │
   │            │  │   └────────────┬──────┘ │
   │ (11434)    │  │                │        │
   └──┬─────────┘  │   ┌────────────▼──────┐ │
-     │            │   │  Browser, Clay    │ │
+     │            │   │  Браузер, Clay    │ │
      │            │   │  GitHub, Miro     │ │
      │            │   └────────────┬──────┘ │
      │            └────────┬───────┘        │
@@ -101,214 +101,214 @@ Expected output: **~15-20 tokens/second on CPU**
      └─────────────────────┼────────────────┘
                            │
                     ┌──────▼──────────────┐
-                    │ Result Aggregation  │
-                    │ + Formatting        │
+                    │ Агрегация результ.  │
+                    │ + Форматирование    │
                     └──────┬──────────────┘
                            │
         ┌──────────────────┴───────────────────┐
         │                                      │
    ┌────▼─────────┐                    ┌──────▼────────┐
    │ SQLite       │                    │ Claude        │
-   │ Persistence  │                    │ Desktop       │
-   │ (routing.db) │                    │ Response      │
+   │ Хранилище    │                    │ Desktop       │
+   │ (routing.db) │                    │ Ответ         │
    └──────────────┘                    └───────────────┘
 ```
 
-### Hardware Stack
+### Аппаратное обеспечение
 
-| Component | Specification | Notes |
+| Компонент | Спецификация | Примечания |
 |-----------|---|---|
-| **CPU** | Intel Core i7-8565U @ 1.80GHz (Turbo 4.6GHz) | 4 cores, 8 threads, low TDP |
-| **Caches** | L1: 128 KiB × 4 | L2: 1 MiB × 4 | L3: 8 MiB | Standard Intel layout |
-| **Memory** | 16GB RAM (DDR4-2400) | Active: ~10GB, Swap: 14GB |
-| **Storage** | NVMe 953.9 GB (nvme0n1) | SSD essential for performance |
-| **OS** | Debian Linux, kernel 6.19.6+deb14-amd64 | LLVM backend for GGML |
-| **Virtualization** | Intel VT-x enabled | For future Docker/KVM support |
+| **CPU** | Intel Core i7-8565U @ 1.80GHz (Turbo 4.6GHz) | 4 ядра, 8 потоков |
+| **Кэши** | L1: 128 KiB × 4 | L2: 1 MiB × 4 | L3: 8 MiB | Стандартная конфигурация Intel |
+| **Память** | 16GB RAM (DDR4-2400) | Активно: ~10GB, Swap: 14GB |
+| **Хранилище** | NVMe 953.9 GB (nvme0n1) | SSD критична для производительности |
+| **ОС** | Debian Linux, kernel 6.19.6+deb14-amd64 | LLVM бэкенд для GGML |
+| **Виртуализация** | Intel VT-x включен | Для будущей поддержки Docker/KVM |
 
 ---
 
-## 📡 MCP SERVERS (13 Active Endpoints)
+## 📡 MCP-СЕРВЕРЫ (13 активных эндпоинтов)
 
-| ID | Server | Protocol | Endpoint | Purpose | Status |
+| ID | Сервер | Протокол | Эндпоинт | Назначение | Статус |
 |---|---|---|---|---|---|
-| 1 | `sqlite` | mcp-server-sqlite | localhost | Routing database, knowledge persistence | ✅ |
-| 2 | `ollama-local` | HTTP/Node.js | localhost:11434 | Qwen 2.5 7B inference engine | ✅ |
-| 3 | `host-report` | Node.js MCP | localhost | System monitoring via system_audit.sh | ✅ |
-| 4 | `filesystem` | @modelcontextprotocol/server-filesystem | localhost | File operations (/home, /ai, /mnt) | ✅ |
-| 5 | `shell` | mcp-shell | localhost | Execute bash commands (restricted) | ✅ |
-| 6 | `github-public` | github-mcp-server | api.github.com | Public repository operations | ✅ |
-| 7 | `github-private` | github-mcp-server | api.github.com | Private account access | ✅ |
-| 8 | `huggingface` | huggingface-server (Node.js) | api.huggingface.co | HF model search + inference | ✅ |
-| 9 | `miro` | mcp.miro.com | mcp.miro.com | Architecture visualization (DAG) | ✅ |
-| 10 | `tavily` | tavily-mcp | api.tavily.com | Web search API | ✅ |
-| 11 | `browser` | playwright browser-server | localhost:3000 | Chromium automation | ✅ |
-| 12 | `clay` | api.clay.com/v3/mcp | api.clay.com | CRM data enrichment | ✅ |
-| 13 | `gcal` / `gmail` | Google MCP | googleapis.com | Calendar & email integration | ⚠️ |
+| 1 | `sqlite` | mcp-server-sqlite | localhost | База маршрутизации, сохранение знаний | ✅ |
+| 2 | `ollama-local` | HTTP/Node.js | localhost:11434 | Инференс Qwen 2.5 7B | ✅ |
+| 3 | `host-report` | Node.js MCP | localhost | Мониторинг системы (system_audit.sh) | ✅ |
+| 4 | `filesystem` | @modelcontextprotocol/server-filesystem | localhost | Операции с файлами (/home, /ai, /mnt) | ✅ |
+| 5 | `shell` | mcp-shell | localhost | Выполнение bash-команд (ограниченно) | ✅ |
+| 6 | `github-public` | github-mcp-server | api.github.com | Публичные операции GitHub | ✅ |
+| 7 | `github-private` | github-mcp-server | api.github.com | Приватные репозитории | ✅ |
+| 8 | `huggingface` | huggingface-server (Node.js) | api.huggingface.co | Поиск + инференс моделей HF | ✅ |
+| 9 | `miro` | mcp.miro.com | mcp.miro.com | Визуализация архитектуры (DAG) | ✅ |
+| 10 | `tavily` | tavily-mcp | api.tavily.com | Веб-поиск API | ✅ |
+| 11 | `browser` | playwright browser-server | localhost:3000 | Автоматизация Chromium | ✅ |
+| 12 | `clay` | api.clay.com/v3/mcp | api.clay.com | Обогащение CRM-данных | ✅ |
+| 13 | `gcal` / `gmail` | Google MCP | googleapis.com | Интеграция календаря & почты | ⚠️ |
 
-**Configuration file:** `~/.config/Claude/claude_desktop_config.json`
+**Файл конфигурации:** `~/.config/Claude/claude_desktop_config.json`
 
 ---
 
-## 🗄️ DATABASE ARCHITECTURE
+## 🗄️ АРХИТЕКТУРА БАЗ ДАННЫХ
 
-### Local Databases (`/ai/db/`)
+### Локальные БД (`/ai/db/`)
 
-| Database | Tables | Size | Purpose | Records |
+| БД | Таблиц | Размер | Назначение | Записей |
 |---|---|---|---|---|
-| **routing.db** | 3 | 56K | Task routing + parallel config | qwen_tasks: 21 |
-| **project.db** | 3 | 108K | Project management + templates | FTS indexed |
-| **network.db** | 3 | 100K | FAQ cache (network + sales) | — |
-| **kombain_local.db** | 5 | — | Workflows, results, feedback | Local knowledge |
-| **models.db** | 2 | 28K | Model registry (Qwen, variants) | — |
-| **tokens.db** | 3 | 36K | Token accounting by session | — |
-| **tools.db** | 2 | 32K | MCP server & tool registry | — |
+| **routing.db** | 3 | 56K | Маршрутизация задач + параллельная конфиг | qwen_tasks: 21 |
+| **project.db** | 3 | 108K | Управление проектами + шаблоны | Индексировано FTS |
+| **network.db** | 3 | 100K | Кэш FAQ (сетевые + продажи) | — |
+| **kombain_local.db** | 5 | — | Workflows, результаты, обратная связь | Локальные знания |
+| **models.db** | 2 | 28K | Реестр моделей (Qwen, варианты) | — |
+| **tokens.db** | 3 | 36K | Учет токенов по сессиям | — |
+| **tools.db** | 2 | 32K | Реестр MCP-серверов & инструментов | — |
 
-### Shared Database (Multi-node)
+### Общая БД (Многоузловая)
 
 ```
 kombain_shared.db ← /ai/external/sales_manager/
 │
-├─ Used by: debianAI-node (this machine)
-├─ Used by: sales_manager-node
-└─ Future: Office_MAIN central node (orchestrator)
+├─ Используется: debianAI-node (эта машина)
+├─ Используется: sales_manager-node
+└─ Будущее: Office_MAIN центральный узел (оркестратор)
 ```
 
 ---
 
-## 🎯 INTELLIGENT TASK ROUTING
+## 🎯 ИНТЕЛЛЕКТУАЛЬНАЯ МАРШРУТИЗАЦИЯ ЗАДАЧ
 
-### 23 Qwen Tasks + Parallel Strategies
+### 23 Qwen-задачи + 13 стратегий параллелизма
 
-The system automatically classifies incoming requests and routes them via one of 13 routing strategies:
+Система автоматически классифицирует запросы и маршрутизирует их через одну из 13 стратегий:
 
-#### Example: "Extract IP addresses from this network log"
-
-```
-Input: "Extract IP addresses from this network log"
-           ↓
-Classification: extract_ip (qt_003)
-           ↓
-Strategy: qwen_only (pc_007)
-           ↓
-Execution: Qwen processes locally
-           ↓
-Output: ["192.168.1.1", "10.0.0.5", ...]
-Storage: Results cached in network.db
-```
-
-#### Example: "Research best practices for CPU optimization"
+#### Пример: "Извлеки IP-адреса из логов сети"
 
 ```
-Input: "Research best practices for CPU optimization"
+Ввод: "Извлеки IP-адреса из логов сети"
            ↓
-Classification: research (unknown task)
+Классификация: extract_ip (qt_003)
            ↓
-Strategy: external_first (pc_005)
+Стратегия: qwen_only (pc_007)
            ↓
-Parallel Execution:
-  ├─ Tavily web search
-  ├─ HuggingFace model search
-  └─ Browser automation
+Выполнение: Qwen обрабатывает локально
            ↓
-Output: Aggregated research results
-Storage: Cached in project.db with source attribution
+Вывод: ["192.168.1.1", "10.0.0.5", ...]
+Хранилище: Результаты в network.db
 ```
 
-### Routing Configuration Table
+#### Пример: "Исследуй лучшие практики CPU-оптимизации"
 
-| Strategy ID | Type | Logic | Use Case |
+```
+Ввод: "Исследуй лучшие практики CPU-оптимизации"
+           ↓
+Классификация: research (неизвестная задача)
+           ↓
+Стратегия: external_first (pc_005)
+           ↓
+Параллельное выполнение:
+  ├─ Tavily веб-поиск
+  ├─ Поиск моделей HuggingFace
+  └─ Автоматизация браузера
+           ↓
+Вывод: Агрегированные результаты исследования
+Хранилище: Кэш в project.db с указанием источников
+```
+
+### Таблица конфигурации маршрутизации
+
+| ID Стратегии | Тип | Логика | Вариант использования |
 |---|---|---|---|
-| **pc_001** | parallel | Qwen + HF + tavily, first quality response | network_config |
-| **pc_002** | qwen_only | Qwen only, optimized for speed | explain_short |
-| **pc_003** | qwen_only | Bash command generation | code_bash |
-| **pc_004** | qwen_only | SQL query generation | code_sql |
-| **pc_005** | external_first | HF + browser + tavily | research |
-| **pc_006** | qwen_only | System checks (host-report) | system_check |
-| **pc_007** | qwen_only | Extract IP/ports/errors | extract_* |
-| **pc_008** | external_first | Claude + all tools (orchestration) | orchestration |
-| **pc_009** | qwen_with_context | Qwen processes tavily results | validate_config |
-| **pc_010** | qwen_only | Output formatting | format_output |
-| **pc_011** | parallel | Compare multiple solutions | compare_options |
-| **pc_012** | qwen_with_context | Fact-check with tavily | fact_check |
-| **pc_013** | qwen_only | Startup/resource check (10s timeout) | startup_check |
+| **pc_001** | parallel | Qwen + HF + tavily, первый качественный | network_config |
+| **pc_002** | qwen_only | Только Qwen, оптимально для скорости | explain_short |
+| **pc_003** | qwen_only | Генерация bash-команд | code_bash |
+| **pc_004** | qwen_only | Генерация SQL-запросов | code_sql |
+| **pc_005** | external_first | HF + браузер + tavily | research |
+| **pc_006** | qwen_only | Проверки системы (host-report) | system_check |
+| **pc_007** | qwen_only | Извлечение IP/портов/ошибок | extract_* |
+| **pc_008** | external_first | Claude + все инструменты | orchestration |
+| **pc_009** | qwen_with_context | Qwen обрабатывает результаты tavily | validate_config |
+| **pc_010** | qwen_only | Форматирование вывода | format_output |
+| **pc_011** | parallel | Сравнение нескольких решений | compare_options |
+| **pc_012** | qwen_with_context | Проверка фактов с tavily | fact_check |
+| **pc_013** | qwen_only | Проверка старта/ресурсов (timeout 10s) | startup_check |
 
 ---
 
-## 💻 USAGE EXAMPLES
+## 💻 ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ
 
-### Example 1: Local Inference (Python)
+### Пример 1: Локальный инференс (Python)
 
 ```python
 from ollama import Client
 
 client = Client(host="http://localhost:11434")
 
-# Simple prompt
+# Простой запрос
 response = client.generate(
     model="qwen2.5:7b-instruct-q4_K_M",
-    prompt="Explain quantum entanglement in 2 sentences"
+    prompt="Объясни квантовую запутанность в 2 предложениях"
 )
 
 print(response['response'])
-# Output: Quantum entanglement is a phenomenon where two particles become correlated...
+# Вывод: Квантовая запутанность — это явление, когда две частицы...
 ```
 
-### Example 2: Task Classification & Routing
+### Пример 2: Классификация задач и маршрутизация
 
 ```python
 import sqlite3
 import json
 
-# Query routing database
+# Запрос к базе маршрутизации
 conn = sqlite3.connect('/ai/db/routing.db')
 cursor = conn.cursor()
 
-# Find routing strategy for "bash script"
+# Найти стратегию для "bash скрипта"
 cursor.execute("""
     SELECT strategy, parallel_config FROM qwen_tasks 
     WHERE triggers LIKE '%bash%'
 """)
 result = cursor.fetchone()
-print(f"Strategy: {result[0]}")  # Output: qwen_only
-print(f"Config: {json.loads(result[1])}")
+print(f"Стратегия: {result[0]}")  # Вывод: qwen_only
+print(f"Конфиг: {json.loads(result[1])}")
 
 conn.close()
 ```
 
-### Example 3: MCP Tool Chaining
+### Пример 3: Объединение MCP инструментов
 
 ```python
-# Using filesystem + shell + qwen for automation
+# Использование filesystem + shell + qwen для автоматизации
 tasks = [
     {"tool": "filesystem", "action": "list_directory", "path": "/ai/db"},
     {"tool": "shell", "action": "run", "command": "du -sh /ai/*"},
-    {"tool": "ollama-local", "action": "summarize", "data": "system_audit output"}
+    {"tool": "ollama-local", "action": "summarize", "data": "system_audit вывод"}
 ]
 
-# Execute in sequence or parallel (based on routing strategy)
+# Выполнение последовательно или параллельно (по стратегии маршрутизации)
 ```
 
-### Example 4: Web Search + Local LLM
+### Пример 4: Веб-поиск + локальная LLM
 
 ```python
-# Tavily search → Qwen summarization
+# Tavily поиск → Qwen суммирование
 import requests
 
-# 1. Search via Tavily MCP
+# 1. Поиск через Tavily MCP
 search_response = requests.post(
     "http://localhost:8000/mcp/tavily",
-    json={"query": "Rust async patterns 2026"}
+    json={"query": "Паттерны Rust async 2026"}
 )
 
 articles = search_response.json()['results']
 
-# 2. Summarize with Qwen
+# 2. Суммирование с Qwen
 from ollama import Client
 client = Client(host="http://localhost:11434")
 
 summary_response = client.generate(
     model="qwen2.5:7b-instruct-q4_K_M",
-    prompt=f"Summarize these articles:\n\n{articles}"
+    prompt=f"Суммируй эти статьи:\n\n{articles}"
 )
 
 print(summary_response['response'])
@@ -316,70 +316,70 @@ print(summary_response['response'])
 
 ---
 
-## 📊 PERFORMANCE & BENCHMARKS
+## 📊 ПРОИЗВОДИТЕЛЬНОСТЬ И БЕНЧМАРКИ
 
-### Inference Speed (Qwen 2.5 7B q4_K_M on i7-8565U)
+### Скорость инференса (Qwen 2.5 7B q4_K_M на i7-8565U)
 
-| Input Length | Tokens/Sec | Latency (first token) | Memory Peak |
+| Длина ввода | Токенов/Сек | Задержка (первый токен) | Пиковая память |
 |---|---|---|---|
-| Short (≤100 words) | 18-20 tok/s | 850ms | 4.2GB |
-| Medium (100-500 words) | 15-18 tok/s | 950ms | 4.5GB |
-| Long (500-2000 words) | 12-15 tok/s | 1200ms | 4.8GB |
-| Very long (2000+ words) | 8-12 tok/s | 1500ms | 5.2GB |
+| Короткий (≤100 слов) | 18-20 ток/с | 850ms | 4.2GB |
+| Средний (100-500 слов) | 15-18 ток/с | 950ms | 4.5GB |
+| Длинный (500-2000 слов) | 12-15 ток/с | 1200ms | 4.8GB |
+| Очень длинный (2000+ слов) | 8-12 ток/с | 1500ms | 5.2GB |
 
-**Notes:**
-- Cold start (first run): +2.5s model loading
-- Warm start (cached): <500ms
-- Q4_K_M quantization reduces accuracy <3% vs FP32
-- Swap utilization: 2-4GB active (14GB available)
+**Примечания:**
+- Холодный старт (первый запуск): +2.5s загрузка модели
+- Теплый старт (кэшировано): <500ms
+- Квантизация Q4_K_M снижает точность <3% vs FP32
+- Использование swap: 2-4GB активно (14GB доступно)
 
-### Cost Comparison vs Cloud APIs
+### Сравнение стоимости с облачными API
 
-| Scenario | AI Combiner | ChatGPT 4o | Claude 3.5 Sonnet |
+| Сценарий | AI Combiner | ChatGPT 4o | Claude 3.5 Sonnet |
 |---|---|---|---|
-| **1M requests/month** | $0 (electricity: ~$15) | $3,600 | $4,500 |
-| **Setup cost** | $0 (use existing laptop) | N/A | N/A |
-| **Latency** | 50-100ms | 500-2000ms | 500-2000ms |
-| **Privacy** | 100% local | Cloud-stored | Cloud-stored |
-| **Offline capable** | ✅ Yes | ❌ No | ❌ No |
+| **1М запросов/месяц** | $0 (электричество: ~$15) | $3,600 | $4,500 |
+| **Стоимость установки** | $0 (используй существующий ноутбук) | N/A | N/A |
+| **Задержка** | 50-100ms | 500-2000ms | 500-2000ms |
+| **Конфиденциальность** | 100% локально | Облако-хранилище | Облако-хранилище |
+| **Офлайн-возможность** | ✅ Да | ❌ Нет | ❌ Нет |
 
 ---
 
-## 🔧 INSTALLATION & SETUP
+## 🔧 УСТАНОВКА И НАСТРОЙКА
 
-### Full Installation (Debian Linux)
+### Полная установка (Debian Linux)
 
 ```bash
-# 1. Clone repository
+# 1. Клонирование репозитория
 git clone https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project.git
 cd ai-combiner-localhost-CPU-project
 
-# 2. Run installation script
+# 2. Запуск скрипта установки
 sudo bash scripts/install_debian.sh
 
-# 3. Install Python dependencies
+# 3. Установка зависимостей Python
 python3 -m pip install -r requirements.txt
 
-# 4. Download Qwen model via Ollama
+# 4. Загрузка модели Qwen через Ollama
 ollama pull qwen2.5:7b-instruct-q4_K_M
 
-# 5. Configure Claude Desktop
+# 5. Конфигурация Claude Desktop
 cp config/claude_desktop_config.json ~/.config/Claude/
 
-# 6. Verify MCP servers
+# 6. Проверка MCP-серверов
 bash scripts/verify_mcp.sh
 
-# 7. Start services
+# 7. Запуск сервисов
 bash scripts/startup.sh
 ```
 
-### Docker Alternative (Optional)
+### Альтернатива Docker (Опционально)
 
 ```bash
-# Build Docker image
+# Сборка Docker-образа
 docker build -t ai-combiner:latest .
 
-# Run container
+# Запуск контейнера
 docker run -d \
   --name ai-combiner \
   -p 11434:11434 \
@@ -387,28 +387,28 @@ docker run -d \
   -v /path/to/databases:/ai/db \
   ai-combiner:latest
 
-# Verify
+# Проверка
 docker exec ai-combiner curl localhost:11434/api/tags
 ```
 
 ---
 
-## 📖 ARCHITECTURE DEEP DIVE
+## 📖 УГЛУБЛЕННОЕ ИЗУЧЕНИЕ АРХИТЕКТУРЫ
 
-### Multi-Node Concept: Office_MAIN (Future)
+### Многоузловая концепция: Office_MAIN (Будущее)
 
-AI Combiner is designed to scale to multiple nodes, synced via shared database:
+AI Combiner разработана для масштабирования на несколько узлов, синхронизируемых через общую БД:
 
 ```
 ┌──────────────────────────────────────┐
-│   Office_MAIN (Central Orchestrator)  │
-│   Manages all routing & priorities    │
+│   Office_MAIN (Центральный       │
+│   Управляет маршрутизацией & приоритетами │
 └────────────────┬─────────────────────┘
                  │
         ┌────────┼────────┐
         │        │        │
    ┌────▼──┐ ┌──▼────┐ ┌─▼────────┐
-   │debianAI│ │sales_ │ │future    │
+   │debianAI│ │sales_ │ │будущий   │
    │(CPU)   │ │mgr    │ │node_3    │
    │        │ │       │ │          │
    └────┬───┘ └──┬────┘ └─┬────────┘
@@ -417,120 +417,112 @@ AI Combiner is designed to scale to multiple nodes, synced via shared database:
                  │
         ┌────────▼─────────┐
         │kombain_shared.db │
-        │(synchronized)    │
+        │(синхронизирован) │
         └──────────────────┘
 ```
 
-Each node has local database (`kombain_local.db`) but syncs with shared database for coordination.
+Каждый узел имеет локальную БД (`kombain_local.db`), но синхронизируется с общей БД для координации.
 
 ---
 
-## 🤝 CONTRIBUTING
+## 🤝 УЧАСТИЕ В ПРОЕКТЕ
 
-We welcome contributors! This project is ideal for those interested in:
-- CPU optimization & inference quantization
-- Local LLM orchestration
-- MCP protocol development
-- Open-source AI infrastructure
+Мы приветствуем контрибьютеров! Проект идеален для тех, кто интересуется:
+- Оптимизацией CPU и квантизацией инференса
+- Оркестрацией локальных LLM
+- Разработкой MCP протокола
+- Open-source AI инфраструктурой
 
-### Getting Started as a Contributor
+### Начало участия
 
-1. **Fork the repository**
-2. **Create a feature branch:** `git checkout -b feature/my-enhancement`
-3. **Make changes** (see below for code standards)
-4. **Test your changes:** `bash tests/test_suite.sh`
-5. **Submit a PR** with description of changes
+1. **Fork репозитория**
+2. **Создай ветку:** `git checkout -b feature/my-enhancement`
+3. **Сделай изменения** (см. ниже стандарты кода)
+4. **Протестируй изменения:** `bash tests/test_suite.sh`
+5. **Отправь PR** с описанием
 
-### Development Setup
+### Настройка разработки
 
 ```bash
-# Clone your fork
+# Клонирование твоего fork'а
 git clone https://github.com/YOUR_USERNAME/ai-combiner.git
 cd ai-combiner
 
-# Create virtual environment
+# Создание виртуального окружения
 python3 -m venv venv
 source venv/bin/activate
 
-# Install dev dependencies
+# Установка dev-зависимостей
 pip install -r requirements-dev.txt
 
-# Run tests
+# Запуск тестов
 pytest tests/
 
-# Run linter
+# Запуск линтера
 black . && flake8 .
 ```
 
-### Code Standards
+### Стандарты кода
 
-- **Language:** Python 3.9+, Node.js 18+ for MCP servers
-- **Formatting:** Black (line length: 100)
-- **Linting:** flake8, mypy for type hints
-- **Testing:** pytest with >80% coverage
-- **Documentation:** Docstrings (Google style)
+- **Язык:** Python 3.9+, Node.js 18+ для MCP-серверов
+- **Форматирование:** Black (длина линии: 100)
+- **Линтинг:** flake8, mypy для type hints
+- **Тестирование:** pytest с >80% покрытием
+- **Документация:** Docstrings (Google style)
 
-### Issue Labels
+### Метки Issues
 
-- `good first issue` — Perfect for newcomers
-- `help wanted` — Need community input
-- `cpu-optimization` — Performance improvements
-- `mcp-integration` — New MCP server support
-- `documentation` — Docs & examples
-
----
-
-## 📝 LICENSE
-
-Licensed under the **MIT License** — See `LICENSE` file for details.
-
-Free for commercial use, modification, and distribution with attribution.
+- `good first issue` — Идеально для новичков
+- `help wanted` — Нужен вклад сообщества
+- `cpu-optimization` — Оптимизация производительности
+- `mcp-integration` — Поддержка новых MCP-серверов
+- `documentation` — Документация & примеры
 
 ---
 
-## 🔗 RESOURCES
+## 📝 ЛИЦЕНЗИЯ
 
-| Resource | Link |
+Лицензировано под **MIT License** — см. файл `LICENSE` для деталей.
+
+Свободна для коммерческого использования, модификации и распространения с указанием авторства.
+
+---
+
+## 🔗 РЕСУРСЫ
+
+| Ресурс | Ссылка |
 |---|---|
 | **GitHub** | https://github.com/AI-Arch-DK/ai-combiner-localhost-CPU-project |
 | **Ollama** | https://ollama.ai |
 | **Claude Desktop** | https://claude.ai/desktop |
-| **MCP Spec** | https://modelcontextprotocol.io |
-| **Qwen Models** | https://huggingface.co/Qwen |
-| **Community** | r/LocalLLaMA, discussions on GitHub |
+| **MCP спецификация** | https://modelcontextprotocol.io |
+| **Модели Qwen** | https://huggingface.co/Qwen |
+| **Сообщество** | r/LocalLLaMA, discussions на GitHub |
 
 ---
 
-## ❓ FAQ
+## ❓ ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ
 
-**Q: Can I run this on a Raspberry Pi?**  
-A: Theoretically yes, but 8GB RAM minimum. Performance would be ~3-5 tokens/sec.
+**В: Смогу ли я запустить это на Raspberry Pi?**  
+О: Теоретически да, но требуется минимум 8GB RAM. Производительность будет ~3-5 токенов/сек.
 
-**Q: Is the model fine-tuned for specific tasks?**  
-A: No, using base Qwen 2.5 7B Instruct. We provide prompt templates for specific use cases.
+**В: Модель fine-tuned для специфических задач?**  
+О: Нет, используется базовая Qwen 2.5 7B Instruct. Мы предоставляем prompt-шаблоны для конкретных cases.
 
-**Q: Can I use different LLMs?**  
-A: Yes! Switch `ollama pull` command to any GGUF model (Llama 2, Mistral, DeepSeek, etc).
+**В: Смогу ли я использовать разные LLM?**  
+О: Да! Смени команду `ollama pull` на любую GGUF модель (Llama 2, Mistral, DeepSeek, etc).
 
-**Q: How do I add a custom MCP server?**  
-A: See `docs/MCP_DEVELOPMENT.md` for step-by-step guide.
+**В: Как добавить custom MCP-сервер?**  
+О: См. `docs/MCP_DEVELOPMENT.md` для пошагового гайда.
 
-**Q: Is there an API server?**  
-A: Ollama provides OpenAI-compatible REST API at `localhost:11434`. Full documentation in `docs/API.md`.
-
----
-
-## 📞 SUPPORT & COMMUNITY
-
-- **GitHub Issues:** Report bugs & request features
-- **Discussions:** Ask questions, share use cases
-- **Email:** contact@example.com (add your contact)
-- **Newsletter:** Subscribe for updates (optional)
+**В: Есть ли API-сервер?**  
+О: Ollama предоставляет OpenAI-совместимый REST API на `localhost:11434`. Полная документация в `docs/API.md`.
 
 ---
 
-**Built with ❤️ by the AI Combiner community**
+## 📞 ПОДДЕРЖКА И СООБЩЕСТВО
 
-**Last updated:** March 2026  
-**Maintained by:** AI-Arch-DK
-**Stars:** ⭐ Help us grow — Star the repository!
+- **GitHub Issues:**报告баги & запрашивай features
+- **Discussions:** Задавай вопросы, делись use cases
+- **Email:** contact@example.com (добавь свой контакт)
+- **Newsletter:** Подпишись на обновления (опционально)
