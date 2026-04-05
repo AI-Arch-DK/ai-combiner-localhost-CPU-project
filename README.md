@@ -18,7 +18,7 @@
 
 ## 🧠 Claude (agent / orchestrator)
 ⚙️ Qwen via Ollama (local CPU inference)
-🔌 MCP ecosystem (13+ tools)
+🔌 MCP ecosystem (20+ tools)
 🗄 SQLite-based knowledge system
 
 → into a unified system that executes, validates, and remembers engineering decisions.
@@ -171,8 +171,8 @@ Logs	project.db
 Tokens	tokens_db
 
 ## 📊 Routing Intelligence
-28 task rules (qwen_tasks.json)
-15 parallel strategies (parallel_config.json)
+100+ task rules (qwen_tasks.json)
+50+ parallel strategies (parallel_config.json)
 Background FAQ generation
 Token-aware routing
 
