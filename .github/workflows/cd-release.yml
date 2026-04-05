@@ -1,0 +1,165 @@
+name: CD — Release Package
+
+on:
+  push:
+    tags:
+      - 'v*'  # Триггер: git tag v1.0, v1.1 и т.д.
+  workflow_dispatch:  # Ручной запуск из GitHub UI
+    inputs:
+      version:
+        description: 'Version (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Create package directory
+      run: |
+        mkdir -p release/ai-combiner
+        mkdir -p release/ai-combiner/configs
+        mkdir -p release/ai-combiner/scripts
+        mkdir -p release/ai-combiner/docs
+
+    - name: Copy configs
+      run: |
+        # systemd конфиги для ollama
+        cp configs/optimize.conf release/ai-combiner/configs/ 2>/dev/null || echo "configs/optimize.conf not found, creating default"
+        cat > release/ai-combiner/configs/optimize.conf << 'EOF'
+        [Service]
+        Environment="OLLAMA_NUM_PARALLEL=2"
+        Environment="OLLAMA_MAX_LOADED_MODELS=1"
+        Environment="OLLAMA_KEEP_ALIVE=10m"
+        Environment="OLLAMA_NUM_THREAD=6"
+        Environment="OLLAMA_FLASH_ATTENTION=1"
+        OOMScoreAdjust=-500
+        EOF
+
+    - name: Copy scripts
+      run: |
+        cp scripts/agent.py release/ai-combiner/scripts/ 2>/dev/null || true
+        cp scripts/backup_gold.sh release/ai-combiner/scripts/ 2>/dev/null || true
+        cp scripts/check_resources.sh release/ai-combiner/scripts/ 2>/dev/null || true
+        cp scripts/run_night_learning.py release/ai-combiner/scripts/ 2>/dev/null || true
+        cp scripts/qwen_index_agent.sh release/ai-combiner/scripts/ 2>/dev/null || true
+        cp tools/router.sh release/ai-combiner/scripts/ 2>/dev/null || true
+
+    - name: Copy docs
+      run: |
+        cp docs/BOARD_REPORT.md release/ai-combiner/docs/ 2>/dev/null || true
+        cp docs/INSTALL_OLLAMA.md release/ai-combiner/docs/ 2>/dev/null || true
+        cp README.md release/ai-combiner/ 2>/dev/null || true
+
+    - name: Create config.env example
+      run: |
+        cat > release/ai-combiner/config.env.example << 'EOF'
+        # AI-Combiner config — скопировать в ~/.config/Claude/config.env
+        # и заполнить своими ключами
+
+        export HUGGINGFACE_TOKEN="hf_YOUR_TOKEN_HERE"
+        export TAVILY_API_KEY="tvly-YOUR_KEY_HERE"
+        export OLLAMA_HOST="http://localhost:11434"
+        export OLLAMA_MODEL="qwen2.5:7b-instruct-q4_K_M"
+        export OLLAMA_MODELS="/ai/models/ollama"
+        export AI_ROOT="/ai"
+        export KOMBAIN_DB="/ai/kombain/kombain_local.db"
+        EOF
+
+    - name: Create install script
+      run: |
+        cat > release/ai-combiner/install.sh << 'INSTALL'
+        #!/bin/bash
+        # AI-Combiner быстрая установка
+        set -e
+
+        echo "=== AI-Combiner Install ==="
+
+        # 1. Установить ollama
+        if ! command -v ollama &>/dev/null; then
+          curl -fsSL https://ollama.ai/install.sh | sh
+        fi
+
+        # 2. Создать структуру
+        sudo mkdir -p /ai/{db,kombain,scripts,tools,models/ollama,data/cache,logs,backup,workspace}
+        sudo chown -R $USER:$USER /ai
+
+        # 3. Копировать скрипты
+        cp scripts/* /ai/scripts/
+        cp scripts/router.sh /ai/tools/router.sh
+        chmod +x /ai/scripts/*.sh /ai/tools/router.sh
+
+        # 4. Применить конфиг ollama
+        sudo mkdir -p /etc/systemd/system/ollama.service.d/
+        sudo cp configs/optimize.conf /etc/systemd/system/ollama.service.d/
+        sudo systemctl daemon-reload && sudo systemctl restart ollama
+
+        # 5. Настроить env
+        mkdir -p ~/.config/Claude
+        cp config.env.example ~/.config/Claude/config.env
+        echo "source ~/.config/Claude/config.env" >> ~/.bashrc
+
+        echo ""
+        echo "ЗАПОЛНИ ключи в ~/.config/Claude/config.env"
+        echo "Затем: source ~/.bashrc && ollama pull qwen2.5:7b-instruct-q4_K_M"
+        echo "Проверка: bash /ai/scripts/check_resources.sh"
+        INSTALL
+        chmod +x release/ai-combiner/install.sh
+
+    - name: Create archive
+      run: |
+        cd release
+        tar -czf ai-combiner-${{ steps.version.outputs.VERSION }}-linux-x86_64.tar.gz ai-combiner/
+        zip -r ai-combiner-${{ steps.version.outputs.VERSION }}-linux-x86_64.zip ai-combiner/
+        ls -la
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ steps.version.outputs.VERSION }}
+        name: AI-Combiner ${{ steps.version.outputs.VERSION }}
+        body: |
+          ## AI-Комбайн v4+ — ${{ steps.version.outputs.VERSION }}
+
+          ### Что внутри
+          - `install.sh` — быстрая установка
+          - `configs/optimize.conf` — оптимизация ollama systemd
+          - `scripts/` — agent.py, router.sh, backup, learning
+          - `docs/` — BOARD_REPORT.md, INSTALL_OLLAMA.md
+          - `config.env.example` — шаблон конфигурации
+
+          ### Быстрый старт
+          ```bash
+          tar -xzf ai-combiner-*.tar.gz
+          cd ai-combiner
+          bash install.sh
+          ```
+
+          ### Требования
+          - Linux x86_64, AVX2
+          - 12GB+ RAM
+          - Ollama (установится автоматически)
+
+          ### Производительность
+          - i7-8565U 15GB: ~6.6 tok/s
+          - Ryzen 7 5700G 32GB: ~12-15 tok/s
+        files: |
+          release/ai-combiner-${{ steps.version.outputs.VERSION }}-linux-x86_64.tar.gz
+          release/ai-combiner-${{ steps.version.outputs.VERSION }}-linux-x86_64.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
