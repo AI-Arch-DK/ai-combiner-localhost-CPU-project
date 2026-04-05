@@ -1,114 +1,72 @@
 # Night Learning — Overnight Self-Training
+Concept
 
+While the user is offline, Qwen processes data accumulated in the network database, enriches the local qwen_knowledge table, and updates the FAQ cache.
+Learning Pipeline
 
-## Concept
-
-
-While the user is offline, Qwen processes data accumulated during the day, enriches `qwen_knowledge`, and updates the FAQ cache.
-
-
-## Learning Pipeline
-
-
-```text
+## The process is automated via Python and follows these stages:
+Plaintext
 
 [02:00 cron]
+      |
+      ▼
+[1] Source: network.db/templates
+    Filter: protocol='faq' AND content IS NOT NULL
+      |
+      ▼
+[2] Processing: Ollama API (Model: qwen2.5:7b-instruct-q4_K_M)
+    Prompt: "Summarize 3 sentences in English. Text: {content[:400]}"
+    Options: num_predict: 200, stream: False
+      |
+      ▼
+[3] Storage: kombain_local.db/qwen_knowledge
+    Check: Skip if source (template_id) already exists in local DB
+    Record: (topic, subtopic, title, content, source, tags='auto,night,cron', verified=0)
+      |
+      ▼
+[4] Logging: /data/logs/learning.log
+    Status recorded: [start], [ok] {name}, and final [done] {count} added
 
-|
+Error Handling
 
-▼
+Designed for robust background execution:
 
-[1] network.db/templates → filter: protocol='faq', created_at > -1day
+    Availability Check: The script connects to the local Ollama API at http://localhost:11434.
 
-|
+    Request Timeouts: curl is configured with --max-time 60 to prevent hanging processes if the LLM is unresponsive.
 
-▼
+    Exception Isolation: The request block is wrapped in try...except. Network errors or empty AI responses (if resp:) trigger a skip for the specific record rather than crashing the entire script.
 
-[2] Ollama API → qwen2.5:7b
+    Data Integrity: loc.commit() is executed after each successfully processed record to ensure partial progress is saved.
 
-prompt: "Summarize in 3 sentences in English"
+Cron Configuration
 
-max_tokens: 150
+Current tasks in crontab -l:
+Code snippet
 
-|
+# Daily learning cycle (02:00)
+0 2 * * * python3 /data/scripts/run_night_learning.py >> /data/logs/learning.log 2>&1
 
-▼
+# Weekly verification (Sunday 03:00)
+0 3 * * 0 /data/scripts/night_verify.sh >> /data/logs/verify.log 2>&1
 
-[3] Write to kombain_local.db/qwen_knowledge
+Maintenance & Verification
 
-(topic, subtopic, title, content, source, tags='auto,night', verified=0)
+Use these commands to monitor the process:
 
-|
+Check recent activity:
+Bash
 
-▼
+tail -n 15 /data/logs/learning.log
 
-[4] Weekly (cron Sunday 03:00):
+Verify knowledge base growth:
+Bash
 
-tavily verifies old records (verified=0, age >7d)
+sqlite3 /data/kombain/kombain_local.db "SELECT COUNT(*) FROM qwen_knowledge WHERE tags LIKE '%night%';"
 
-Match → verified=1 | No match → flagged for review
+Test model availability:
+Bash
 
-|
+ollama list | grep "qwen2.5:7b-instruct-q4_K_M"
 
-▼
-
-[5] routing_log: record result (tokens_saved, model_used='night_qwen')
-
-```
-
-
-## Error Handling
-
-
-```bash
-
-# In night_learning.sh:
-
-OLLAMA_STATUS=$(curl -s http://localhost:11434/api/tags 2>/dev/null | python3 -c \
-
-"import json,sys; print('OK' if json.load(sys.stdin).get('models') else 'DOWN')" 2>/dev/null)
-
-
-if [ "$OLLAMA_STATUS" != "OK" ]; then
-
-echo "[night_learning] ERROR: Ollama unavailable, skipping"
-
-exit 1
-
-fi
-
-
-# Per-request timeout:
-
-# curl ... --max-time 120
-
-
-# Skip empty responses:
-
-[ -z "$response" ] && echo " SKIP $name (empty response)" && continue
-
-```
-
-
-## Cron
-
-
-```cron
-
-0 2 * * * /ai/scripts/night_learning.sh >> /ai/logs/learning.log 2>&1
-
-0 3 * * 0 /ai/scripts/night_verify.sh >> /ai/logs/verify.log 2>&1
-
-```
-
-
-## Verify Results
-
-
-```bash
-
-sqlite3 /ai/kombain/kombain_local.db \
-
-"SELECT COUNT(*), MAX(created_at), SUM(verified) FROM qwen_knowledge WHERE tags LIKE '%night%';"
-
-``` 
+Last updated: 2026-04-05 based on the current implementation of /data/scripts/run_night_learning.py.
