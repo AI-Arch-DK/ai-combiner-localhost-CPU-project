@@ -1,129 +1,127 @@
 # 🗺️ ROADMAP — AI-Combiner v4+
-> Стратегический план развития | Обновлён: 2026-04-06
+> Стратегический план развития | Обновлён: 2026-04-08
 > Ветка разработки: `dev/ollama-cpu-optimized`
 
 ---
 
-## Статус текущей версии v4.0
+## Статус текущей версии v4.1
 
-| Компонент | Статус | Версия |
-|-----------|--------|--------|
-| Ollama CPU оптимизация | ✅ Готово | systemd drop-in |
-| router.sh | ✅ Готово | v2 curl API |
-| agent.py | ✅ Готово | v1 (7 tools) |
-| Night learning enrich | ✅ Готово | enrich_topic.py atomic |
-| FTS индексы | ✅ Готово | 27 индексов по всем БД |
-| CD GitHub Actions | ✅ Готово | .github/workflows/cd-release.yml |
-| ChromaDB vector layer | ❌ Не начато | — |
-| Дистилляция чата | 🔶 Частично | index_chat_context.py |
-| bg_worker | 🔶 Частично | v1 примитивный |
-| sqlmini везде | 🔶 Частично | validate_sqlmini.py pending |
-| Gemma 4 интеграция | ❌ Не начато | — |
+| Компонент | Статус | Версия | Коммит |
+|-----------|--------|--------|--------|
+| Ollama CPU оптимизация | ✅ Готово | systemd drop-in | — |
+| router.sh | ✅ Готово | v2 curl API | — |
+| agent.py | ✅ Готово | v1 (7 tools) | — |
+| FTS индексы всех БД | ✅ Готово | 27 индексов | — |
+| CD GitHub Actions | ✅ Готово | tag-based release | — |
+| **validate_sqlmini.py** | ✅ Готово | whitelist+batch+FTS | 7c42d9e |
+| **hf_sqlmini.py** | ✅ Готово | Llama-3.1-8B cerebras | 7c42d9e |
+| **distill_session.py** | ✅ Готово | Фаза 0 базовая | 7c42d9e |
+| **enrich_topic.py v2** | ✅ Готово | tavily→sqlmini pipeline | 738fd31 |
+| ChromaDB vector layer | ❌ Не начато | — | — |
+| Дистилляция чата (полная) | 🔶 Частично | claude_sessions пустые | — |
+| bg_worker v2 | 🔶 Частично | нет tick/budget | — |
+| **Gemma 4 как дистиллятор** | 🔶 Нужно | сейчас Llama-3.1-8B | — |
+| asyncio agent v2 | ❌ Не начато | — | — |
+| Dream System | ❌ Не начато | — | — |
 
 ---
 
-## 🎯 ФАЗА 0 — Дистилляция чата (ПРИОРИТЕТ)
-> **Цель:** Claude Desktop помнит предыдущие сессии через sqlmini
+## 🎯 ФАЗА 0 — Дистилляция чата
+> **Статус:** 🔶 Частично (distill_session.py есть, claude_sessions пустые)
 
-### Что нужно сделать
-- [ ] Изучить и переписать `claude_memory.sh` с sqlmini выводом
-- [ ] Реализовать захват `claude_sessions` по завершении сессии
-- [ ] Создать `validate_sqlmini.py` — общая утилита валидации SQL
-- [ ] Интегрировать Gemma 4 E2B как дистиллятор (HF cerebras)
-- [ ] Чанкинг сессий (500-800 токенов, Gemma 4 поддерживает 128K ctx)
+### Что сделано
+- [x] `distill_session.py` — базовый дистиллятор сессий
+- [x] `validate_sqlmini.py` — валидация + execute + batch
+- [x] `hf_sqlmini.py` — HF как sqlmini движок
 
-### Архитектура дистилляции
+### Что осталось
+- [ ] Механизм захвата transcript → `claude_sessions`
+- [ ] Добавить `claude_sessions` в `ALLOWED_TABLES` validate_sqlmini.py
+- [ ] Переключить `hf_sqlmini.py` на **Gemma 4 E2B** (сейчас Llama-3.1-8B)
+- [ ] Добавить прокси `127.0.0.1:2080` в urllib запросы (сейчас нет)
+- [ ] `claude_memory.sh` — переписать с вызовом distill_session.py
+
+### Архитектура
 ```
-Завершение сессии Claude Desktop
+transcript → чанки 600 токенов
     ↓
-claude_memory.sh: собрать transcript → чанки 600 токенов
+hf_sqlmini (Gemma 4 E2B, 128K ctx, 2.3B активных)
     ↓
-Gemma 4 E2B (HF cerebras, 2.3B активных, БЫСТРО):
-  SYSTEM: "Ответь ТОЛЬКО SQL:
-  INSERT INTO claude_memory(key,category,title,content,tags,importance)
-  VALUES(...); — max 60 токенов"
-    ↓
-validate_sqlmini.py → execute → FTS rebuild
+validate_sqlmini → execute → claude_memory + FTS
 ```
-
-### Модели для дистилляции
-| Задача | Модель | Ctx | Скорость |
-|--------|--------|-----|----------|
-| Быстрая дистилляция | Gemma 4 E2B-it | 128K | Быстро |
-| Мета-дистилляция (еженедельно) | Gemma 4 26B-A4B-it | 256K | 4B активных MoE |
 
 ---
 
 ## 🎯 ФАЗА 1 — sqlmini везде
-> **Цель:** уйти от JSON к структурированным SQL командам
+> **Статус:** ✅ Ядро готово | 🔶 Интеграция в агент/роутер не завершена
 
-### Что нужно сделать
-- [ ] `validate_sqlmini.py`: parse → schema_check → execute → fts_rebuild
-- [ ] `night_learning_v2.py`: Dream фазы + sqlmini вывод от qwen
-- [ ] `agent.py` v2: save_result через sqlmini вместо прямого INSERT
-- [ ] `router.sh` v3: routing_log через sqlmini утилиту
+### Что сделано
+- [x] `validate_sqlmini.py` — полноценная утилита с тестами
+- [x] `hf_sqlmini.py` — HF distiller
+- [x] `enrich_topic.py v2` — полный pipeline tavily→hf_sqlmini→validate→SQLite
 
-### Экономия токенов
-```
-Сейчас:  qwen → 150-250 токенов JSON текста → парсинг → INSERT
-Цель:    Gemma 4 E2B → 60 токенов SQL → validate → execute
-Экономия: ~70% токенов на запись в KB
-```
+### Что осталось
+- [ ] `agent.py` v2: `save_result()` → через `execute_sqlmini()`
+- [ ] `night_learning_v2.py`: Dream фазы + qwen→sqlmini вместо текста
+- [ ] `router.sh` v3: routing_log через sqlmini
+- [ ] Переключить `hf_sqlmini.py` с Llama → **Gemma 4 E2B**
 
-### sqlmini промпт шаблон
+### Критический баг — прокси
 ```python
-SQLMINI_SYSTEM = """Ответь ТОЛЬКО одной SQL командой. Без текста. Без markdown.
-Формат: INSERT INTO kb_facts(topic,fact,tags,confidence) VALUES('...','...','...', 0.9);
-Максимум 2 строки. ~60 токенов."""
-
-def validate_sqlmini(response: str) -> bool:
-    return response.strip().upper().startswith("INSERT INTO")
+# hf_sqlmini.py и enrich_topic.py используют urllib без прокси
+# На этой системе нужен 127.0.0.1:2080 для внешних запросов
+# Fix:
+import urllib.request
+proxy = urllib.request.ProxyHandler({'https': 'http://127.0.0.1:2080'})
+opener = urllib.request.build_opener(proxy)
+urllib.request.install_opener(opener)
 ```
 
 ---
 
 ## 🎯 ФАЗА 2 — Python asyncio + Coordinator
-> **Цель:** параллельные workers вместо линейного агента (паттерн из Claude Code)
+> **Статус:** ❌ Не начато
 
 ### Что нужно сделать
 - [ ] `agent_v2.py`: `asyncio.gather()` для независимых tools
-- [ ] `bg_worker_v2.py`: tick=300s, budget=15s, brief mode (num_predict=30)
+- [ ] `bg_worker_v2.py`: tick=300s, budget=15s, brief mode
 - [ ] Append-only daily logs: `/ai/logs/worker_YYYY-MM-DD.log`
-- [ ] Coordinator паттерн: Research → Synthesis → sqlmini Execute
+- [ ] Coordinator паттерн (из claurst): Research → Synthesis → sqlmini
 
 ### Параллельная архитектура
 ```python
-# Было (линейно, ~90s):    # Стало (параллельно, ~35s):
-step1: search_kb           results = await asyncio.gather(
-step2: search_net              search_knowledge(task),
-step3: tavily                  search_network(task),
-                               tavily(task)
-                           )
+# Было (~90s линейно):       # Стало (~35s параллельно):
+step1: search_kb              results = await asyncio.gather(
+step2: search_net                 search_knowledge(task),
+step3: tavily                     search_network(task),
+                                  tavily(task)
+                              )
 ```
 
 ---
 
 ## 🎯 ФАЗА 3 — ChromaDB векторный слой
-> **Цель:** семантический поиск вместо keyword FTS
+> **Статус:** ❌ Не начато (папка `/ai/skills/vector/` пустая)
 
 ### Что нужно сделать
 - [ ] `pip install chromadb --break-system-packages`
-- [ ] `ollama pull nomic-embed-text` (274MB, CPU efficient)
-- [ ] Перенести `qwen_knowledge` → Chroma коллекция
+- [ ] `ollama pull nomic-embed-text` (274MB, CPU)
+- [ ] Перенести `qwen_knowledge` (120 записей) → Chroma
 - [ ] Коллекции: `qwen_knowledge`, `claude_memory`, `best_practices`
-- [ ] Обновить `agent_v2.py`: `search_knowledge` → Chroma semantic
+- [ ] `agent_v2.py`: `search_knowledge` → Chroma semantic search
+- [ ] FTS остаётся как keyword fallback
 
 ### Чанкинг под Gemma 4
 ```python
-CHUNK_SIZE = 600    # токенов (Gemma4 держит 128K → большие чанки)
-OVERLAP    = 0.15   # 15% перекрытие
-# Сначала по заголовкам (## / ###), потом recursive split
+CHUNK_SIZE = 600    # токенов (Gemma 4 держит 128K)
+OVERLAP    = 0.15   # 15% = ~90 токенов
+# Порядок: заголовки (##/###) → recursive split
 ```
 
 ---
 
 ## 🎯 ФАЗА 4 — Dream System
-> **Цель:** автоматическая консолидация памяти (паттерн из Claude Code claurst)
+> **Статус:** ❌ Не начато (паттерн из Claude Code claurst)
 
 ### Три-гейт триггер
 ```python
@@ -135,40 +133,22 @@ def should_dream():
     )
 ```
 
-### Четыре фазы с матрицей моделей
+### Четыре фазы
 | Фаза | Модель | Задача |
 |------|--------|--------|
-| Orient | qwen 7b локально | check_resources + FTS статус БД |
+| Orient | qwen 7b локально | check_resources + FTS статус |
 | Gather | qwen 7b локально | новое в network.db + workflows |
-| Consolidate | Gemma 4 26B-A4B HF | sqlmini INSERT, 4B активных, высокое качество |
-| Prune | qwen 7b локально | дубли удалить, < 150/topic, MEMORY.md < 25KB |
+| Consolidate | **Gemma 4 26B-A4B** HF | sqlmini INSERT, 4B активных, 256K ctx |
+| Prune | qwen 7b локально | дубли удалить, < 150/topic |
 
 ---
 
 ## 🎯 ФАЗА 5 — System Prompt модуляризация
-> **Цель:** статический кэш + динамический контекст из БД (паттерн из Claude Code)
+> **Статус:** ❌ Не начато (паттерн из Claude Code)
 
-### Static/Dynamic boundary
 ```
-STATIC (кэш, редко меняется):
-  - Роли инструментов и алгоритм роутинга
-  - Fallback цепочки
-  - Undercover patterns для git (sanitize_before_push)
-
-DYNAMIC (загружается из БД каждую сессию):
-  - check_resources результат (30 слов)
-  - Топ-3 claude_memory факта из дистилляции
-  - Активные workflows
-```
-
-### Undercover Mode (из claurst)
-```python
-UNDERCOVER_PATTERNS = [
-    r'tvly-[a-zA-Z0-9]+',       # Tavily ключи
-    r'hf_[a-zA-Z0-9]+',         # HF токены
-    r'github_pat_[a-zA-Z0-9]+', # GitHub PAT
-    r'192\.168\.\d+\.\d+',     # внутренние IP
-]
+STATIC  → кэш: роли инструментов, fallback цепочки
+DYNAMIC → из БД каждую сессию: check_resources, топ-3 claude_memory, workflows
 ```
 
 ---
@@ -178,33 +158,34 @@ UNDERCOVER_PATTERNS = [
 | Задача | Модель | Где | Особенность |
 |--------|--------|-----|-------------|
 | Классификация/роутинг | qwen2.5:7b | Локально | 6.6 tok/s CPU |
-| sqlmini дистилляция | Gemma 4 E2B-it | HF cerebras | 2.3B активных, быстро |
-| Сложный анализ / Consolidate | Gemma 4 26B-A4B-it | HF cerebras | MoE 4B активных из 26B, 256K ctx |
-| Оркестрация | Claude Desktop | MCP | Все инструменты |
-| Embeddings | nomic-embed-text | Локально Ollama | 274MB, CPU |
-| Аудио input (будущее) | Gemma 4 E4B-it | HF cerebras | 128K + AUDIO |
+| sqlmini дистилляция | ~~Llama-3.1-8B~~ → **Gemma 4 E2B** | HF cerebras | 2.3B активных, 128K |
+| Dream Consolidate | **Gemma 4 26B-A4B** | HF cerebras | MoE 4B из 26B, 256K |
+| Оркестрация | Claude Desktop | MCP | — |
+| Embeddings | nomic-embed-text | Ollama локально | 274MB CPU |
+| Аудио (будущее) | Gemma 4 E4B | HF cerebras | 128K + audio |
 
 ---
 
-## 🔧 Технический долг
+## 🔧 Технический долг (обновлено 2026-04-08)
 
-| Задача | Приоритет | Фаза |
-|--------|-----------|------|
-| `claude_memory.sh` — переписать с sqlmini | 🔴 | 0 |
-| `validate_sqlmini.py` — создать утилиту | 🔴 | 0, 1 |
-| `claude_sessions` — механизм захвата | 🔴 | 0 |
-| Gemma 4 E2B — протестировать как sqlmini дистиллятор | 🟡 | 0 |
-| `nomic-embed-text` в ollama | 🟡 | 3 |
-| ChromaDB установка | 🟡 | 3 |
-| `bg_worker_v2.py` tick+budget+brief | 🟡 | 2 |
-| System prompt модуляризация | 🟢 | 5 |
+| Задача | Приоритет | Фаза | Примечание |
+|--------|-----------|------|------------|
+| Прокси в hf_sqlmini + enrich_topic | 🔴 | 0,1 | urllib без 127.0.0.1:2080 |
+| Gemma 4 E2B вместо Llama-3.1-8B | 🔴 | 0,1 | сменить модель в hf_sqlmini.py |
+| claude_sessions захват transcript | 🔴 | 0 | механизм не реализован |
+| claude_sessions в ALLOWED_TABLES | 🟡 | 0 | validate_sqlmini.py |
+| claude_memory.sh переписать | 🟡 | 0 | вызывать distill_session.py |
+| agent.py → execute_sqlmini | 🟡 | 1 | убрать прямой INSERT |
+| ChromaDB + nomic-embed-text | 🟡 | 3 | /ai/skills/vector/ пустая |
+| bg_worker_v2 tick+budget | 🟢 | 2 | — |
+| Dream System | 🟢 | 4 | — |
 
 ---
 
-## 📚 Источники и ссылки
+## 📚 Источники
 
-- [Gemma 4 E2B-it](https://huggingface.co/google/gemma-4-E2B-it) — быстрый дистиллятор
-- [Gemma 4 26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) — MoE, 4B активных
-- [claurst](https://github.com/Kuberwastaken/claurst) — Claude Code паттерны (Dream, KAIROS, Coordinator)
-- [INSTALL_OLLAMA.md](docs/INSTALL_OLLAMA.md) — установка и оптимизация
-- [BOARD_REPORT.md](docs/BOARD_REPORT.md) — текущее состояние системы
+- [Gemma 4 E2B-it](https://huggingface.co/google/gemma-4-E2B-it) — 2.3B активных, 128K, audio
+- [Gemma 4 26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) — MoE 4B из 26B, 256K
+- [claurst](https://github.com/Kuberwastaken/claurst) — Dream, KAIROS, Coordinator паттерны
+- [INSTALL_OLLAMA.md](docs/INSTALL_OLLAMA.md) — установка
+- [BOARD_REPORT.md](docs/BOARD_REPORT.md) — состояние системы
